@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reverse Engineering iOS Testing - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🍏 Reverse Engineering iOS Testing</h1>
+    <p class="subtitle">Dissecting iOS apps to uncover logic, security flaws, and hidden secrets</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>Introduction</h2>
+      <p>
+        Reverse engineering in iOS testing is the process of analyzing compiled iOS applications to uncover their internal workings, hidden functionalities, potential vulnerabilities, and how they interact with other systems. This process helps ethical hackers, app auditors, and security researchers understand and secure iOS mobile apps more effectively.
+      </p>
+    </section>
+
+    <section class="key-concepts">
+      <h2>🧠 Core Concepts</h2>
+      <ul>
+        <li><strong>IPA:</strong> iOS App Archive - the package format of iOS apps</li>
+        <li><strong>Mach-O:</strong> Executable binary format used in iOS</li>
+        <li><strong>Class-dump:</strong> Tool to extract Objective-C class headers from binaries</li>
+        <li><strong>Obfuscation & Anti-Reversing:</strong> Techniques used by developers to hinder reverse engineering</li>
+      </ul>
+    </section>
+
+    <section class="setup">
+      <h2>🛠️ Environment Setup</h2>
+      <p>To reverse engineer iOS apps, you'll need the following:</p>
+      <ul>
+        <li>macOS or a virtual macOS environment</li>
+        <li>Jailbroken iOS device or an emulator (like Corellium or checkra1n)</li>
+        <li>Tools: <code>class-dump</code>, <code>Hopper Disassembler</code>, <code>Frida</code>, <code>Cycript</code>, <code>Ghidra</code></li>
+      </ul>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🔬 Step-by-Step Guide</h2>
+
+      <div class="card">
+        <h3>Step 1: Obtain the .ipa File</h3>
+        <p>Download the app from the App Store using tools like <code>Apple Configurator 2</code> or extract it from a jailbroken device using <code>scp</code>.</p>
+      </div>
+
+      <div class="card">
+        <h3>Step 2: Unpack the IPA</h3>
+        <pre><code>unzip AppName.ipa -d AppFolder/
+cd AppFolder/Payload/
+</code></pre>
+        <p>This reveals the app binary (usually named after the app) inside the Payload directory.</p>
+      </div>
+
+      <div class="card">
+        <h3>Step 3: Analyze with class-dump</h3>
+        <p>Extract Objective-C class structures:</p>
+        <pre><code>class-dump -H AppName -o headers/</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Step 4: Disassemble the Binary</h3>
+        <p>Load the binary in Hopper, Ghidra, or IDA Pro to explore functions, string references, and control flow.</p>
+      </div>
+
+      <div class="card">
+        <h3>Step 5: Dynamic Analysis with Frida</h3>
+        <pre><code>frida -U -n AppName -l inject.js</code></pre>
+        <p>This allows you to hook into live processes and manipulate memory or bypass security controls.</p>
+      </div>
+    </section>
+
+    <section class="examples">
+      <h2>💡 Real-World Examples</h2>
+
+      <h4>🔓 Example: Bypassing Jailbreak Detection</h4>
+      <pre><code>// Jailbreak check code in Objective-C (disassembled)
+if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) {
+    return YES;
+}</code></pre>
+      <p>Using Frida, you can override this logic at runtime:</p>
+      <pre><code>Interceptor.attach(Module.findExportByName(null, 'objc_msgSend'), {
+  onEnter: function (args) {
+    var path = Memory.readUtf8String(args[2]);
+    if (path.indexOf("Cydia.app") !== -1) {
+      Memory.writeUtf8String(args[2], "/invalid");
+    }
+  }
+});</code></pre>
+    </section>
+
+    <section class="tips">
+      <h2>🚀 Pro Tips</h2>
+      <ul>
+        <li>Always verify IPA files are untampered – some may be encrypted with FairPlay</li>
+        <li>Use <code>otool</code> to inspect Mach-O headers and loaded libraries</li>
+        <li>Look for hardcoded API keys or secrets in strings or plist files</li>
+        <li>Cross-reference class dumps with app screens to identify handlers or logic</li>
+        <li>Use <code>Frida-trace</code> to automatically generate hookable traces of key functions</li>
+      </ul>
+    </section>
+
+    <section class="tools">
+      <h2>🧰 Tools You Should Know</h2>
+      <ul>
+        <li><a href="https://github.com/nygard/class-dump" target="_blank">class-dump</a> – Extract Objective-C headers</li>
+        <li><a href="https://ghidra-sre.org/" target="_blank">Ghidra</a> – Open-source reverse engineering suite</li>
+        <li><a href="https://frida.re" target="_blank">Frida</a> – Dynamic instrumentation toolkit</li>
+        <li><a href="https://hopperapp.com/" target="_blank">Hopper Disassembler</a></li>
+        <li><a href="https://cycript.org/" target="_blank">Cycript</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Union-Based SQL Injection - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🧪 Union-Based SQL Injection</h1>
+    <p class="subtitle">Learn how attackers use the UNION operator to extract sensitive data from vulnerable databases</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Union-Based SQL Injection?</h2>
+      <p>
+        Union-Based SQL Injection is a technique used to extract data from the database by extending the results of an original query using the <code>UNION</code> SQL operator. It allows an attacker to retrieve information from other tables within the database by appending their own SELECT queries.
+      </p>
+    </section>
+
+    <section class="concepts">
+      <h2>🔧 Key Concepts</h2>
+      <ul>
+        <li><strong>UNION operator:</strong> Combines the result of two or more SELECT statements into a single result set.</li>
+        <li><strong>Column count:</strong> The number of columns in the original query must match the number in the injected UNION SELECT.</li>
+        <li><strong>Data types:</strong> Each corresponding column must be of a compatible data type.</li>
+        <li><strong>Error messages:</strong> SQL errors can help identify the number of columns and potential injection points.</li>
+      </ul>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧠 Step-by-Step Guide</h2>
+
+      <h3>Step 1: Identify a vulnerable parameter</h3>
+      <p>Test with a single quote to check for SQL errors:</p>
+      <pre><code>https://target.site/products.php?id=1'</code></pre>
+
+      <h3>Step 2: Determine the number of columns</h3>
+      <p>Use <code>ORDER BY</code> or <code>UNION SELECT NULL</code> testing:</p>
+      <pre><code>https://target.site/products.php?id=1 ORDER BY 3--</code></pre>
+      <p>Try increasing the number until you get an error.</p>
+
+      <h3>Step 3: Craft a UNION SELECT statement</h3>
+      <pre><code>https://target.site/products.php?id=1 UNION SELECT null, null, null--</code></pre>
+      <p>Once the page loads without error, you've found the correct column count.</p>
+
+      <h3>Step 4: Extract data</h3>
+      <pre><code>https://target.site/products.php?id=1 UNION SELECT username, password, null FROM users--</code></pre>
+      <p>Replace <code>null</code> with actual data columns from the target table.</p>
+    </section>
+
+    <section class="real-world">
+      <h2>🕵️ Real-World Example</h2>
+      <p>Consider this vulnerable query:</p>
+      <pre><code>SELECT id, name, price FROM products WHERE id = '$id';</code></pre>
+      <p>An attacker might inject:</p>
+      <pre><code>1 UNION SELECT 1, username, password FROM users--</code></pre>
+      <p>This would display usernames and passwords in the product list if output is not sanitized.</p>
+    </section>
+
+    <section class="detection">
+      <h2>🧩 Detection Techniques</h2>
+      <ul>
+        <li>Unexpected errors when adding <code>'</code>, <code>--</code>, or SQL keywords</li>
+        <li>Unusual behavior when sorting or paginating results</li>
+        <li>Database errors in the response (e.g., MySQL, MSSQL messages)</li>
+      </ul>
+    </section>
+
+    <section class="defense">
+      <h2>🛡️ How to Prevent Union-Based SQLi</h2>
+      <ul>
+        <li>Use <strong>prepared statements (parameterized queries)</strong></li>
+        <li>Implement strict input validation and allowlists</li>
+        <li>Use ORM frameworks when possible</li>
+        <li>Never display raw database errors to the user</li>
+        <li>Apply least privilege to the DB user (no <code>UNION</code> or <code>SELECT</code> on sensitive tables)</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips</h2>
+      <ul>
+        <li>Use tools like <a href="https://sqlmap.org" target="_blank">sqlmap</a> for automation but always understand what they do under the hood</li>
+        <li>Manual testing is essential when bypassing WAFs or custom logic</li>
+        <li>Test various comment styles: <code>--</code>, <code>#</code>, or <code>/* */</code></li>
+        <li>Focus on output-reflected parameters (those displayed back in the UI)</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Resources</h2>
+      <ul>
+        <li><a href="https://owasp.org/www-community/attacks/SQL_Injection" target="_blank">OWASP - SQL Injection</a></li>
+        <li><a href="https://portswigger.net/web-security/sql-injection/union-attacks" target="_blank">PortSwigger Academy: Union Attacks</a></li>
+        <li><a href="https://tryhackme.com/room/sqlinjection" target="_blank">TryHackMe SQLi Room</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

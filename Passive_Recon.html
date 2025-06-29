@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Passive Reconnaissance - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🕶️ Passive Reconnaissance</h1>
+    <p class="subtitle">Stealthy information gathering using open sources — OSINT at its finest</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>📌 What is Passive Recon?</h2>
+      <p>
+        Passive reconnaissance is the art of gathering intelligence about a target without directly engaging with its systems. This stealthy phase is all about <strong>observation without detection</strong>. Ethical hackers rely on publicly available information to build a complete profile before taking any active steps.
+      </p>
+    </section>
+
+    <section class="why">
+      <h2>🎯 Why is Passive Recon Important?</h2>
+      <ul>
+        <li>✅ Helps identify potential attack vectors before detection systems are triggered</li>
+        <li>✅ Reduces risk during the early phases of penetration testing</li>
+        <li>✅ Builds a complete view of exposed digital footprints</li>
+        <li>✅ Essential for bug bounty hunters and red teamers alike</li>
+      </ul>
+    </section>
+
+    <section class="methods">
+      <h2>🔍 Key Techniques in Passive Recon</h2>
+
+      <div class="card">
+        <h3>1. Google Dorking</h3>
+        <p>Use advanced Google search operators to uncover sensitive data, misconfigurations, or indexed files.</p>
+        <pre><code>site:example.com filetype:pdf
+intitle:"index of" "backup"
+site:example.com inurl:login</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>2. WHOIS Lookups</h3>
+        <p>Discover domain ownership details, registration data, and contact information.</p>
+        <pre><code>whois example.com</code></pre>
+        <p>Online tools: <a href="https://whois.domaintools.com/" target="_blank">DomainTools</a>, <a href="https://who.is/" target="_blank">Who.is</a></p>
+      </div>
+
+      <div class="card">
+        <h3>3. DNS & Subdomain Enumeration</h3>
+        <p>Identify subdomains using certificate transparency logs, DNS tools, and third-party APIs.</p>
+        <pre><code>crt.sh/?q=%25.example.com
+dig NS example.com
+amass enum -passive -d example.com</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>4. OSINT Framework Tools</h3>
+        <p>Use structured toolkits to automate data collection from public sources.</p>
+        <ul>
+          <li><strong>theHarvester</strong> – Collect emails, subdomains, IPs</li>
+          <li><strong>Maltego</strong> – Visual data relationship mapping</li>
+          <li><strong>SpiderFoot</strong> – Fully automated OSINT scanning</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>5. Social Media & Public Data Mining</h3>
+        <p>Collect data from LinkedIn, Twitter, GitHub, and forums for usernames, technologies, and insider info.</p>
+        <ul>
+          <li>LinkedIn → Company employees, technologies used</li>
+          <li>GitHub → Code leaks, repo history</li>
+          <li>Twitter → Infrastructure hints, outage reports</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="steps">
+      <h2>🧭 Step-by-Step Passive Recon Workflow</h2>
+      <ol>
+        <li><strong>Define the target scope</strong> – Domains, IPs, subnets, company names, technologies</li>
+        <li><strong>Start with Google Dorking</strong> – Explore what search engines reveal</li>
+        <li><strong>Run WHOIS and DNS checks</strong> – Collect registrant and infrastructure info</li>
+        <li><strong>Enumerate subdomains</strong> – Use Amass, crt.sh, Sublist3r</li>
+        <li><strong>Leverage OSINT tools</strong> – Automate data collection (SpiderFoot, theHarvester)</li>
+        <li><strong>Analyze social platforms</strong> – Gather human intelligence (HUMINT)</li>
+        <li><strong>Document all findings</strong> – Maintain logs, screenshots, and links</li>
+      </ol>
+    </section>
+
+    <section class="example">
+      <h2>🧪 Real-World Passive Recon Example</h2>
+      <p>Let's say your target is <strong>examplecorp.com</strong>. Here's how a passive recon might unfold:</p>
+      <pre><code># Discover subdomains via certificate transparency
+https://crt.sh/?q=%25.examplecorp.com
+
+# Run theHarvester
+theHarvester -d examplecorp.com -b bing,linkedin,google
+
+# GitHub username discovery
+site:github.com examplecorp
+
+# Use Amass (passive only)
+amass enum -passive -d examplecorp.com</code></pre>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Tips & Best Practices</h2>
+      <ul>
+        <li>🔐 Always use passive methods first to avoid detection</li>
+        <li>📎 Document every finding — even ones that seem minor</li>
+        <li>⚙️ Combine manual searches with automation for scale</li>
+        <li>🧭 Use a VPN or Tor browser when exploring sensitive sources</li>
+        <li>🗃️ Create asset maps: domains, IPs, email patterns, GitHub repos</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Recommended Tools & Links</h2>
+      <ul>
+        <li><a href="https://github.com/laramies/theHarvester" target="_blank">theHarvester (GitHub)</a></li>
+        <li><a href="https://osintframework.com/" target="_blank">OSINT Framework</a></li>
+        <li><a href="https://crt.sh/" target="_blank">crt.sh Certificate Search</a></li>
+        <li><a href="https://github.com/OWASP/Amass" target="_blank">OWASP Amass</a></li>
+        <li><a href="https://github.com/smicallef/spiderfoot" target="_blank">SpiderFoot</a></li>
+        <li><a href="https://maltego.com/" target="_blank">Maltego</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

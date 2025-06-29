@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Report Writing - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>📝 Report Writing</h1>
+    <p class="subtitle">Crafting impactful, professional, and technically accurate security reports</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Report Writing in Cybersecurity?</h2>
+      <p>
+        Report writing is a critical skill for ethical hackers and penetration testers. A well-structured report communicates technical findings, business risks, and remediation steps in a clear and professional manner. Whether you're working in bug bounty, consulting, or internal testing, the quality of your report reflects your expertise.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>📑 Key Elements of a Great Security Report</h2>
+      <ul>
+        <li><strong>Executive Summary:</strong> High-level overview for non-technical stakeholders</li>
+        <li><strong>Methodology:</strong> How the test was conducted (tools, scope, dates)</li>
+        <li><strong>Findings:</strong> Detailed vulnerabilities with technical evidence</li>
+        <li><strong>Impact Assessment:</strong> Risk analysis (CVSS score, business impact)</li>
+        <li><strong>Recommendations:</strong> Clear steps to fix each issue</li>
+        <li><strong>Appendices:</strong> Logs, raw output, scripts (optional)</li>
+      </ul>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧠 Step-by-Step: Writing a Security Report</h2>
+
+      <h3>Step 1: Plan Your Report</h3>
+      <p>Before writing, organize your notes, screenshots, logs, and tool outputs. Decide your audience (technical vs. business).</p>
+
+      <h3>Step 2: Write the Executive Summary</h3>
+      <p>This section should be short (1-2 paragraphs) and describe the purpose of the test, overall security posture, and high-level findings.</p>
+
+      <h3>Step 3: Define Scope & Methodology</h3>
+      <p>List tested systems, dates, authorized targets, and tools used. Mention if the testing was black-box, gray-box, or white-box.</p>
+
+      <h3>Step 4: Document Vulnerabilities</h3>
+      <ul>
+        <li>Use a consistent structure: Title, Description, Impact, Evidence, Recommendation</li>
+        <li>Use headers and bullet points for readability</li>
+        <li>Include PoC requests/responses or screenshots</li>
+      </ul>
+
+      <h3>Step 5: Rate Risk & Impact</h3>
+      <p>Use CVSS or custom scales to define severity: Low, Medium, High, Critical. Tie the impact to business logic when possible.</p>
+
+      <h3>Step 6: Provide Remediation Steps</h3>
+      <p>Include actionable, realistic advice tailored to the issue and environment (code fixes, config changes, etc).</p>
+
+      <h3>Step 7: Review, Proofread, Format</h3>
+      <p>Make sure the language is clear, professional, and error-free. Consistency and grammar matter.</p>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Example Snippet</h2>
+      <pre><code>Finding: Unauthenticated Access to Admin Panel
+URL: https://target.com/admin
+
+Impact:
+Attackers can access administrative functions without logging in.
+
+Evidence (HTTP Request):
+GET /admin HTTP/1.1
+Host: target.com
+
+Response:
+HTTP/1.1 200 OK
+Welcome, admin!
+
+Recommendation:
+Implement proper authentication checks before granting access to /admin.</code></pre>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips</h2>
+      <ul>
+        <li>Use templates to save time but tailor for each engagement</li>
+        <li>Avoid jargon when writing for executives</li>
+        <li>Use screenshots wisely—avoid clutter</li>
+        <li>Provide context around risks: "This SQLi could leak user data from 'users' table"</li>
+        <li>Include links t

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Static Analysis Android Testing - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🔍 Static Analysis in Android Testing</h1>
+    <p class="subtitle">Discover hidden vulnerabilities by analyzing Android apps without execution</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>📘 What is Static Analysis?</h2>
+      <p>
+        Static analysis is the process of analyzing an Android application's code, resources, and structure **without executing it**. It's often the first step in Android penetration testing and helps uncover security flaws such as hardcoded secrets, insecure permissions, and bad coding practices.
+      </p>
+    </section>
+
+    <section class="why">
+      <h2>🤔 Why is Static Analysis Important?</h2>
+      <ul>
+        <li>Helps detect issues before runtime (e.g., hardcoded credentials, API keys)</li>
+        <li>Fast and non-intrusive — doesn’t require a live device or emulator</li>
+        <li>Essential for understanding app behavior and architecture</li>
+        <li>Can be automated for continuous integration pipelines</li>
+      </ul>
+    </section>
+
+    <section class="steps">
+      <h2>🧪 Step-by-Step Static Analysis Process</h2>
+
+      <div class="card">
+        <h3>Step 1: Get the APK</h3>
+        <p>Obtain the APK file of the Android application:</p>
+        <ul>
+          <li>Download from Google Play using tools like <code>gplaycli</code> or APKPure</li>
+          <li>Extract directly from a rooted device using <code>adb pull</code></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Step 2: Unpack the APK</h3>
+        <p>Use <code>apktool</code> to decompile the APK and extract the resources:</p>
+        <pre><code>apktool d target.apk -o output_folder</code></pre>
+        <p>This gives access to <code>AndroidManifest.xml</code>, smali code, layouts, and more.</p>
+      </div>
+
+      <div class="card">
+        <h3>Step 3: Convert to Java Code (Optional)</h3>
+        <p>Use a dex-to-jar converter and decompiler:</p>
+        <pre><code>d2j-dex2jar.sh target.apk
+jd-gui target-dex2jar.jar</code></pre>
+        <p>This will reveal readable Java source code, allowing you to analyze logic more easily.</p>
+      </div>
+
+      <div class="card">
+        <h3>Step 4: Analyze Key Files</h3>
+        <ul>
+          <li><strong>AndroidManifest.xml</strong>: Check for exported components, permissions, debuggable flag</li>
+          <li><strong>res/values/strings.xml</strong>: Look for API keys or sensitive info</li>
+          <li><strong>smali/ or Java code</strong>: Look for insecure API usage, logging, or hardcoded credentials</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Step 5: Use Static Analysis Tools</h3>
+        <ul>
+          <li><strong>MobSF:</strong> All-in-one static and dynamic analyzer</li>
+          <li><strong>QARK:</strong> Scans for known code-level vulnerabilities</li>
+          <li><strong>AndroBugs:</strong> Detects misconfigurations and code issues</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="real-world">
+      <h2>🧠 Real-World Example: API Key Leak</h2>
+      <p>After unpacking an APK with apktool, you may find:</p>
+      <pre><code>&lt;string name="api_key"&gt;AIzaSyBEXAMPLEKEY123456&lt;/string&gt;</code></pre>
+      <p>This indicates a hardcoded API key, which can be abused if it's linked to cloud services like Firebase, Google Maps, or proprietary APIs.</p>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips & Best Practices</h2>
+      <ul>
+        <li>Always check if the app is built with ProGuard or R8 – it may obfuscate the code</li>
+        <li>Look for <code>base64</code> or <code>hex</code> encoded strings — they might hide secrets</li>
+        <li>Combine static analysis with dynamic testing for better coverage</li>
+        <li>Use grep and regular expressions to quickly locate keywords like <code>password</code>, <code>token</code>, <code>auth</code></li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>🔗 Useful Tools & Resources</h2>
+      <ul>
+        <li><a href="https://github.com/iBotPeaches/Apktool" target="_blank">Apktool</a></li>
+        <li><a href="https://github.com/MobSF/Mobile-Security-Framework-MobSF" target="_blank">MobSF</a></li>
+        <li><a href="https://github.com/linkedin/qark" target="_blank">QARK</a></li>
+        <li><a href="https://github.com/AndroBugs/AndroBugs_Framework" target="_blank">AndroBugs</a></li>
+        <li><a href="https://developer.android.com/studio/build" target="_blank">Android Build System</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

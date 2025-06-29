@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Network Scanning - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🌐 Network Scanning</h1>
+    <p class="subtitle">Discover open ports, live hosts, and services – the foundation of any attack surface analysis</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Network Scanning?</h2>
+      <p>
+        Network scanning is the process of identifying active devices, open ports, and running services in a target environment. It is a critical step in the reconnaissance and enumeration phases of ethical hacking, allowing security professionals to map a target’s network surface.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>📡 Types of Network Scans</h2>
+
+      <div class="card">
+        <h3>1. Host Discovery (Ping Sweep)</h3>
+        <p>Identifies which IP addresses are active (live) on a network. Common tools include Nmap with ICMP, ARP, or TCP SYN probes.</p>
+      </div>
+
+      <div class="card">
+        <h3>2. Port Scanning</h3>
+        <p>Detects which TCP/UDP ports are open or filtered. Reveals running services and possible entry points.</p>
+      </div>
+
+      <div class="card">
+        <h3>3. Service Enumeration</h3>
+        <p>Determines what services and versions are running on the open ports. Useful for identifying vulnerable software.</p>
+      </div>
+    </section>
+
+    <section class="tools">
+      <h2>🛠 Common Tools Used</h2>
+      <ul>
+        <li><strong>Nmap:</strong> The most powerful and flexible network scanner</li>
+        <li><strong>Masscan:</strong> Ultra-fast scanner (10M packets/second)</li>
+        <li><strong>Netcat:</strong> Simple banner grabbing and connection tool</li>
+        <li><strong>Zenmap:</strong> GUI for Nmap – good for visualization</li>
+      </ul>
+    </section>
+
+    <section class="step-by-step">
+      <h2>⚙️ Step-by-Step: How to Scan a Network</h2>
+
+      <h3>Step 1: Identify Active Hosts</h3>
+      <pre><code>nmap -sn 192.168.1.0/24</code></pre>
+      <p>This command performs a ping sweep across the subnet, showing which hosts are up.</p>
+
+      <h3>Step 2: Perform a Basic Port Scan</h3>
+      <pre><code>nmap 192.168.1.10</code></pre>
+      <p>Scans the 1000 most common ports on the host <code>192.168.1.10</code>.</p>
+
+      <h3>Step 3: Aggressive Scan with Version Detection</h3>
+      <pre><code>nmap -A -T4 192.168.1.10</code></pre>
+      <p>Performs OS detection, version detection, script scanning, and traceroute. <code>-T4</code> speeds up the scan moderately.</p>
+
+      <h3>Step 4: Full TCP Port Scan</h3>
+      <pre><code>nmap -p- 192.168.1.10</code></pre>
+      <p>Scans all 65,535 TCP ports on the target host.</p>
+
+      <h3>Step 5: UDP Scan (Slower)</h3>
+      <pre><code>nmap -sU -p 53,67,123 192.168.1.10</code></pre>
+      <p>Scans specific UDP ports like DNS (53), DHCP (67), and NTP (123). Note: UDP scans are inherently slower.</p>
+    </section>
+
+    <section class="real-world">
+      <h2>🔍 Real-World Scenario</h2>
+      <p>You're tasked with auditing a company subnet <code>10.0.0.0/24</code>. You perform the following steps:</p>
+      <pre><code># Step 1: Discover live hosts
+nmap -sn 10.0.0.0/24
+
+# Step 2: Port scan one host
+nmap -sS -p- 10.0.0.15
+
+# Step 3: Service version detection
+nmap -sV -p 22,80,443 10.0.0.15
+
+# Step 4: Scan for known vulnerabilities
+nmap --script vuln -p 80,443 10.0.0.15</code></pre>
+      <p>These scans help identify exposed services and potential vulnerabilities, preparing for exploitation or further analysis.</p>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips</h2>
+      <ul>
+        <li>Start with stealthy scans on external targets (e.g., SYN scan <code>-sS</code>)</li>
+        <li>Use timing templates wisely (<code>-T1</code> for stealth, <code>-T5</code> for speed)</li>
+        <li>Avoid scanning production systems during business hours</li>
+        <li>Document findings: open ports, services, versions, anomalies</li>
+        <li>Use VPN or a secure jump box when scanning from remote</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Recommended Resources</h2>
+      <ul>
+        <li><a href="https://nmap.org/book/" target="_blank">Nmap Reference Guide</a></li>
+        <li><a href="https://github.com/robertdavidgraham/masscan" target="_blank">Masscan on GitHub</a></li>
+        <li><a href="https://tryhackme.com" target="_blank">TryHackMe - Network Fundamentals Room</a></li>
+        <li><a href="https://hackthebox.com" target="_blank">Hack The Box - Academy Modules</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

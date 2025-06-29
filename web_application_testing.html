@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Web Application Testing - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🕸️ Web Application Testing</h1>
+    <p class="subtitle">Master the techniques to uncover vulnerabilities in modern web applications</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Web Application Testing?</h2>
+      <p>
+        Web Application Testing is the process of evaluating a web-based application for security flaws, misconfigurations, and vulnerabilities that could be exploited by attackers. It involves both automated and manual testing techniques and follows well-defined methodologies such as the OWASP Testing Guide.
+      </p>
+    </section>
+
+    <section class="phases">
+      <h2>⚙️ Testing Workflow</h2>
+      <ol>
+        <li><strong>Information Gathering:</strong> Understand the application architecture, technologies, and entry points.</li>
+        <li><strong>Mapping the Application:</strong> Crawl the application to discover pages, parameters, and hidden endpoints.</li>
+        <li><strong>Vulnerability Detection:</strong> Use tools and manual techniques to identify vulnerabilities (e.g. XSS, SQLi).</li>
+        <li><strong>Exploitation:</strong> Attempt to exploit identified flaws in a controlled manner.</li>
+        <li><strong>Post-Exploitation:</strong> Assess impact, privilege escalation opportunities, and data exposure.</li>
+        <li><strong>Reporting:</strong> Document all findings with impact assessment and remediation advice.</li>
+      </ol>
+    </section>
+
+    <section class="owasp">
+      <h2>🧱 OWASP Top 10 – Core Focus Areas</h2>
+      <div class="card">
+        <h3>1. Injection</h3>
+        <p>SQL, NoSQL, OS commands, or LDAP queries injected via input fields. Prevented using parameterized queries and input validation.</p>
+      </div>
+      <div class="card">
+        <h3>2. Broken Authentication</h3>
+        <p>Improper session handling or weak credentials allowing attackers to impersonate users.</p>
+      </div>
+      <div class="card">
+        <h3>3. Sensitive Data Exposure</h3>
+        <p>Unencrypted or improperly stored data such as credentials or financial info.</p>
+      </div>
+      <div class="card">
+        <h3>4. Broken Access Control</h3>
+        <p>Users accessing data or actions beyond their privileges (e.g., IDOR).</p>
+      </div>
+      <div class="card">
+        <h3>5. Cross-Site Scripting (XSS)</h3>
+        <p>Injection of malicious scripts into trusted websites, affecting other users.</p>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🛠️ Step-by-Step Example</h2>
+
+      <h3>Testing for Reflected XSS:</h3>
+      <pre><code># Step 1: Discover a vulnerable parameter
+https://target.com/search?q=test
+
+# Step 2: Inject payload
+https://target.com/search?q=&lt;script&gt;alert(1)&lt;/script&gt;
+
+# Step 3: Observe execution
+If the alert box appears, the parameter is likely vulnerable.
+
+# Step 4: Confirm and Report
+Ensure payload is not being filtered or encoded.
+      </code></pre>
+
+      <h3>Testing for SQL Injection:</h3>
+      <pre><code># Step 1: Basic payload test
+https://target.com/product?id=1'
+
+# Step 2: Observe SQL error in response
+
+# Step 3: Use SQLMap for confirmation
+sqlmap -u "https://target.com/product?id=1" --batch --dbs
+      </code></pre>
+    </section>
+
+    <section class="tools">
+      <h2>🔧 Tools You Should Know</h2>
+      <ul>
+        <li><strong>Burp Suite:</strong> Intercept, modify, and test requests</li>
+        <li><strong>OWASP ZAP:</strong> Free scanner for automated and manual testing</li>
+        <li><strong>SQLMap:</strong> Automated SQLi detection and exploitation</li>
+        <li><strong>Wapiti:</strong> Web app vulnerability scanner</li>
+        <li><strong>Dirb / Gobuster:</strong> Brute force web directories and files</li>
+      </ul>
+    </section>
+
+    <section class="pro-tips">
+      <h2>💡 Pro Tips</h2>
+      <ul>
+        <li>Always test in authorized environments</li>
+        <li>Automate common tasks but manually verify critical issues</li>
+        <li>Use a proxy (Burp/ZAP) to intercept and tamper requests</li>
+        <li>Look beyond OWASP Top 10 – business logic flaws matter</li>
+        <li>Practice regularly on platforms like <a href="https://portswigger.net/web-security" target="_blank">PortSwigger</a> and <a href="https://www.hackthebox.com/" target="_blank">Hack The Box</a></li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Learning Resources</h2>
+      <ul>
+        <li><a href="https://owasp.org/www-project-web-security-testing-guide/" target="_blank">OWASP Web Security Testing Guide</a></li>
+        <li><a href="https://portswigger.net/web-security" target="_blank">PortSwigger Academy</a></li>
+        <li><a href="https://book.hacktricks.xyz/" target="_blank">HackTricks Web App Tricks</a></li>
+        <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings" target="_blank">Payloads All The Things</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

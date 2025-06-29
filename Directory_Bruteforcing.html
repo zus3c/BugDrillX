@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Directory Bruteforcing - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>📁 Directory Bruteforcing</h1>
+    <p class="subtitle">Discover hidden files and directories within web applications</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Directory Bruteforcing?</h2>
+      <p>
+        Directory bruteforcing is the technique of systematically probing a web server for hidden or unlinked directories and files. This is often used in the reconnaissance or vulnerability discovery phases of penetration testing to reveal administrative panels, backups, login pages, APIs, or configuration files not meant to be public.
+      </p>
+    </section>
+
+    <section class="why-important">
+      <h2>🔐 Why is it Important?</h2>
+      <ul>
+        <li>Uncovers sensitive files (e.g., <code>.git</code>, <code>backup.zip</code>, <code>admin.php</code>)</li>
+        <li>Reveals misconfigurations like directory listing enabled</li>
+        <li>Helps map the application surface area for further exploitation</li>
+      </ul>
+    </section>
+
+    <section class="tools">
+      <h2>🛠️ Popular Tools</h2>
+      <ul>
+        <li><strong>Gobuster</strong> – Written in Go, fast and efficient for web directory fuzzing</li>
+        <li><strong>Dirsearch</strong> – Python-based tool with built-in recursive scanning</li>
+        <li><strong>FFUF (Fuzz Faster U Fool)</strong> – Extremely fast fuzzing with flexible options</li>
+        <li><strong>Burp Suite</strong> – Professional version includes an Intruder tool for fuzzing paths</li>
+      </ul>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧭 Step-by-Step Guide</h2>
+
+      <h3>Step 1: Choose Your Wordlist</h3>
+      <p>
+        Select an appropriate wordlist depending on the target and your goals.
+      </p>
+      <ul>
+        <li><code>/usr/share/wordlists/dirbuster/</code></li>
+        <li><a href="https://github.com/danielmiessler/SecLists" target="_blank">SecLists</a> (Community curated)</li>
+      </ul>
+
+      <h3>Step 2: Run Gobuster (Basic)</h3>
+      <pre><code>gobuster dir -u https://target.com -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt</code></pre>
+
+      <h3>Step 3: Customize with Extensions</h3>
+      <pre><code>gobuster dir -u https://target.com -w wordlist.txt -x php,txt,html</code></pre>
+      <p>This tells Gobuster to try extensions like <code>.php</code> and <code>.html</code> on each directory or file name.</p>
+
+      <h3>Step 4: Enable Recursive Bruteforce (Dirsearch)</h3>
+      <pre><code>python3 dirsearch.py -u https://target.com -e php,html -r</code></pre>
+      <p>Dirsearch supports recursion into discovered directories automatically using <code>-r</code>.</p>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Use Case</h2>
+      <p>During a test on <code>https://example.org</code>, a hidden path <code>/admin_old/</code> was discovered using Gobuster:</p>
+      <pre><code>Found: https://example.org/admin_old/ (Status: 200)</code></pre>
+      <p>Visiting the directory revealed an outdated admin panel with no authentication – leading to full control over the web app.</p>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips & Best Practices</h2>
+      <ul>
+        <li>Always respect rate limits – use <code>-t</code> option in tools to adjust threads</li>
+        <li>Start with smaller wordlists to find low-hanging fruit quickly</li>
+        <li>Don't ignore 403 or 401 responses – they often indicate something valuable</li>
+        <li>Use User-Agent spoofing or proxy tools like Burp Suite when needed</li>
+      </ul>
+    </section>
+
+    <section class="error-codes">
+      <h2>🧾 HTTP Response Codes to Watch</h2>
+      <ul>
+        <li><strong>200 OK:</strong> Valid path or file</li>
+        <li><strong>301/302:</strong> Redirect – often used on login portals</li>
+        <li><strong>403 Forbidden:</strong> Exists, but access is denied (interesting!)</li>
+        <li><strong>404 Not Found:</strong> Does not exist</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Resources</h2>
+      <ul>
+        <li><a href="https://github.com/OJ/gobuster" target="_blank">Gobuster (GitHub)</a></li>
+        <li><a href="https://github.com/maurosoria/dirsearch" target="_blank">Dirsearch (GitHub)</a></li>
+        <li><a href="https://github.com/ffuf/ffuf" target="_blank">FFUF (GitHub)</a></li>
+        <li><a href="https://github.com/danielmiessler/SecLists" target="_blank">SecLists - Wordlists</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

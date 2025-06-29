@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nmap - Network Mapping and Port Scanning</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🧭 Nmap</h1>
+    <p class="subtitle">The ultimate tool for network mapping, port scanning, and service enumeration</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Nmap?</h2>
+      <p>
+        <strong>Nmap (Network Mapper)</strong> is a free, open-source tool used for network discovery, port scanning, and vulnerability assessment. It is widely used by ethical hackers and system administrators to gather information about systems, services, and potential attack vectors.
+      </p>
+    </section>
+
+    <section class="basic-usage">
+      <h2>🚀 Getting Started</h2>
+      <p>Basic syntax of Nmap:</p>
+      <pre><code>nmap [options] [target]</code></pre>
+
+      <h3>Example - Quick Scan</h3>
+      <pre><code>nmap scanme.nmap.org</code></pre>
+      <p>This will perform a simple TCP connect scan on 1000 common ports.</p>
+    </section>
+
+    <section class="scan-types">
+      <h2>🔍 Common Scan Types</h2>
+
+      <div class="card">
+        <h3>1. SYN Scan (Stealth Scan)</h3>
+        <pre><code>nmap -sS 192.168.1.1</code></pre>
+        <p>Performs a fast and stealthy TCP SYN scan. This is the most popular scan type.</p>
+      </div>
+
+      <div class="card">
+        <h3>2. Service and Version Detection</h3>
+        <pre><code>nmap -sV 192.168.1.1</code></pre>
+        <p>Identifies running services and attempts to determine their version numbers.</p>
+      </div>
+
+      <div class="card">
+        <h3>3. OS Detection</h3>
+        <pre><code>nmap -O 192.168.1.1</code></pre>
+        <p>Tries to determine the operating system of the target machine.</p>
+      </div>
+
+      <div class="card">
+        <h3>4. Aggressive Scan</h3>
+        <pre><code>nmap -A 192.168.1.1</code></pre>
+        <p>Combines OS detection, version detection, script scanning, and traceroute.</p>
+      </div>
+
+      <div class="card">
+        <h3>5. UDP Scan</h3>
+        <pre><code>nmap -sU 192.168.1.1</code></pre>
+        <p>Scans UDP ports (slower and more resource-intensive than TCP).</p>
+      </div>
+    </section>
+
+    <section class="advanced">
+      <h2>🧠 Advanced Usage</h2>
+
+      <h3>Scan Multiple Targets</h3>
+      <pre><code>nmap 192.168.1.1 192.168.1.2 192.168.1.3</code></pre>
+
+      <h3>Scan a Subnet</h3>
+      <pre><code>nmap 192.168.1.0/24</code></pre>
+
+      <h3>Scan Specific Ports</h3>
+      <pre><code>nmap -p 22,80,443 192.168.1.1</code></pre>
+
+      <h3>Use a Custom Wordlist</h3>
+      <pre><code>nmap -p- --top-ports 100 --script vuln target.com</code></pre>
+
+      <h3>Save Results</h3>
+      <pre><code>nmap -oN output.txt 192.168.1.1</code></pre>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Example</h2>
+      <p>Suppose you’re assessing a web server at <code>webcorp.com</code>. Here's how you'd start:</p>
+      <pre><code># Step 1: Basic discovery
+nmap -sS -p 80,443 webcorp.com
+
+# Step 2: Service and version detection
+nmap -sV -p 80,443 webcorp.com
+
+# Step 3: Full aggressive scan
+nmap -A webcorp.com -oN webcorp-scan.txt</code></pre>
+      <p>These steps help identify web servers, frameworks, and even misconfigured services.</p>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips</h2>
+      <ul>
+        <li>Use <code>-T4</code> for faster scans without being too noisy.</li>
+        <li>Combine with <code>--script</code> for advanced detection using NSE (Nmap Scripting Engine).</li>
+        <li>Always scan a controlled lab or authorized systems. Unauthorized scanning is illegal!</li>
+        <li>Use <code>-Pn</code> to skip host discovery (useful for stealth or firewalled targets).</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Recommended Resources</h2>
+      <ul>
+        <li><a href="https://nmap.org/book/man.html" target="_blank">Nmap Official Manual</a></li>
+        <li><a href="https://github.com/vulnersCom/nmap-vulners" target="_blank">Nmap Vulners Script</a></li>
+        <li><a href="https://nmap.org/nsedoc/" target="_blank">Nmap Script Engine (NSE) Docs</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

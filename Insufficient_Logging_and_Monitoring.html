@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Insufficient Logging and Monitoring - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>⚙️ Insufficient Logging and Monitoring</h1>
+    <p class="subtitle">Understanding and mitigating one of the most common vulnerabilities in web applications</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Security Misconfiguration?</h2>
+      <p>
+        Security Misconfiguration occurs when systems, applications, or networks are configured insecurely or left with default settings. This opens the door for attackers to exploit unnecessary services, directories, error messages, or outdated software.
+      </p>
+    </section>
+
+    <section class="concepts">
+      <h2>💡 Key Concepts</h2>
+      <ul>
+        <li>Default credentials (e.g., admin/admin)</li>
+        <li>Exposed admin interfaces</li>
+        <li>Directory listing enabled</li>
+        <li>Detailed error messages in production</li>
+        <li>Outdated software with known exploits</li>
+        <li>Unnecessary HTTP methods (e.g., PUT, DELETE)</li>
+        <li>Misconfigured CORS or CSP headers</li>
+      </ul>
+    </section>
+
+    <section class="examples">
+      <h2>🌐 Real-World Examples</h2>
+
+      <div class="card">
+        <h3>Example 1: Default Admin Panel</h3>
+        <p>URL: <code>https://example.com/admin</code><br>
+        The admin panel is publicly accessible, and accepts default credentials like <code>admin:admin</code>.</p>
+      </div>
+
+      <div class="card">
+        <h3>Example 2: Verbose Error Messages</h3>
+        <p>When visiting a broken URL, the server returns full stack trace exposing paths:</p>
+        <pre><code>java.lang.NullPointerException
+at com.example.controller.UserController.getUser(UserController.java:42)</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Example 3: Enabled Directory Listing</h3>
+        <p>Visiting <code>https://example.com/uploads/</code> shows a full list of uploaded files due to Apache/Nginx misconfiguration.</p>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧠 How to Identify Security Misconfigurations</h2>
+
+      <ol>
+        <li>Perform full recon (directories, admin panels, debug endpoints)</li>
+        <li>Check for default credentials in well-known CMS (e.g., WordPress, phpMyAdmin)</li>
+        <li>Use tools like <code>Nikto</code>, <code>Dirsearch</code>, <code>Wappalyzer</code></li>
+        <li>Inspect HTTP headers (CORS, CSP, X-Frame-Options)</li>
+        <li>Scan for exposed environments (e.g., <code>.git</code>, <code>.env</code>, <code>config.php</code>)</li>
+      </ol>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips</h2>
+      <ul>
+        <li>Always verify security settings after deployments or upgrades</li>
+        <li>Automate hardening checks using tools like <code>Lynis</code> or <code>ScoutSuite</code></li>
+        <li>Disable unused services and remove default content (e.g., sample apps, README files)</li>
+        <li>Set strict permissions and least privilege for sensitive directories</li>
+        <li>Keep software, frameworks, and plugins updated</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>🔧 Tools & Resources</h2>
+      <ul>
+        <li><a href="https://github.com/sullo/nikto" target="_blank">Nikto</a> – Web server scanner</li>
+        <li><a href="https://github.com/maurosoria/dirsearch" target="_blank">Dirsearch</a> – Directory bruteforcing</li>
+        <li><a href="https://owasp.org/www-project-secure-headers/" target="_blank">OWASP Secure Headers</a></li>
+        <li><a href="https://github.com/wpscanteam/wpscan" target="_blank">WPScan</a> – WordPress scanner</li>
+        <li><a href="https://github.com/nabla-c0d3/scout-suite" target="_blank">Scout Suite</a> – Cloud misconfiguration scanner</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

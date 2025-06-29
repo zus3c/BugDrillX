@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gobuster - Cybersecurity Toolkit</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🚪 Gobuster</h1>
+    <p class="subtitle">Fast and powerful directory, DNS, and VHost brute-forcing tool for ethical hackers</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Gobuster?</h2>
+      <p>
+        Gobuster is a command-line tool written in Go that allows penetration testers and ethical hackers to brute-force:
+      </p>
+      <ul>
+        <li>Directories and files on web servers (via HTTP/S)</li>
+        <li>DNS subdomains</li>
+        <li>Virtual hostnames</li>
+        <li>S3 buckets and more</li>
+      </ul>
+      <p>
+        Unlike tools like DirBuster or Dirsearch, Gobuster is optimized for speed and flexibility, making it ideal for both recon and exploitation phases.
+      </p>
+    </section>
+
+    <section class="installation card">
+      <h2>🚀 Installation</h2>
+      <pre><code># Install Gobuster on Linux/macOS
+sudo apt install gobuster
+
+# Or install via Go (recommended latest)
+go install github.com/OJ/gobuster/v3@latest</code></pre>
+    </section>
+
+    <section class="modes">
+      <h2>📂 Main Modes of Gobuster</h2>
+      <ul>
+        <li><strong>dir:</strong> Brute-force directories and files</li>
+        <li><strong>dns:</strong> Enumerate DNS subdomains</li>
+        <li><strong>vhost:</strong> Detect virtual hosts via Host headers</li>
+        <li><strong>s3:</strong> Scan Amazon S3 buckets (less common)</li>
+      </ul>
+    </section>
+
+    <section class="examples">
+      <h2>📘 Usage Examples</h2>
+
+      <div class="card">
+        <h3>1. Directory Brute-Forcing</h3>
+        <pre><code>gobuster dir -u https://target.com -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x php,html,txt</code></pre>
+        <p>
+          This command scans for directories and files with the extensions `.php`, `.html`, and `.txt` on the given target.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>2. DNS Subdomain Enumeration</h3>
+        <pre><code>gobuster dns -d target.com -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt</code></pre>
+        <p>
+          Scans for valid subdomains of <code>target.com</code> using a wordlist.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>3. Virtual Host Discovery</h3>
+        <pre><code>gobuster vhost -u http://target.com -w /usr/share/seclists/Discovery/DNS/namelist.txt</code></pre>
+        <p>
+          Tries to detect different virtual hosts on the same IP by sending requests with varying <code>Host:</code> headers.
+        </p>
+      </div>
+    </section>
+
+    <section class="advanced">
+      <h2>🔬 Advanced Tips & Flags</h2>
+      <ul>
+        <li><code>-t 50</code> → Increase threads for faster scans</li>
+        <li><code>-s 200,204,301,302</code> → Only show specific status codes</li>
+        <li><code>--random-agent</code> → Use a random user-agent string</li>
+        <li><code>-o results.txt</code> → Output results to a file</li>
+        <li><code>--exclude-length</code> → Exclude responses with same size (e.g. 404s)</li>
+      </ul>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Scenario</h2>
+      <p>You find a login panel at <code>https://app.targetcorp.com/login</code>. You suspect hidden admin pages. Try:</p>
+      <pre><code>gobuster dir -u https://app.targetcorp.com -w /usr/share/wordlists/dirb/common.txt -x php,html -t 40</code></pre>
+      <p>Gobuster reveals:</p>
+      <pre><code>/admin           (Status: 200)
+/backup          (Status: 403)
+/hidden/login    (Status: 302)</code></pre>
+      <p>Now you can prioritize further testing on <code>/admin</code> and <code>/hidden/login</code>.</p>
+    </section>
+
+    <section class="pro-tips">
+      <h2>💡 Pro Tips</h2>
+      <ul>
+        <li>Start with small wordlists and increase as needed to reduce noise</li>
+        <li>Use status code filters to avoid clutter</li>
+        <li>Watch out for WAFs that may rate-limit Gobuster aggressively</li>
+        <li>Use a proxy (e.g., Burp Suite) with <code>--proxy http://127.0.0.1:8080</code></li>
+        <li>Always check for 403 Forbidden — it may still lead to interesting paths</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>🔗 Resources</h2>
+      <ul>
+        <li><a href="https://github.com/OJ/gobuster" target="_blank">Gobuster GitHub</a></li>
+        <li><a href="https://book.hacktricks.xyz/" target="_blank">HackTricks Wordlists & Web Recon</a></li>
+        <li><a href="https://github.com/danielmiessler/SecLists" target="_blank">SecLists for wordlists</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

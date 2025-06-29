@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Broken Access Control - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🔐 Broken Access Control</h1>
+    <p class="subtitle">Understanding access flaws, privilege escalation and bypass techniques</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Broken Access Control?</h2>
+      <p>
+        Broken Access Control occurs when applications fail to enforce proper restrictions on authenticated users, allowing attackers to act outside their intended permissions. This can include viewing, modifying, or deleting data belonging to other users, or accessing admin functionalities without proper privileges.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>🚪 Common Types of Access Control Failures</h2>
+
+      <div class="card">
+        <h3>1. Insecure Direct Object Reference (IDOR)</h3>
+        <p>Occurs when an attacker manipulates object identifiers in the URL or body (e.g., <code>/profile?id=123</code>) to access unauthorized resources.</p>
+      </div>
+
+      <div class="card">
+        <h3>2. Missing Function-Level Access Control</h3>
+        <p>Occurs when backend routes are not protected by authorization checks, allowing unauthorized users to invoke them directly.</p>
+      </div>
+
+      <div class="card">
+        <h3>3. Forced Browsing</h3>
+        <p>Accessing hidden or unlinked pages by guessing predictable URLs, like <code>/admin</code> or <code>/config</code>.</p>
+      </div>
+
+      <div class="card">
+        <h3>4. Privilege Escalation</h3>
+        <p>Occurs when users gain higher privileges (e.g., user → admin) due to improper validation.</p>
+      </div>
+    </section>
+
+    <section class="example">
+      <h2>🧪 Real-World Example</h2>
+      <p>Imagine a social media app where users can access their profile data via:</p>
+      <pre><code>GET /api/user/profile?id=1001</code></pre>
+      <p>If an attacker changes the ID value to <code>1002</code> and accesses someone else's profile without restriction, this is a classic <strong>IDOR</strong> vulnerability.</p>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧠 Step-by-Step: Finding Broken Access Control</h2>
+
+      <h3>1. Analyze Roles and Resources</h3>
+      <p>Understand what each user role should and shouldn't access. Compare actual behavior vs expected restrictions.</p>
+
+      <h3>2. Tamper with IDs and URLs</h3>
+      <p>Modify parameters like <code>user_id</code>, <code>order_id</code>, or file paths. Try accessing as another user or admin.</p>
+
+      <h3>3. Check Hidden Functions</h3>
+      <p>Access admin-only routes directly (e.g., <code>/admin/delete-user</code>) even if they are not visible in the UI.</p>
+
+      <h3>4. Use Burp Suite's Repeater</h3>
+      <p>Resend modified requests with elevated operations and observe server responses.</p>
+
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips & Practical Insights</h2>
+      <ul>
+        <li>Test both authenticated and unauthenticated scenarios</li>
+        <li>Use multiple user accounts with different privilege levels</li>
+        <li>Automate parameter fuzzing using tools like <code>ParamMiner</code></li>
+        <li>Check for hardcoded role names or IDs in client-side JavaScript</li>
+        <li>Look for backend API responses that reveal unnecessary data</li>
+      </ul>
+    </section>
+
+    <section class="prevention">
+      <h2>🛡️ How to Prevent Broken Access Control</h2>
+      <ul>
+        <li>Enforce server-side authorization checks for every sensitive action</li>
+        <li>Avoid exposing internal object IDs directly to users</li>
+        <li>Use access control middleware to manage roles and permissions</li>
+        <li>Log access control failures and monitor for abuse patterns</li>
+        <li>Apply the Principle of Least Privilege (PoLP) everywhere</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Recommended Tools & Resources</h2>
+      <ul>
+        <li><a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/" target="_blank">OWASP Top 10 – A01:2021</a></li>
+        <li><a href="https://portswigger.net/web-security/access-control" target="_blank">PortSwigger Access Control Lab</a></li>
+        <li><a href="https://github.com/s0md3v/ParamSpider" target="_blank">ParamSpider (Parameter Discovery)</a></li>
+        <li><a href="https://owasp.org/www-project-access-control/" target="_blank">OWASP Access Control Project</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

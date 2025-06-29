@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Subdomain Enumeration - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🌐 Subdomain Enumeration</h1>
+    <p class="subtitle">Discover hidden subdomains and expand your attack surface like a pro</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Subdomain Enumeration?</h2>
+      <p>
+        Subdomain enumeration is the process of identifying valid subdomains for a target domain. These subdomains often reveal additional infrastructure, development environments, APIs, or forgotten applications that attackers can exploit. It's a critical part of reconnaissance in ethical hacking and bug bounty hunting.
+      </p>
+    </section>
+
+    <section class="importance">
+      <h2>🔎 Why is it Important?</h2>
+      <ul>
+        <li>Uncover additional attack vectors (admin panels, test environments, APIs)</li>
+        <li>Map out the full scope of a target’s infrastructure</li>
+        <li>Detect misconfigurations, forgotten assets, and legacy services</li>
+        <li>Critical for external network security assessments</li>
+      </ul>
+    </section>
+
+    <section class="methods">
+      <h2>⚙️ Types of Subdomain Enumeration</h2>
+
+      <div class="card">
+        <h3>1. Passive Enumeration</h3>
+        <p>Gathers subdomains without sending traffic to the target. Useful to avoid detection.</p>
+        <ul>
+          <li>Using third-party databases (crt.sh, VirusTotal, SecurityTrails)</li>
+          <li>Search engines (Google Dorking)</li>
+          <li>Certificate Transparency logs</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>2. Active Enumeration</h3>
+        <p>Directly queries DNS records and brute-forces subdomains. More aggressive but often yields better results.</p>
+        <ul>
+          <li>DNS brute-forcing (using wordlists)</li>
+          <li>DNS zone transfers (if misconfigured)</li>
+          <li>Permutation and mutation techniques</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>3. Hybrid Enumeration</h3>
+        <p>Combines passive sources with active verification to maximize results while minimizing noise.</p>
+      </div>
+    </section>
+
+    <section class="tools">
+      <h2>🛠️ Popular Tools for Subdomain Enumeration</h2>
+      <ul>
+        <li><a href="https://github.com/projectdiscovery/subfinder" target="_blank">Subfinder</a> – Fast passive subdomain finder</li>
+        <li><a href="https://github.com/aboul3la/Sublist3r" target="_blank">Sublist3r</a> – Python-based subdomain discovery</li>
+        <li><a href="https://github.com/OJ/gobuster" target="_blank">Gobuster (DNS mode)</a> – Brute-forcing subdomains</li>
+        <li><a href="https://github.com/assetnote/subdomain-wordlists" target="_blank">Assetnote Wordlists</a> – High-quality DNS wordlists</li>
+        <li><a href="https://crt.sh/" target="_blank">crt.sh</a> – Public certificate search</li>
+      </ul>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧠 Step-by-Step Subdomain Enumeration Guide</h2>
+
+      <h3>Step 1: Use Passive Sources</h3>
+      <pre><code># Search crt.sh for a domain
+https://crt.sh/?q=%25target.com
+
+# Use Subfinder to automate passive recon
+subfinder -d target.com -silent -o passive.txt</code></pre>
+
+      <h3>Step 2: Brute-Force Subdomains</h3>
+      <pre><code># Using Gobuster in DNS mode
+gobuster dns -d target.com -w wordlist.txt -t 50 -o active.txt</code></pre>
+
+      <h3>Step 3: Verify and Resolve Subdomains</h3>
+      <p>Use <code>dig</code> or <code>dnsx</code> to resolve discovered subdomains and check for live hosts.</p>
+      <pre><code>dnsx -l all_subdomains.txt -silent -o live_hosts.txt</code></pre>
+    </section>
+
+    <section class="real-world">
+      <h2>🌍 Real-World Example</h2>
+      <p>You discover <code>dev.target.com</code> using crt.sh. Upon visiting it, you find an exposed development login panel using default credentials. Reporting this could lead to a high-severity bug bounty payout.</p>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips & Insights</h2>
+      <ul>
+        <li>Use multiple tools — no single source is complete</li>
+        <li>Check for wildcard DNS to avoid false positives</li>
+        <li>Use custom wordlists relevant to the target's naming patterns</li>
+        <li>Sort and filter results to identify live and interesting subdomains</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Further Learning & Resources</h2>
+      <ul>
+        <li><a href="https://github.com/edoardottt/awesome-hacker-search-engines" target="_blank">Awesome Hacker Search Engines</a></li>
+        <li><a href="https://0xpatrik.com/subdomain-enumeration/" target="_blank">0xpatrik: Subdomain Enumeration Guide</a></li>
+        <li><a href="https://osintframework.com/" target="_blank">OSINT Framework – Domain Recon Section</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

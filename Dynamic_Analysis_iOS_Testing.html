@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dynamic Analysis - iOS Testing | Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>📱 Dynamic Analysis – iOS Testing</h1>
+    <p class="subtitle">Learn how to analyze iOS apps during runtime for vulnerabilities, misconfigurations, and insecure behaviors</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>🔍 What is Dynamic Analysis in iOS?</h2>
+      <p>
+        Dynamic analysis involves inspecting the behavior of an iOS application while it is running on a device or emulator. This method helps uncover real-time vulnerabilities such as insecure API communication, insecure data storage, runtime manipulations, and more.
+      </p>
+      <p>
+        Unlike static analysis, which examines code or binaries, dynamic testing focuses on observing the app’s live behavior, interactions with the system, and network communications.
+      </p>
+    </section>
+
+    <section class="tools">
+      <h2>🛠️ Essential Tools for iOS Dynamic Analysis</h2>
+      <ul>
+        <li><strong>Frida:</strong> Dynamic instrumentation toolkit for manipulating app behavior at runtime</li>
+        <li><strong>Cycript / Objection:</strong> For interacting with apps on jailbroken devices</li>
+        <li><strong>Charles Proxy / Burp Suite:</strong> Intercept and modify HTTPS traffic</li>
+        <li><strong>SSL Kill Switch 2:</strong> Bypass SSL pinning on jailbroken devices</li>
+        <li><strong>tcpdump:</strong> Monitor network traffic at packet level</li>
+      </ul>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🚀 Step-by-Step iOS Dynamic Testing Workflow</h2>
+
+      <div class="card">
+        <h3>Step 1: Prepare the Environment</h3>
+        <ul>
+          <li>Use a jailbroken iOS device (e.g., via Checkra1n)</li>
+          <li>Install <code>Cydia</code> and required packages like <code>Frida</code>, <code>OpenSSH</code>, and <code>SSL Kill Switch 2</code></li>
+          <li>Ensure USB tunneling or Wi-Fi SSH access is configured</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Step 2: Monitor App Network Traffic</h3>
+        <p>Use a proxy tool like Burp Suite or Charles:</p>
+        <pre><code># On your Mac:
+sudo ifconfig en0 | grep "inet "  # Get IP address
+
+# On iOS (proxy settings):
+Settings > Wi-Fi > HTTP Proxy > Manual > Enter Mac IP and Port 8080
+
+# In Burp:
+- Enable proxy listener on 8080
+- Install Burp CA on device for HTTPS interception</code></pre>
+        <p>
+          This lets you see API endpoints, sensitive data in transit, tokens, and more.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Step 3: Bypass SSL Pinning</h3>
+        <p>
+          Many modern iOS apps implement SSL pinning. Use SSL Kill Switch 2 or Frida scripts to bypass it.
+        </p>
+        <pre><code># Disable SSL pinning using SSL Kill Switch 2
+Install via Cydia, then reboot the device
+
+# Or use Frida:
+frida -U -n TargetApp -l ios-sslpinning-bypass.js</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Step 4: Hook App Functions using Frida</h3>
+        <p>Example: Hooking <code>NSUserDefaults</code> read/write actions</p>
+        <pre><code>frida -U -n TargetApp -l hookNSUserDefaults.js
+
+// hookNSUserDefaults.js
+ObjC.classes.NSUserDefaults["- stringForKey:"].implementation = function(key) {
+  console.log("[*] Reading key: " + key.toString());
+  return this.stringForKey_(key);
+};</code></pre>
+      </div>
+    </section>
+
+    <section class="advanced">
+      <h2>⚙️ Advanced Techniques</h2>
+      <ul>
+        <li>Use <strong>Objection</strong> to explore the app’s file system and keychain</li>
+        <li>Perform memory analysis for sensitive data (e.g., tokens, passwords)</li>
+        <li>Analyze dynamic libraries (dylibs) loaded at runtime</li>
+        <li>Look for insecure permissions or misused entitlements</li>
+      </ul>
+    </section>
+
+    <section class="examples">
+      <h2>🌐 Real-World Use Case</h2>
+      <p><strong>Scenario:</strong> Testing an iOS banking app revealed that after login, an auth token was stored in <code>NSUserDefaults</code>, which is insecure.</p>
+      <p>Using Frida, the token was intercepted during runtime:</p>
+      <pre><code>[*] Reading key: auth_token
+[*] Value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."</code></pre>
+      <p>This token could then be reused in API requests via Burp to simulate authenticated user actions.</p>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Tips for Effective Dynamic Analysis</h2>
+      <ul>
+        <li>Always test on non-production apps or sandbox environments</li>
+        <li>Combine static + dynamic analysis for better coverage</li>
+        <li>Log all Frida scripts, intercepted requests, and modified behavior</li>
+        <li>Use snapshot tools to capture before/after states of files or keychain entries</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Recommended Resources</h2>
+      <ul>
+        <li><a href="https://frida.re/" target="_blank">Frida</a></li>
+        <li><a href="https://github.com/sensepost/objection" target="_blank">Objection</a></li>
+        <li><a href="https://github.com/nabla-c0d3/ssl-kill-switch2" target="_blank">SSL Kill Switch 2</a></li>
+        <li><a href="https://portswigger.net/burp" target="_blank">Burp Suite</a></li>
+        <li><a href="https://mobile-security.gitbook.io/mobile-security-testing-guide/ios-testing-guide" target="_blank">MSTG – iOS Testing Guide</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

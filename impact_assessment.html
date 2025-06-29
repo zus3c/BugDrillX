@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Impact Assessment - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>📊 Impact Assessment</h1>
+    <p class="subtitle">Understand how to evaluate the severity of cybersecurity vulnerabilities</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Impact Assessment?</h2>
+      <p>
+        Impact assessment is a critical step in cybersecurity reporting. It determines how a discovered vulnerability could affect an organization’s assets, operations, reputation, or data. A well-structured assessment helps stakeholders understand the real-world consequences of an exploit and prioritize remediation efforts accordingly.
+      </p>
+    </section>
+
+    <section class="importance">
+      <h2>🧠 Why is it Important?</h2>
+      <ul>
+        <li>Provides business context for technical issues</li>
+        <li>Supports prioritization and risk management</li>
+        <li>Helps justify remediation actions and budgets</li>
+        <li>Aligns with industry standards like CVSS and OWASP</li>
+      </ul>
+    </section>
+
+    <section class="methodology">
+      <h2>⚙️ Methodologies Used</h2>
+
+      <div class="card">
+        <h3>1. CVSS (Common Vulnerability Scoring System)</h3>
+        <p>
+          The CVSS is a standardized scoring system that evaluates vulnerabilities based on several metrics:
+        </p>
+        <ul>
+          <li><strong>Base Score:</strong> Exploitability and impact (confidentiality, integrity, availability)</li>
+          <li><strong>Temporal Score:</strong> Factors like remediation level and exploit maturity</li>
+          <li><strong>Environmental Score:</strong> Customizable for the target environment</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>2. DREAD Model (Legacy)</h3>
+        <p>
+          Though less commonly used today, DREAD evaluates:
+        </p>
+        <ul>
+          <li><strong>Damage potential</strong></li>
+          <li><strong>Reproducibility</strong></li>
+          <li><strong>Exploitability</strong></li>
+          <li><strong>Affected users</strong></li>
+          <li><strong>Discoverability</strong></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>3. Business Impact Analysis (BIA)</h3>
+        <p>
+          Focuses on organizational context. A vulnerability is rated based on:
+        </p>
+        <ul>
+          <li>Data exposure (PII, credentials, financial records)</li>
+          <li>Operational disruption</li>
+          <li>Brand or reputation impact</li>
+          <li>Legal or regulatory consequences</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>📌 How to Perform an Impact Assessment</h2>
+
+      <h3>Step 1: Identify the Asset</h3>
+      <p>What system, data, or application is affected? Who uses it, and how critical is it?</p>
+
+      <h3>Step 2: Determine the Exploitability</h3>
+      <p>Is the vulnerability exploitable remotely or locally? Is authentication required?</p>
+
+      <h3>Step 3: Analyze the Potential Impact</h3>
+      <p>Could an attacker gain unauthorized access, escalate privileges, or disrupt services?</p>
+
+      <h3>Step 4: Rate the Severity</h3>
+      <p>Use a scoring system (e.g., CVSS) or custom criticality scale (Low / Medium / High / Critical).</p>
+
+      <h3>Step 5: Provide Business Context</h3>
+      <p>Explain the potential business damage in clear, non-technical language.</p>
+    </section>
+
+    <section class="example">
+      <h2>🔍 Real-World Example</h2>
+      <p><strong>Vulnerability:</strong> SQL Injection on login endpoint</p>
+      <p><strong>Asset:</strong> Customer login page of e-commerce platform</p>
+      <p><strong>Impact:</strong> An attacker could extract customer records including names, emails, and payment tokens.</p>
+      <p><strong>Assessment:</strong></p>
+      <ul>
+        <li>CVSS Score: 9.1 (Critical)</li>
+        <li>Business Impact: Major data breach and GDPR non-compliance</li>
+        <li>Severity: Critical</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips</h2>
+      <ul>
+        <li>Always explain impact in business terms for non-technical stakeholders</li>
+        <li>Use CVSS calculators (<a href="https://www.first.org/cvss/calculator/3.1" target="_blank">CVSS v3.1 Calculator</a>)</li>
+        <li>Cross-reference with OWASP Risk Rating methodology for web issues</li>
+        <li>Reassess the impact if the scope or configuration changes</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Resources & Tools</h2>
+      <ul>
+        <li><a href="https://www.first.org/cvss/" target="_blank">CVSS Official Site</a></li>
+        <li><a href="https://owasp.org/www-community/OWASP_Risk_Rating_Methodology" target="_blank">OWASP Risk Rating</a></li>
+        <li><a href="https://nvd.nist.gov/vuln-metrics/cvss" target="_blank">NIST Vulnerability Scoring</a></li>
+        <li><a href="https://attack.mitre.org/" target="_blank">MITRE ATT&CK Framework</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

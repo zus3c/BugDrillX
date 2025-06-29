@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reconnaissance - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🕵️‍♂️ Reconnaissance</h1>
+    <p class="subtitle">Understand the first phase of ethical hacking - from passive OSINT to active scanning</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Reconnaissance?</h2>
+      <p>
+        Reconnaissance is the first phase in the ethical hacking and penetration testing process. The goal is to gather as much information as possible about the target, either passively or actively, before launching an attack or vulnerability assessment.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>🔍 Types of Reconnaissance</h2>
+
+      <div class="card">
+        <h3>1. Passive Reconnaissance</h3>
+        <p>Involves gathering information without directly interacting with the target system. The goal is to remain undetected. Examples:</p>
+        <ul>
+          <li>Google Dorking (search engine hacking)</li>
+          <li>WHOIS & DNS lookups</li>
+          <li>Social media & data leaks (OSINT)</li>
+          <li>Subdomain enumeration using public sources</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>2. Active Reconnaissance</h3>
+        <p>Involves direct interaction with the target system to gather detailed technical information. Examples:</p>
+        <ul>
+          <li>Port scanning (Nmap, Masscan)</li>
+          <li>Service enumeration</li>
+          <li>Directory bruteforcing (Gobuster, Dirb)</li>
+          <li>Banner grabbing</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧠 Step-by-Step Reconnaissance Guide</h2>
+
+      <h3>Step 1: Define the Scope</h3>
+      <p>Clarify what domains, IPs, systems, and services are in-scope. Always respect legal and ethical boundaries.</p>
+
+      <h3>Step 2: Passive Recon Tools</h3>
+      <ul>
+        <li><strong>Google Dorking:</strong> Use advanced search operators like <code>site:</code>, <code>intitle:</code>, <code>filetype:</code></li>
+        <li><strong>theHarvester:</strong> Collect emails, hosts, and subdomains from public sources</li>
+        <li><strong>Shodan:</strong> Discover devices exposed on the internet</li>
+        <li><strong>SecurityTrails / DNSDumpster:</strong> Find DNS records and infrastructure</li>
+      </ul>
+
+      <h3>Step 3: Active Recon Techniques</h3>
+      <ul>
+        <li><strong>Nmap:</strong> Scan open ports and identify services</li>
+        <li><strong>Gobuster/Dirsearch:</strong> Find hidden directories</li>
+        <li><strong>WhatWeb / Wappalyzer:</strong> Detect technologies used on web apps</li>
+        <li><strong>Netcat / Telnet:</strong> Grab banners manually</li>
+      </ul>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Example</h2>
+      <pre><code># Find subdomains using crt.sh
+https://crt.sh/?q=%25.targetdomain.com
+
+# Run Nmap scan to find open ports
+nmap -sC -sV -T4 targetdomain.com
+
+# Use Gobuster to discover directories
+gobuster dir -u https://targetdomain.com -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x php,html</code></pre>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips</h2>
+      <ul>
+        <li>Start passive to avoid triggering defenses</li>
+        <li>Document every step and finding – even false positives</li>
+        <li>Leverage automation, but validate results manually</li>
+        <li>Use VPNs or proxies when doing active recon to preserve anonymity</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Recommended Tools & Resources</h2>
+      <ul>
+        <li><a href="https://github.com/laramies/theHarvester" target="_blank">theHarvester</a></li>
+        <li><a href="https://nmap.org/" target="_blank">Nmap</a></li>
+        <li><a href="https://github.com/OJ/gobuster" target="_blank">Gobuster</a></li>
+        <li><a href="https://www.shodan.io/" target="_blank">Shodan</a></li>
+        <li><a href="https://osintframework.com/" target="_blank">OSINT Framework</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

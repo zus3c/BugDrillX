@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DOM-Based XSS - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🔓 DOM-Based XSS</h1>
+    <p class="subtitle">Learn how client-side JavaScript vulnerabilities can be exploited to execute malicious scripts</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is DOM-Based XSS?</h2>
+      <p>
+        DOM-Based Cross-Site Scripting (XSS) is a client-side vulnerability where the payload is executed as a result of modifying the Document Object Model (DOM) in the browser using unsafe JavaScript. Unlike traditional XSS, it does not rely on the server reflecting input back into the response.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>📚 Key Concepts</h2>
+      <ul>
+        <li><strong>DOM:</strong> The structure of an HTML document interpreted by the browser</li>
+        <li><strong>Sinks:</strong> JavaScript functions where data ends up and may be executed (e.g. <code>innerHTML</code>, <code>document.write()</code>)</li>
+        <li><strong>Sources:</strong> User-controllable input points (e.g. <code>location.hash</code>, <code>document.URL</code>)</li>
+        <li><strong>DOM Clobbering:</strong> Technique to override native DOM properties to execute scripts</li>
+      </ul>
+    </section>
+
+    <section class="how-it-works">
+      <h2>🧠 How It Works</h2>
+      <p>DOM-Based XSS occurs when JavaScript reads user input from a source (like <code>location</code>, <code>document.referrer</code>, etc.) and writes it to a sink (like <code>innerHTML</code> or <code>eval()</code>) without proper sanitization or validation.</p>
+    </section>
+
+    <section class="example">
+      <h2>💥 Real-World Example</h2>
+      <p>Consider the following vulnerable JavaScript code on a web page:</p>
+
+      <pre><code>// Vulnerable DOM-based XSS example
+const search = new URLSearchParams(window.location.search);
+document.getElementById("output").innerHTML = search.get("q");</code></pre>
+
+      <p>If a user visits:</p>
+      <pre><code>https://example.com/page.html?q=&lt;img src=x onerror=alert('XSS')&gt;</code></pre>
+      <p>The input from the <code>q</code> parameter is inserted directly into the DOM without sanitization, triggering an alert.</p>
+    </section>
+
+    <section class="steps">
+      <h2>🪜 Step-by-Step Exploitation</h2>
+      <ol>
+        <li>Find where user input is accessed in JavaScript (sources)</li>
+        <li>Locate where the input is used unsafely in the DOM (sinks)</li>
+        <li>Craft a payload that leverages the flow from source to sink</li>
+        <li>Deliver the payload via URL, hash, or DOM manipulation</li>
+      </ol>
+    </section>
+
+    <section class="tools">
+      <h2>🛠️ Tools for DOM XSS Discovery</h2>
+      <ul>
+        <li><a href="https://portswigger.net/burp" target="_blank">Burp Suite (DOM Invader)</a></li>
+        <li><a href="https://github.com/s0md3v/Photon" target="_blank">Photon</a></li>
+        <li><a href="https://developer.chrome.com/docs/devtools/" target="_blank">Chrome DevTools</a> for debugging DOM flow</li>
+      </ul>
+    </section>
+
+    <section class="mitigation">
+      <h2>🛡️ Mitigation Strategies</h2>
+      <ul>
+        <li>Avoid inserting untrusted data into the DOM using unsafe sinks</li>
+        <li>Use safe DOM APIs like <code>textContent</code> instead of <code>innerHTML</code></li>
+        <li>Implement client-side sanitization with libraries like DOMPurify</li>
+        <li>Use Content Security Policy (CSP) to block inline scripts</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips</h2>
+      <ul>
+        <li>Search the source code for <code>document.location</code>, <code>innerHTML</code>, <code>eval()</code>, and similar patterns</li>
+        <li>Use <code>#</code> or query string parameters to pass payloads</li>
+        <li>Watch out for single-page applications (SPA) that heavily rely on JavaScript routing</li>
+        <li>Combine automated scanning with manual analysis to find hidden DOM flows</li>
+      </ul>
+    </section>
+
+    <section class="challenge">
+      <h2>🎯 Try It Yourself</h2>
+      <p>Try building a simple HTML/JS page with a vulnerable DOM sink, then try exploiting it using URL parameters and JavaScript payloads.</p>
+      <pre><code>&lt;input type="text" id="userInput"&gt;
+&lt;div id="result"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  document.getElementById("userInput").oninput = function() {
+    document.getElementById("result").innerHTML = this.value;
+  }
+&lt;/script&gt;</code></pre>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

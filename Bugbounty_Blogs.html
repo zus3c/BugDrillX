@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bug Bounty Blogs - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>📰 Bug Bounty Blogs</h1>
+    <p class="subtitle">Explore, learn, and grow from the minds of real-world hackers and security researchers</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>Why Follow Bug Bounty Blogs?</h2>
+      <p>
+        Blogs are one of the most valuable resources in the bug bounty community. They provide real-world vulnerability disclosures, new techniques, write-ups from top hackers, and constant updates on tools and methodologies. Whether you're just getting started or already earning bounties, following the right blogs will supercharge your growth.
+      </p>
+    </section>
+
+    <section class="categories">
+      <h2>📚 Categories of Bug Bounty Blog Content</h2>
+
+      <div class="card">
+        <h3>Beginner-Friendly Guides</h3>
+        <ul>
+          <li>Step-by-step explanations of vulnerability types (e.g., XSS, IDOR)</li>
+          <li>How to get started on platforms like HackerOne or Bugcrowd</li>
+          <li>Basic recon and methodology breakdowns</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Write-Ups & Real-World Findings</h3>
+        <ul>
+          <li>Detailed case studies of successful bounty reports</li>
+          <li>Exploit chains explained with code and logic flaws</li>
+          <li>Tips on writing impactful vulnerability reports</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Advanced Techniques & Tooling</h3>
+        <ul>
+          <li>Custom payload crafting and bypass techniques</li>
+          <li>Web cache poisoning, prototype pollution, DNS rebinding</li>
+          <li>Automation in bug bounty: custom scripts and tools</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="featured">
+      <h2>🧠 Must-Follow Bug Bounty Blogs</h2>
+      <ul>
+        <li><a href="https://blog.assetnote.io" target="_blank">Assetnote Blog</a> – Cutting-edge recon and R&D</li>
+        <li><a href="https://hackerone.com/hacktivity" target="_blank">HackerOne Hacktivity</a> – Public disclosure archive</li>
+        <li><a href="https://blog.yeswehack.com" target="_blank">YesWeHack Blog</a> – French-based global platform insights</li>
+        <li><a href="https://infosecwriteups.com" target="_blank">InfoSec Writeups (Medium)</a> – Thousands of community write-ups</li>
+        <li><a href="https://0xpatrik.com" target="_blank">0xPatrik</a> – Recon master, known for OSINT and passive recon</li>
+        <li><a href="https://portswigger.net/blog" target="_blank">PortSwigger Blog</a> – Research behind Burp Suite’s capabilities</li>
+      </ul>
+    </section>
+
+    <section class="learning-path">
+      <h2>🚀 How to Learn Effectively from Blogs</h2>
+      <ul>
+        <li>Start a personal reading journal — summarize key points you learn</li>
+        <li>Try to replicate the findings in your own lab environment</li>
+        <li>Turn blogs into checklists — extract methods and tools</li>
+        <li>Build your own blog to reinforce your knowledge and build reputation</li>
+      </ul>
+    </section>
+
+    <section class="example">
+      <h2>📄 Real Blog Example Breakdown</h2>
+      <p>Take this excerpt from a real bug bounty write-up:</p>
+      <pre><code>Title: Bypassing Host Header Validation in Node.js
+Author: orange.tw (Chih-Hsuan Fan)
+Key Takeaway: Multiple server-side frameworks trust the Host header. Using an unexpected header (e.g., X-Forwarded-Host) led to open redirect and SSRF vulnerabilities.
+
+Payload:
+GET / HTTP/1.1
+Host: evil.com
+X-Forwarded-Host: victim.com
+
+Result:
+The server used X-Forwarded-Host to construct internal URLs, allowing redirection attacks and SSRF.</code></pre>
+      <p>👉 Insight: Blogs like this are gold for learning about real misconfigurations and novel attack chains.</p>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips for Blog-Fueled Growth</h2>
+      <ul>
+        <li>Subscribe to RSS feeds or use tools like Feedly to stay updated</li>
+        <li>Don't just read — analyze and experiment with the concepts</li>
+        <li>Join communities like r/bugbounty, Discords, or Twitter threads discussing new blogs</li>
+        <li>Start with vulnerability types you’re weak in — search for those specifically</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

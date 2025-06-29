@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cloud Common Vulnerabilities - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>☁️ Cloud Common Vulnerabilities</h1>
+    <p class="subtitle">Understand the risks in cloud environments — misconfigs, privilege issues, exposed services, and more</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>Why Cloud Security Matters</h2>
+      <p>
+        As organizations migrate to cloud platforms like AWS, Azure, and Google Cloud, misconfigurations and insecure defaults have become major attack vectors. Cloud security is not just about traditional controls—it's about understanding shared responsibility, service models, and cloud-native risks.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>🛠️ Most Common Cloud Vulnerabilities</h2>
+
+      <div class="card">
+        <h3>1. Misconfigured Storage Buckets</h3>
+        <p>Publicly accessible S3 buckets or Azure Blob containers can leak sensitive files, source code, or credentials.</p>
+        <pre><code># Example: List open S3 buckets with Bucket Finder or tools like s3scanner
+s3scanner scan --bucket example-company-assets</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>2. Overly Permissive IAM Roles</h3>
+        <p>Giving <code>*:*</code> permissions to users, roles, or services increases lateral movement and privilege escalation risks.</p>
+        <p>Attackers often search for misconfigured roles like <code>AdministratorAccess</code> or use <code>STS AssumeRole</code> to pivot.</p>
+      </div>
+
+      <div class="card">
+        <h3>3. Exposed API Endpoints</h3>
+        <p>APIs in cloud services may be externally accessible and lack rate-limiting or authentication. This opens doors to brute-force, enumeration, or injection attacks.</p>
+      </div>
+
+      <div class="card">
+        <h3>4. Secrets in Public Repos</h3>
+        <p>Developers accidentally push cloud keys to GitHub or GitLab, exposing credentials via Git history or commits.</p>
+        <pre><code># Search for leaked keys using GitHub dorks:
+"aws_access_key_id" AND "secret_access_key" site:github.com</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>5. Insecure Default Configurations</h3>
+        <p>Cloud services often launch with defaults like open security groups, unrestricted firewall rules, or weak password policies.</p>
+        <p>Cloud providers assume users will harden their infrastructure. Sadly, many forget to do so.</p>
+      </div>
+
+      <div class="card">
+        <h3>6. Container & Kubernetes Misconfigurations</h3>
+        <p>Containers in cloud-hosted clusters may run with root privileges, expose dashboards to the internet, or allow insecure workloads.</p>
+        <p>Example risks: exposed Kube API server, <code>hostPath</code> volume mounts, or <code>privileged: true</code> pods.</p>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>📈 How to Identify Cloud Vulnerabilities</h2>
+
+      <h3>Step 1: Enumerate Cloud Resources</h3>
+      <ul>
+        <li>Use AWS CLI, Azure CLI, or GCP SDK to list resources</li>
+        <li>Leverage open-source tools like ScoutSuite, CloudSploit, Prowler</li>
+      </ul>
+
+      <h3>Step 2: Review IAM Policies & Permissions</h3>
+      <ul>
+        <li>Audit user and role permissions with least privilege in mind</li>
+        <li>Look for wildcard permissions, unmanaged users, and long-lived keys</li>
+      </ul>
+
+      <h3>Step 3: Scan for Exposed Buckets & Services</h3>
+      <ul>
+        <li>Use tools like <code>s3scanner</code>, <code>Bucket Finder</code>, <code>grayhatWarfare</code></li>
+        <li>Map open ports, cloud services (e.g., Elasticsearch, Redis, RDS), and web-facing apps</li>
+      </ul>
+    </section>
+
+    <section class="real-world">
+      <h2>🌍 Real-World Breach Examples</h2>
+
+      <ul>
+        <li><strong>Capital One (2019):</strong> A misconfigured WAF and SSRF to AWS metadata exposed 100M customer records.</li>
+        <li><strong>Accenture (2021):</strong> Open AWS S3 buckets revealed internal data and cloud infrastructure details.</li>
+        <li><strong>Uber (2016):</strong> AWS keys exposed in a GitHub repo led to the breach of 57M user records.</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>🔐 Hardening Tips</h2>
+      <ul>
+        <li>Enable multi-factor authentication (MFA) for all accounts</li>
+        <li>Apply least privilege IAM and review policies regularly</li>
+        <li>Turn on CloudTrail, GuardDuty, Security Center (AWS/Azure/GCP)</li>
+        <li>Use service control policies (SCP) for org-wide restrictions</li>
+        <li>Continuously scan your cloud infrastructure for misconfigurations</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📘 Tools & Resources</h2>
+      <ul>
+        <li><a href="https://github.com/nccgroup/ScoutSuite" target="_blank">ScoutSuite</a></li>
+        <li><a href="https://github.com/toniblyx/prowler" target="_blank">Prowler for AWS</a></li>
+        <li><a href="https://github.com/aquasecurity/kube-bench" target="_blank">Kube-Bench</a></li>
+        <li><a href="https://cloudsploit.com" target="_blank">CloudSploit</a></li>
+        <li><a href="https://grayhatwarfare.com" target="_blank">GrayHatWarfare (S3 search)</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

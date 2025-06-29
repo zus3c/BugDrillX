@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reflected XSS - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>⚡ Reflected XSS</h1>
+    <p class="subtitle">Learn how attackers exploit dynamic inputs to inject scripts — and how to stop them</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Reflected XSS?</h2>
+      <p>
+        Reflected Cross-Site Scripting (XSS) is a client-side injection vulnerability that occurs when user-supplied data is immediately included in the response from a web server, without proper sanitization or encoding. The attack payload is typically embedded in a URL and reflected back in the server's response, often in error messages, search results, or login pages.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>🎯 Key Concepts</h2>
+      <div class="card">
+        <ul>
+          <li><strong>Trigger Point:</strong> Occurs when data is reflected from the request to the response.</li>
+          <li><strong>No Persistence:</strong> Unlike stored XSS, the payload is not saved — it's delivered via a crafted link.</li>
+          <li><strong>Execution:</strong> Relies on tricking a user into clicking the malicious URL.</li>
+          <li><strong>Impact:</strong> Can lead to session hijacking, credential theft, defacement, or redirection.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧪 Step-by-Step Exploitation</h2>
+
+      <h3>Step 1: Identify a Reflection Point</h3>
+      <p>Test parameters in the URL, such as <code>?q=</code>, <code>?search=</code>, <code>?message=</code>. Use harmless input first:</p>
+      <pre><code>https://example.com/search?q=test</code></pre>
+
+      <h3>Step 2: Inject a Script Payload</h3>
+      <p>If the input is echoed back unsanitized, try injecting:</p>
+      <pre><code>https://example.com/search?q=&lt;script&gt;alert('XSS')&lt;/script&gt;</code></pre>
+
+      <h3>Step 3: Observe Execution</h3>
+      <p>If the JavaScript executes (e.g. an alert box pops up), the site is vulnerable to reflected XSS.</p>
+    </section>
+
+    <section class="real-world">
+      <h2>🌍 Real-World Example</h2>
+      <p>Target: <code>https://vulnerable-site.com/login?error=</code></p>
+      <p>Testing payload:</p>
+      <pre><code>https://vulnerable-site.com/login?error=&lt;script&gt;alert('XSS')&lt;/script&gt;</code></pre>
+      <p>If the error message displays the unsanitized input:</p>
+      <pre><code>Login failed: &lt;script&gt;alert('XSS')&lt;/script&gt;</code></pre>
+      <p>Then the browser will execute the script, confirming the vulnerability.</p>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips for Pentesters</h2>
+      <ul>
+        <li>Use tools like <strong>XSStrike</strong>, <strong>Burp Suite</strong>, or <strong>XSS Hunter</strong></li>
+        <li>Try payloads with different encodings (URL, HTML entity)</li>
+        <li>Inspect headers — sometimes reflection occurs in meta tags or JavaScript</li>
+        <li>Always validate both GET and POST requests</li>
+        <li>Report all successful injections with context and payload used</li>
+      </ul>
+    </section>
+
+    <section class="defense">
+      <h2>🛡️ Mitigation Techniques</h2>
+      <ul>
+        <li>Use output encoding (e.g., <code>htmlspecialchars()</code> in PHP)</li>
+        <li>Apply Content Security Policy (CSP) headers</li>
+        <li>Sanitize inputs using server-side libraries (OWASP ESAPI, DOMPurify)</li>
+        <li>Validate input types (e.g., reject script tags, JavaScript URLs)</li>
+        <li>Use frameworks with built-in XSS protection (React, Angular, etc.)</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Tools & Resources</h2>
+      <ul>
+        <li><a href="https://owasp.org/www-community/attacks/xss/" target="_blank">OWASP XSS Guide</a></li>
+        <li><a href="https://portswigger.net/web-security/cross-site-scripting/reflected" target="_blank">PortSwigger Reflected XSS Lab</a></li>
+        <li><a href="https://github.com/s0md3v/XSStrike" target="_blank">XSStrike</a></li>
+        <li><a href="https://xsshunter.com/" target="_blank">XSS Hunter</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP" target="_blank">Content Security Policy (MDN)</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

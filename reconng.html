@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ReconNG - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🛰️ ReconNG</h1>
+    <p class="subtitle">An open-source intelligence (OSINT) framework for advanced reconnaissance and data correlation</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>📌 What is ReconNG?</h2>
+      <p>
+        <strong>Recon-ng</strong> is a full-featured web reconnaissance framework written in Python. It provides a powerful environment similar to Metasploit but focused on information gathering. With an interactive command-line interface, built-in modules, and automation capabilities, it's a go-to tool for OSINT gathering in bug bounty, red teaming, and pentesting engagements.
+      </p>
+    </section>
+
+    <section class="features">
+      <h2>🧩 Key Features</h2>
+      <ul>
+        <li>Modular architecture with plug-and-play recon modules</li>
+        <li>API key management for integrations like Shodan, Google, and more</li>
+        <li>Built-in database for storing results (SQLite)</li>
+        <li>Scriptable, supports CLI automation and chaining</li>
+        <li>Supports exporting data (CSV, JSON, XML)</li>
+      </ul>
+    </section>
+
+    <section class="installation">
+      <h2>⚙️ Installation</h2>
+      <p>You can install ReconNG using Git:</p>
+      <pre><code>git clone https://github.com/lanmaster53/recon-ng.git
+cd recon-ng
+pip install -r REQUIREMENTS</code></pre>
+    </section>
+
+    <section class="getting-started">
+      <h2>🚀 Getting Started</h2>
+      <p>Launch ReconNG with:</p>
+      <pre><code>./recon-ng</code></pre>
+
+      <p>Basic commands:</p>
+      <ul>
+        <li><code>modules search</code> – Search for available modules</li>
+        <li><code>modules load recon/domains-hosts/google_site_web</code> – Load a module</li>
+        <li><code>info</code> – View module information</li>
+        <li><code>options set SOURCE example.com</code> – Set target/source</li>
+        <li><code>run</code> – Execute the module</li>
+      </ul>
+    </section>
+
+    <section class="use-case">
+      <h2>🌐 Real-World Use Case</h2>
+      <p>Suppose you're tasked with recon on <code>example.com</code>. Here's a practical ReconNG workflow:</p>
+      <pre><code># Launch ReconNG
+./recon-ng
+
+# Load a subdomain enumeration module
+modules load recon/domains-hosts/bing_domain_web
+options set SOURCE example.com
+run
+
+# Use collected subdomains for DNS lookups
+modules load recon/hosts-hosts/resolve
+run
+
+# Export results
+show hosts
+export csv /tmp/results.csv</code></pre>
+    </section>
+
+    <section class="advanced">
+      <h2>🧠 Advanced Tips & Automation</h2>
+      <ul>
+        <li>Use <code>keys add</code> to configure API keys once and reuse them across modules</li>
+        <li>Create workflows with <code>workspaces</code> to organize engagements</li>
+        <li>Use <code>marketplace install</code> to download new or custom modules</li>
+        <li>Run modules in sequence using custom Python scripts or batch mode</li>
+      </ul>
+    </section>
+
+    <section class="modules">
+      <h2>📦 Common Modules by Category</h2>
+      <div class="card">
+        <strong>recon/domains-hosts/</strong> – Discover subdomains from different engines (Bing, Google, etc.)
+      </div>
+      <div class="card">
+        <strong>recon/hosts-hosts/resolve</strong> – Resolve hostnames to IPs
+      </div>
+      <div class="card">
+        <strong>recon/contacts/</strong> – Gather emails and names from public data
+      </div>
+      <div class="card">
+        <strong>reporting/</strong> – Output results to CSV, JSON, HTML
+      </div>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Insights</h2>
+      <ul>
+        <li>ReconNG excels in chaining modules – think of it as scripting your recon phase</li>
+        <li>Focus on data correlation: multiple modules might find overlapping hosts or emails</li>
+        <li>Always verify the integrity of API keys and rate limits</li>
+        <li>Use ReconNG alongside tools like theHarvester, Maltego, or SpiderFoot for broader recon</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Further Resources</h2>
+      <ul>
+        <li><a href="https://github.com/lanmaster53/recon-ng" target="_blank">Official ReconNG GitHub</a></li>
+        <li><a href="https://www.youtube.com/results?search_query=recon-ng+tutorial" target="_blank">YouTube Tutorials</a></li>
+        <li><a href="https://osintframework.com/" target="_blank">OSINT Framework</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

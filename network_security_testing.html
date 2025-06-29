@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Network Security Testing - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🌐 Network Security Testing</h1>
+    <p class="subtitle">A comprehensive guide to evaluating and securing network infrastructure</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>Introduction</h2>
+      <p>
+        Network Security Testing is a critical discipline within cybersecurity that focuses on identifying vulnerabilities, misconfigurations, and weaknesses in networked systems. This testing ensures the integrity, confidentiality, and availability of an organization's infrastructure.
+      </p>
+      <p>
+        Whether you're assessing an internal corporate network or a public-facing system, this guide will walk you through beginner to advanced techniques used in professional penetration testing.
+      </p>
+    </section>
+
+    <section class="phases">
+      <h2>🔧 Core Phases of Network Security Testing</h2>
+
+      <div class="card">
+        <h3>1. Network Scanning</h3>
+        <p>Identify live hosts, open ports, and reachable services. Tools: <code>Nmap</code>, <code>Masscan</code>.</p>
+      </div>
+
+      <div class="card">
+        <h3>2. Vulnerability Scanning</h3>
+        <p>Check services for known weaknesses. Tools: <code>Nessus</code>, <code>OpenVAS</code>, <code>Nikto</code>.</p>
+      </div>
+
+      <div class="card">
+        <h3>3. Exploitation</h3>
+        <p>Attempt to exploit discovered vulnerabilities to verify impact. Tools: <code>Metasploit</code>, <code>CrackMapExec</code>.</p>
+      </div>
+
+      <div class="card">
+        <h3>4. Post-Exploitation</h3>
+        <p>Establish persistence, pivot through the network, or escalate privileges to simulate real-world breach scenarios.</p>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧠 Step-by-Step Network Testing Workflow</h2>
+
+      <h3>Step 1: Host Discovery</h3>
+      <pre><code># Fast host discovery with ICMP and TCP ping
+nmap -sn 192.168.1.0/24</code></pre>
+
+      <h3>Step 2: Port and Service Scanning</h3>
+      <pre><code># Comprehensive scan with version detection and default scripts
+nmap -sS -sV -T4 -p- 192.168.1.10</code></pre>
+
+      <h3>Step 3: Vulnerability Scanning</h3>
+      <pre><code># Scan for HTTP vulnerabilities
+nikto -h http://192.168.1.10</code></pre>
+
+      <h3>Step 4: Exploitation</h3>
+      <pre><code># Exploit SMB vulnerability using Metasploit
+use exploit/windows/smb/ms17_010_eternalblue
+set RHOST 192.168.1.10
+exploit</code></pre>
+
+      <h3>Step 5: Post-Exploitation</h3>
+      <ul>
+        <li>Dump credentials using Mimikatz</li>
+        <li>Establish persistence (e.g., startup scripts, reverse shells)</li>
+        <li>Pivot using proxychains or Meterpreter routing</li>
+      </ul>
+    </section>
+
+    <section class="real-world">
+      <h2>🌍 Real-World Applications</h2>
+      <p>
+        In real penetration testing engagements, network security testing reveals vulnerabilities like exposed RDP services, outdated software, weak SMB shares, and misconfigured firewalls.
+      </p>
+      <p>
+        For example, in a recent test, an open port (445) allowed anonymous SMB access, exposing sensitive internal documentation. Simple misconfigurations can often lead to high-impact breaches.
+      </p>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips</h2>
+      <ul>
+        <li>Always verify vulnerabilities before reporting them</li>
+        <li>Scan during off-peak hours to avoid service disruption</li>
+        <li>Use VPN or jump boxes to simulate real attacker positioning</li>
+        <li>Compare scan results over time to detect new assets or changes</li>
+      </ul>
+    </section>
+
+    <section class="tools">
+      <h2>🛠️ Recommended Tools</h2>
+      <ul>
+        <li><a href="https://nmap.org/" target="_blank">Nmap</a> – Port scanning and service detection</li>
+        <li><a href="https://www.tenable.com/products/nessus" target="_blank">Nessus</a> – Commercial vulnerability scanner</li>
+        <li><a href="https://www.openvas.org/" target="_blank">OpenVAS</a> – Open-source vulnerability scanner</li>
+        <li><a href="https://www.metasploit.com/" target="_blank">Metasploit Framework</a> – Exploitation framework</li>
+        <li><a href="https://github.com/byt3bl33d3r/CrackMapExec" target="_blank">CrackMapExec</a> – Post-exploitation Swiss Army Knife</li>
+      </ul>
+    </section>
+
+    <section class="ethics">
+      <h2>⚖️ Ethical & Legal Considerations</h2>
+      <p>
+        Always get explicit written authorization before testing any network. Unauthorized scanning or exploitation is illegal and unethical. Respect confidentiality and privacy of all data accessed during testing.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

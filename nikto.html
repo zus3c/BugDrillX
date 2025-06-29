@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nikto - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🔍 Nikto Web Scanner</h1>
+    <p class="subtitle">Explore vulnerable web configurations, files and software with this powerful open-source scanner</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>📌 What is Nikto?</h2>
+      <p>
+        Nikto is an open-source web server scanner written in Perl. It performs comprehensive tests against web servers, detecting over 6,700 potentially dangerous files/programs, outdated server software, and other security issues such as default files, insecure HTTP headers, and misconfigured options.
+      </p>
+    </section>
+
+    <section class="features">
+      <h2>🛠️ Key Features</h2>
+      <ul>
+        <li>Scans for over 6700 known vulnerabilities</li>
+        <li>Identifies outdated software versions</li>
+        <li>Checks for insecure HTTP methods</li>
+        <li>Custom plugin support and SSL scanning</li>
+        <li>Supports proxy, IDS evasion, and tuning options</li>
+      </ul>
+    </section>
+
+    <section class="installation">
+      <h2>📥 Installation</h2>
+      <p>Install Nikto using Git:</p>
+      <pre><code>git clone https://github.com/sullo/nikto.git
+cd nikto
+perl nikto.pl -H</code></pre>
+      <p>Nikto does not require complex dependencies; just ensure Perl is installed on your system.</p>
+    </section>
+
+    <section class="usage">
+      <h2>🚀 Basic Usage</h2>
+      <p>Scan a single host:</p>
+      <pre><code>perl nikto.pl -h http://example.com</code></pre>
+      <p>Scan using HTTPS:</p>
+      <pre><code>perl nikto.pl -h https://secure.example.com</code></pre>
+      <p>Scan an IP address with a specified port:</p>
+      <pre><code>perl nikto.pl -h 192.168.1.10 -p 8080</code></pre>
+    </section>
+
+    <section class="advanced">
+      <h2>⚙️ Advanced Usage & Options</h2>
+      <ul>
+        <li><code>-output</code> → Save the scan results to a file</li>
+        <li><code>-Tuning</code> → Choose specific types of tests (files, headers, injection, etc.)</li>
+        <li><code>-Display</code> → Control verbosity of results</li>
+        <li><code>-Plugins</code> → Load specific plugins for targeted scans</li>
+        <li><code>-ssl</code> → Force SSL for non-standard ports</li>
+        <li><code>-useproxy</code> → Send traffic through a proxy</li>
+      </ul>
+      <p>Example: Only scan for interesting files and headers:</p>
+      <pre><code>perl nikto.pl -h http://example.com -Tuning 1 4</code></pre>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Example</h2>
+      <p>Scanning a vulnerable web app like DVWA (Damn Vulnerable Web Application):</p>
+      <pre><code>perl nikto.pl -h http://192.168.56.101/dvwa</code></pre>
+      <p><strong>Expected results:</strong></p>
+      <ul>
+        <li>Detection of PHP files with parameter-based injection points</li>
+        <li>Insecure HTTP headers (e.g., X-Frame-Options missing)</li>
+        <li>Exposed directories like <code>/config/</code> or <code>/admin/</code></li>
+        <li>Known vulnerabilities in Apache or PHP version</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips</h2>
+      <ul>
+        <li>Use <code>-output</code> to store logs for later analysis</li>
+        <li>Run with different <code>-Tuning</code> values for more granular results</li>
+        <li>Pair Nikto with tools like Burp Suite or Nmap for deeper testing</li>
+        <li>Avoid scanning production servers without permission – Nikto is noisy!</li>
+        <li>Integrate into CI pipelines for automated scanning of test environments</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Resources & Documentation</h2>
+      <ul>
+        <li><a href="https://github.com/sullo/nikto" target="_blank">Nikto GitHub Repository</a></li>
+        <li><a href="https://cirt.net/Nikto2" target="_blank">Official Nikto Documentation</a></li>
+        <li><a href="https://owasp.org/www-project-vulnerable-web-applications-directory/" target="_blank">OWASP Vulnerable Apps for Testing</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Azure Security - Cloud Pentesting Guide - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>☁️ Azure Security</h1>
+    <p class="subtitle">A practical guide to understanding, testing, and securing Microsoft Azure environments</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>🔐 Why Azure Security Matters</h2>
+      <p>Microsoft Azure is one of the most widely adopted cloud platforms globally. With increased adoption comes a growing attack surface. Understanding how Azure works — and how to secure it — is critical for ethical hackers, cloud engineers, and security analysts alike.</p>
+    </section>
+
+    <section class="card">
+      <h2>🎓 Key Concepts & Architecture</h2>
+      <ul>
+        <li><strong>Azure AD (Azure Active Directory):</strong> Identity and access management service (IAM).</li>
+        <li><strong>Resource Groups:</strong> Logical containers for resources like VMs, databases, storage, etc.</li>
+        <li><strong>Role-Based Access Control (RBAC):</strong> Assign permissions at various scopes (subscription, group, resource).</li>
+        <li><strong>Managed Identities:</strong> Service identities for VMs or applications.</li>
+        <li><strong>NSGs (Network Security Groups):</strong> Firewall rules for virtual networks.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>🛠️ Reconnaissance on Azure</h2>
+      <p>Before exploiting, you need to understand what's exposed.</p>
+      <ul>
+        <li>Use <code>az account list</code> and <code>az resource list</code> to enumerate accessible resources.</li>
+        <li>Look for public endpoints (VMs, storage accounts).</li>
+        <li>Run <strong>Shodan</strong> or <strong>securitytrails</strong> to find exposed Azure services tied to a domain.</li>
+        <li>Enumerate Azure subdomains via <code>azurewebsites.net</code> and <code>blob.core.windows.net</code>.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>💥 Common Azure Vulnerabilities</h2>
+      <ul>
+        <li><strong>Public Storage Accounts:</strong> Containers or blobs accessible without auth.</li>
+        <li><strong>Overprivileged Roles:</strong> Users with Owner or Contributor unnecessarily.</li>
+        <li><strong>Unrestricted NSGs:</strong> Inbound rules allowing 0.0.0.0/0.</li>
+        <li><strong>Credential Leaks:</strong> Hardcoded secrets in Azure Functions or Logic Apps.</li>
+        <li><strong>Default Service Principals:</strong> Weak configurations or privilege escalation paths.</li>
+      </ul>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧠 Azure Pentesting: Step-by-Step</h2>
+
+      <h3>Step 1: Authentication & Enumeration</h3>
+      <p>If you have credentials, use the Azure CLI or PowerZure to list resources:</p>
+      <pre><code>az login
+az account show
+az ad user list
+az role assignment list</code></pre>
+
+      <h3>Step 2: Check Public Exposure</h3>
+      <ul>
+        <li>Scan for open ports using <code>nmap</code></li>
+        <li>Enumerate public blob containers via browser or <code>az storage blob list</code></li>
+        <li>Use <code>Get-AzStorageAccount</code> in PowerShell to find misconfigurations</li>
+      </ul>
+
+      <h3>Step 3: Exploit Common Misconfigurations</h3>
+      <p>Examples:</p>
+      <ul>
+        <li><strong>Misconfigured Function App:</strong> Try accessing it anonymously</li>
+        <li><strong>Exposed App Insights Key:</strong> Extract and replay telemetry data</li>
+        <li><strong>Escalate Privileges:</strong> Abuse RBAC roles or managed identities</li>
+      </ul>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Exploitation Example</h2>
+      <p>Discovering a public Azure Blob container with open read permissions:</p>
+      <pre><code># Manual access via URL
+https://vulnerableaccount.blob.core.windows.net/publiccontainer/test.pdf
+
+# Using Azure CLI
+az storage blob list --account-name vulnerableaccount --container-name publiccontainer --auth-mode key</code></pre>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Tips & Best Practices</h2>
+      <ul>
+        <li>Always enable Azure Defender and logging (Azure Monitor, Log Analytics).</li>
+        <li>Apply the principle of least privilege for all identities.</li>
+        <li>Audit RBAC roles regularly — avoid “Owner” for general users.</li>
+        <li>Restrict NSG rules to known IP ranges only.</li>
+        <li>Use Key Vault for secrets — never store them in plain text configs.</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Tools & Resources</h2>
+      <ul>
+        <li><a href="https://github.com/hausec/PowerZure" target="_blank">PowerZure</a> - Azure post-exploitation framework</li>
+        <li><a href="https://github.com/Azure/azure-cli" target="_blank">Azure CLI</a> - Official command-line tool</li>
+        <li><a href="https://portal.azure.com/" target="_blank">Azure Portal</a> - Web-based management interface</li>
+        <li><a href="https://www.azurespeed.com/" target="_blank">AzureSpeed</a> - Check latency, endpoints, regions</li>
+        <li><a href="https://cloudsecurityalliance.org/" target="_blank">Cloud Security Alliance</a> - Best practices and whitepapers</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

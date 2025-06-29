@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mobile Application Testing - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>📱 Mobile Application Testing</h1>
+    <p class="subtitle">Explore how to test Android and iOS apps for security flaws — from static analysis to runtime exploits.</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>Overview</h2>
+      <p>
+        Mobile application testing is the process of identifying security flaws in Android and iOS apps. It involves analyzing source code, reverse engineering binaries, inspecting app behavior at runtime, and ensuring data protection. This page will walk you through key techniques and tools used by ethical hackers to secure mobile apps.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>🧪 Testing Phases</h2>
+
+      <div class="card">
+        <h3>1. Static Analysis</h3>
+        <p>
+          Analyze the app's source code or decompiled binaries without running it. Focuses on permissions, API usage, hardcoded secrets, and insecure configurations.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>2. Dynamic Analysis</h3>
+        <p>
+          Run the app in a test environment to observe its runtime behavior, traffic, storage access, and potential data leaks or misconfigurations.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>3. Reverse Engineering</h3>
+        <p>
+          Dissect the app binary (APK or IPA) to understand logic, bypass restrictions, or uncover hardcoded secrets.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>4. Common Vulnerabilities</h3>
+        <p>
+          Identify weaknesses like insecure data storage, improper certificate validation, weak authentication, and exposed APIs.
+        </p>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>📋 Step-by-Step Mobile App Pentesting</h2>
+
+      <h3>🔍 Step 1: Recon & Setup</h3>
+      <ul>
+        <li>Install tools: <code>adb</code>, <code>MobSF</code>, <code>Frida</code>, <code>Apktool</code>, <code>Jadx</code></li>
+        <li>Use a rooted Android emulator (e.g., Genymotion or Android Studio with root image)</li>
+        <li>Pull the APK with <code>adb pull</code> or download it via tools like APKPure</li>
+      </ul>
+
+      <h3>🧬 Step 2: Static Analysis</h3>
+      <ul>
+        <li>Decompile APK: <code>apktool d app.apk</code></li>
+        <li>Check for hardcoded API keys, secrets, URLs in <code>strings.xml</code> or <code>smali</code> files</li>
+        <li>Review <code>AndroidManifest.xml</code> for permissions and exported components</li>
+        <li>Scan with <code>MobSF</code> for automated static insights</li>
+      </ul>
+
+      <h3>🧪 Step 3: Dynamic Analysis</h3>
+      <ul>
+        <li>Install app in test device: <code>adb install app.apk</code></li>
+        <li>Proxy network traffic via Burp Suite (set proxy in device Wi-Fi settings)</li>
+        <li>Use <code>Frida</code> or <code>Objection</code> to hook methods at runtime</li>
+        <li>Check logcat: <code>adb logcat | grep -i error</code></li>
+      </ul>
+
+      <h3>🕵️‍♂️ Step 4: Reverse Engineering & Exploitation</h3>
+      <ul>
+        <li>Use <code>Jadx</code> or <code>bytecode-viewer</code> to inspect Java code</li>
+        <li>Patch login checks, disable SSL pinning, bypass root detection</li>
+        <li>Look for hidden debug menus, test exported activities with <code>adb shell am start</code></li>
+      </ul>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Example: SSL Pinning Bypass</h2>
+      <pre><code># Detect SSL pinning via Frida
+frida -U -n com.example.app -l frida-ssl-pinning-bypass.js
+
+# Start app and intercept traffic in Burp after bypass
+</code></pre>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips</h2>
+      <ul>
+        <li>Always test in isolated virtual devices or physical test phones</li>
+        <li>Use automation tools like MobSF to speed up early discovery</li>
+        <li>Never trust client-side logic — most controls should be server-side</li>
+        <li>Capture all findings in a report, including screenshots and logs</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>🧰 Recommended Tools</h2>
+      <ul>
+        <li><a href="https://github.com/MobSF/Mobile-Security-Framework-MobSF" target="_blank">MobSF</a> – Mobile Security Framework</li>
+        <li><a href="https://frida.re" target="_blank">Frida</a> – Dynamic instrumentation toolkit</li>
+        <li><a href="https://github.com/joeybohack/objection" target="_blank">Objection</a> – Runtime exploration powered by Frida</li>
+        <li><a href="https://github.com/iBotPeaches/Apktool" target="_blank">Apktool</a> – Decompile and rebuild APKs</li>
+        <li><a href="https://github.com/skylot/jadx" target="_blank">Jadx</a> – Decompiler to convert APK to Java</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

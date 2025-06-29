@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Other Tools - Cybersecurity Toolkit</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🛠️ Other Tools</h1>
+    <p class="subtitle">Essential tools every ethical hacker should know beyond the basics</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>Overview</h2>
+      <p>
+        While tools like Nmap or Burp Suite are widely known, the real power of a cybersecurity professional lies in mastering supporting tools that help in automation, analysis, crafting, and bypassing defenses. This page introduces must-know tools that don’t fit neatly in traditional categories but are incredibly valuable.
+      </p>
+    </section>
+
+    <section class="card">
+      <h3>💾 Hashcat (Password Cracking)</h3>
+      <p>
+        Hashcat is a GPU-based password recovery tool. It supports multiple hash formats and is crucial in assessing password strength during audits.
+      </p>
+      <pre><code># Crack a SHA256 hash with a wordlist
+hashcat -m 1400 hashes.txt /usr/share/wordlists/rockyou.txt</code></pre>
+      <ul>
+        <li>Supports rule-based attacks, combinator, brute-force, mask, and hybrid attacks.</li>
+        <li>Can be used offline for hash cracking or in red team engagements.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h3>📡 Wireshark (Traffic Analysis)</h3>
+      <p>
+        Wireshark allows deep inspection of network traffic. It’s vital in sniffing credentials, analyzing protocols, and detecting anomalies.
+      </p>
+      <ul>
+        <li>Use filters like <code>http.request.method == "POST"</code> to isolate web traffic.</li>
+        <li>Combine with tools like Ettercap or ARPspoof for MITM testing in labs.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h3>🎭 Proxychains (Anonymity & Routing)</h3>
+      <p>
+        Proxychains allows routing your tools like Nmap, Nikto, or Python scripts through proxy servers or TOR for anonymity or evasion.
+      </p>
+      <pre><code># Use Nmap through TOR
+proxychains nmap -sT target.com</code></pre>
+      <ul>
+        <li>Modify <code>/etc/proxychains.conf</code> to configure SOCKS4/5 proxies.</li>
+        <li>Excellent for red team operations or evading IP-based detection.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h3>⚙️ Impacket (SMB/AD Exploitation)</h3>
+      <p>
+        Impacket is a powerful Python library that includes scripts for interacting with Windows networks. It enables tasks like SMB relay, NTLM cracking, and privilege escalation.
+      </p>
+      <pre><code># Run a pass-the-hash attack
+psexec.py contoso/Administrator@192.168.1.10 -hashes aad3b435b51404eeaad3b435b51404ee:6f1ed002ab5595859014ebf0951522d9</code></pre>
+    </section>
+
+    <section class="card">
+      <h3>📜 Metasploit Auxiliary Modules</h3>
+      <p>
+        Beyond exploitation, Metasploit includes auxiliary modules for scanning, fuzzing, sniffing, and reporting.
+      </p>
+      <pre><code>use auxiliary/scanner/http/dir_scanner
+set RHOSTS target.com
+set PATH /admin/
+run</code></pre>
+    </section>
+
+    <section class="card">
+      <h3>🧮 CyberChef (Data Processing & Decryption)</h3>
+      <p>
+        CyberChef is a web-based tool for analyzing and transforming data. It supports decoding, encoding, hashing, regex, and much more.
+      </p>
+      <ul>
+        <li>Use it to decode JWTs, base64 payloads, or convert hex data.</li>
+        <li>No installation needed – runs entirely in-browser.</li>
+        <li>URL: <a href="https://gchq.github.io/CyberChef/" target="_blank">https://gchq.github.io/CyberChef/</a></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h3>🔍 FFUF (Fast Web Fuzzer)</h3>
+      <p>
+        FFUF is a fast web fuzzer written in Go, ideal for content discovery and parameter fuzzing.
+      </p>
+      <pre><code>ffuf -u https://target.com/FUZZ -w wordlist.txt</code></pre>
+      <ul>
+        <li>Supports recursion, headers, data fuzzing, delay control, and more.</li>
+        <li>Great alternative to Gobuster with more flexibility.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h3>🧠 Tips for Success</h3>
+      <ul>
+        <li>Build your own toolkit and keep it updated via GitHub or Docker images.</li>
+        <li>Practice in a controlled lab before applying in real-world tests.</li>
+        <li>Use combination of tools: e.g., Wireshark + Impacket + Responder for full NTLM relay testing.</li>
+        <li>Explore scripting with Bash, Python, and PowerShell to automate repetitive tasks.</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>🔗 More Resources</h2>
+      <ul>
+        <li><a href="https://github.com/SecureAuthCorp/impacket" target="_blank">Impacket GitHub</a></li>
+        <li><a href="https://hashcat.net/hashcat/" target="_blank">Hashcat official</a></li>
+        <li><a href="https://github.com/ffuf/ffuf" target="_blank">FFUF project</a></li>
+        <li><a href="https://nmap.org/book/nmap-proxychains.html" target="_blank">Nmap + Proxychains Guide</a></li>
+        <li><a href="https://gchq.github.io/CyberChef/" target="_blank">CyberChef by GCHQ</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

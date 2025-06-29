@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reverse Engineering Android - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>📱 Reverse Engineering: Android Testing</h1>
+    <p class="subtitle">Understand how to dissect Android apps and uncover hidden secrets from APK files</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Reverse Engineering in Android?</h2>
+      <p>
+        Reverse engineering Android applications is the process of analyzing APK files to understand their internal logic, behavior, and security mechanisms. This skill is crucial for ethical hackers, bug bounty hunters, and security analysts working with mobile applications.
+      </p>
+    </section>
+
+    <section class="objectives">
+      <h2>🎯 Goals of Reverse Engineering</h2>
+      <ul>
+        <li>Understand app functionality without source code</li>
+        <li>Find hardcoded credentials or API keys</li>
+        <li>Analyze third-party libraries and permissions</li>
+        <li>Detect insecure storage or communication</li>
+        <li>Bypass root detection or certificate pinning</li>
+      </ul>
+    </section>
+
+    <section class="tools">
+      <h2>🛠 Essential Tools</h2>
+      <ul>
+        <li><strong>APKTool</strong> – Decompile and rebuild APKs</li>
+        <li><strong>Jadx / JADX-GUI</strong> – Convert DEX to readable Java</li>
+        <li><strong>MobSF</strong> – Static & dynamic analysis automation</li>
+        <li><strong>Frida</strong> – Dynamic instrumentation toolkit</li>
+        <li><strong>Objection</strong> – Runtime mobile exploration tool</li>
+        <li><strong>Ghidra</strong> – Advanced disassembler (when needed)</li>
+      </ul>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧠 Step-by-Step: Reverse Engineering an Android App</h2>
+
+      <div class="card">
+        <h3>1. Extract the APK</h3>
+        <p>You can obtain APKs from the device, third-party APK repositories, or through <code>adb</code>:</p>
+        <pre><code>adb shell pm list packages
+adb shell pm path com.example.app
+adb pull /data/app/com.example.app-1/base.apk</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>2. Decompile with APKTool</h3>
+        <p>Extract resources, manifest, and smali code:</p>
+        <pre><code>apktool d base.apk -o app_decoded</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>3. Analyze Code with JADX</h3>
+        <p>Use JADX GUI to read the decompiled Java code:</p>
+        <pre><code>jadx-gui base.apk</code></pre>
+        <p>Look for suspicious methods like:</p>
+        <ul>
+          <li><code>SharedPreferences</code> storing credentials</li>
+          <li><code>WebView.loadUrl()</code> calls</li>
+          <li>API keys in <code>BuildConfig</code> or strings.xml</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>4. Check for Obfuscation</h3>
+        <p>If variable/class names are unreadable (like <code>a.b.a()</code>), the app might be using ProGuard or R8. Use tools like <code>Procyon</code> or <code>Ghidra</code> for deeper analysis.</p>
+      </div>
+
+      <div class="card">
+        <h3>5. Dynamic Analysis (Optional)</h3>
+        <p>To monitor real-time behavior:</p>
+        <ul>
+          <li>Use <code>Frida</code> to hook functions at runtime</li>
+          <li>Use <code>Objection</code> to bypass root detection</li>
+          <li>Capture traffic with Burp Suite + root cert on device</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="real-world">
+      <h2>🔐 Real-World Case Study</h2>
+      <p>A financial Android app was found to store user credentials in plaintext under:</p>
+      <pre><code>/data/data/com.bankapp/shared_prefs/user_prefs.xml</code></pre>
+      <p>Using <code>jadx</code>, the following line was discovered:</p>
+      <pre><code>prefs.edit().putString("user_pass", password).apply();</code></pre>
+      <p>This data was accessible on rooted devices, violating OWASP MASVS storage guidelines.</p>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Tips & Best Practices</h2>
+      <ul>
+        <li>Always analyze in a sandbox or virtual Android device (AVD or Genymotion)</li>
+        <li>Use MobSF for a quick overview and risk assessment</li>
+        <li>Focus on <code>AndroidManifest.xml</code> for permissions and exported components</li>
+        <li>Check for third-party SDKs and ad trackers</li>
+        <li>Respect legal boundaries – only reverse engineer apps you are authorized to test</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Learn More</h2>
+      <ul>
+        <li><a href="https://github.com/iBotPeaches/Apktool" target="_blank">APKTool GitHub</a></li>
+        <li><a href="https://github.com/skylot/jadx" target="_blank">JADX GitHub</a></li>
+        <li><a href="https://github.com/ajinabraham/Mobile-Security-Framework-MobSF" target="_blank">MobSF</a></li>
+        <li><a href="https://frida.re/" target="_blank">Frida.io</a></li>
+        <li><a href="https://owasp.org/www-project-mobile-top-10/" target="_blank">OWASP Mobile Top 10</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

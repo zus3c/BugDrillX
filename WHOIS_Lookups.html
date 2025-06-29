@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WHOIS Lookups - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>📡 WHOIS Lookups</h1>
+    <p class="subtitle">Gather valuable domain registration data during the reconnaissance phase</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is a WHOIS Lookup?</h2>
+      <p>
+        A <strong>WHOIS lookup</strong> is a query used to retrieve registration data about a domain name or IP address. It provides information such as the registrant's contact details, domain creation and expiration dates, registrar, and DNS servers. In ethical hacking, WHOIS lookups are part of <strong>passive reconnaissance</strong> to gather intel without alerting the target.
+      </p>
+    </section>
+
+    <section class="why">
+      <h2>🔍 Why is WHOIS Information Important?</h2>
+      <p>WHOIS records can reveal key insights during a security assessment:</p>
+      <ul>
+        <li>Identify the organization behind a domain</li>
+        <li>Find contact details (e.g., emails for phishing simulations)</li>
+        <li>Detect infrastructure patterns through nameservers or registrars</li>
+        <li>Spot related domains via shared WHOIS data</li>
+        <li>Uncover forgotten or exposed domains</li>
+      </ul>
+    </section>
+
+    <section class="steps">
+      <h2>🧠 Step-by-Step: How to Perform WHOIS Lookups</h2>
+
+      <div class="card">
+        <h3>Step 1: Use Online WHOIS Tools</h3>
+        <ul>
+          <li><a href="https://whois.domaintools.com" target="_blank">DomainTools</a></li>
+          <li><a href="https://whois.arin.net/" target="_blank">ARIN WHOIS</a></li>
+          <li><a href="https://who.is/" target="_blank">Who.is</a></li>
+          <li><a href="https://viewdns.info/" target="_blank">ViewDNS.info</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Step 2: Use Command-Line Tools</h3>
+        <p>On Linux or macOS, you can run:</p>
+        <pre><code>whois targetdomain.com</code></pre>
+        <p>If you don’t have <code>whois</code> installed:</p>
+        <pre><code>sudo apt install whois   # Debian/Ubuntu
+brew install whois       # macOS with Homebrew</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Step 3: Analyze the Results</h3>
+        <p>Look for the following fields in WHOIS data:</p>
+        <ul>
+          <li><strong>Registrant Organization</strong>: Name of owning company</li>
+          <li><strong>Registrant Email</strong>: Often usable for OSINT or phishing simulations</li>
+          <li><strong>Nameservers</strong>: Can indicate hosting provider or internal DNS</li>
+          <li><strong>Registrar</strong>: Useful in identifying related domains</li>
+          <li><strong>Creation/Expiration Dates</strong>: Helps track domain lifecycle</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Example</h2>
+      <p>Running a WHOIS query on <code>example.com</code> might return:</p>
+      <pre><code>Domain Name: EXAMPLE.COM
+Registrar: IANA Reserved
+Registrant Name: Internet Assigned Numbers Authority
+Registrant Organization: IANA
+Registrant Email: abuse@example.com
+Creation Date: 1995-08-14
+Expiration Date: 2030-08-13
+Name Server: A.IANA-SERVERS.NET
+Name Server: B.IANA-SERVERS.NET</code></pre>
+    </section>
+
+    <section class="advanced">
+      <h2>⚙️ Advanced Usage & Automation</h2>
+      <ul>
+        <li><strong>whois + grep</strong>: Extract key fields only:
+          <pre><code>whois target.com | grep -Ei "Registrant|Name Server|Registrar"</code></pre>
+        </li>
+        <li><strong>WHOIS in Python:</strong>
+          <pre><code>import whois
+domain = whois.whois("example.com")
+print(domain)</code></pre>
+        </li>
+        <li><strong>Automate bulk lookups:</strong> Useful in bug bounty recon across multiple domains/subdomains.</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips</h2>
+      <ul>
+        <li>Combine WHOIS with DNS lookups for broader intel</li>
+        <li>Use privacy-protected WHOIS as a clue — it often hides something valuable</li>
+        <li>Watch out for typosquat domains with similar WHOIS patterns</li>
+        <li>Correlate registrant emails with other leaked databases (e.g., HaveIBeenPwned)</li>
+        <li>Keep in mind GDPR restrictions may mask some data</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Recommended Tools</h2>
+      <ul>
+        <li><a href="https://github.com/rfc1036/whois" target="_blank">WHOIS CLI Tool</a></li>
+        <li><a href="https://github.com/likexian/whois" target="_blank">Python WHOIS Library</a></li>
+        <li><a href="https://securitytrails.com" target="_blank">SecurityTrails</a></li>
+        <li><a href="https://viewdns.info/reversewhois/" target="_blank">Reverse WHOIS Lookup</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

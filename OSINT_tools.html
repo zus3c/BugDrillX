@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OSINT Tools - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🛰️ OSINT Tools</h1>
+    <p class="subtitle">Explore powerful tools for Open Source Intelligence and information gathering</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is OSINT?</h2>
+      <p>
+        OSINT (Open Source Intelligence) refers to the process of collecting and analyzing publicly available information to produce actionable intelligence. In cybersecurity and ethical hacking, OSINT is crucial during the reconnaissance phase to understand the target's digital footprint without directly interacting with it.
+      </p>
+    </section>
+
+    <section class="levels">
+      <h2>🛠️ Categories of OSINT Tools</h2>
+
+      <div class="card">
+        <h3>1. Email & People Search</h3>
+        <ul>
+          <li><strong>Hunter.io:</strong> Find email patterns and employee emails</li>
+          <li><strong>Have I Been Pwned:</strong> Check if an email was part of a data breach</li>
+          <li><strong>IntelX:</strong> Deep web and public data archive search</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>2. Domain & DNS Intelligence</h3>
+        <ul>
+          <li><strong>SecurityTrails:</strong> DNS records, subdomains, WHOIS, historical data</li>
+          <li><strong>DNSDumpster:</strong> DNS mapping and infrastructure visualization</li>
+          <li><strong>crt.sh:</strong> Certificate transparency log search (find subdomains)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>3. Social Media & Image Analysis</h3>
+        <ul>
+          <li><strong>Social-Searcher:</strong> Live monitoring of keywords and profiles</li>
+          <li><strong>ExifTool:</strong> Extract metadata from images (GPS, device info)</li>
+          <li><strong>Foca:</strong> Extract metadata from documents (DOCX, PDF)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>4. Automated Frameworks</h3>
+        <ul>
+          <li><strong>theHarvester:</strong> Collect emails, subdomains, hosts from search engines and public sources</li>
+          <li><strong>SpiderFoot:</strong> Fully automated OSINT scanner with over 200 modules</li>
+          <li><strong>Recon-ng:</strong> Modular recon framework like Metasploit</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>📌 Step-by-Step Example: Using theHarvester</h2>
+      <p><strong>Goal:</strong> Collect emails and subdomains related to <code>example.com</code></p>
+      <pre><code>theHarvester -d example.com -b all</code></pre>
+      <p><strong>Explanation:</strong> This command will query multiple sources (Google, Bing, etc.) and return:</p>
+      <ul>
+        <li>Discovered email addresses</li>
+        <li>Known subdomains</li>
+        <li>Public IPs and hosts</li>
+      </ul>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Use Case: Subdomain Enumeration via crt.sh</h2>
+      <p>To discover subdomains of a target domain using certificate transparency logs:</p>
+      <pre><code>https://crt.sh/?q=%25.example.com</code></pre>
+      <p>This reveals all SSL certificates issued for <code>example.com</code> and its subdomains. This data helps in mapping attack surfaces.</p>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips</h2>
+      <ul>
+        <li>Always start with passive tools to avoid detection</li>
+        <li>Cross-reference data from multiple tools for accuracy</li>
+        <li>Document timestamps, sources, and findings for your report</li>
+        <li>Use VPNs or TOR when working with sensitive investigations</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>🔗 Useful Links & Resources</h2>
+      <ul>
+        <li><a href="https://github.com/laramies/theHarvester" target="_blank">theHarvester</a></li>
+        <li><a href="https://www.shodan.io/" target="_blank">Shodan</a></li>
+        <li><a href="https://securitytrails.com/" target="_blank">SecurityTrails</a></li>
+        <li><a href="https://intelx.io/" target="_blank">IntelX</a></li>
+        <li><a href="https://osintframework.com/" target="_blank">OSINT Framework</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

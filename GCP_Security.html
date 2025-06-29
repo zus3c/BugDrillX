@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GCP Security - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>☁️ GCP Security</h1>
+    <p class="subtitle">Securing your Google Cloud Platform environment – from IAM to workload protection</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>🔐 What is GCP Security?</h2>
+      <p>
+        GCP (Google Cloud Platform) provides a powerful infrastructure for cloud computing, but misconfigurations and poor access controls can expose organizations to serious risks. This guide walks you through best practices, real-world examples, and hands-on techniques to secure GCP environments effectively.
+      </p>
+    </section>
+
+    <section class="basics">
+      <h2>📦 GCP Security Basics</h2>
+      <div class="card">
+        <h3>Key Concepts:</h3>
+        <ul>
+          <li><strong>Projects:</strong> Logical containers for resources</li>
+          <li><strong>IAM (Identity & Access Management):</strong> Fine-grained permissions system</li>
+          <li><strong>Service Accounts:</strong> Identities used by applications and services</li>
+          <li><strong>Cloud Audit Logs:</strong> Logging activities for visibility and monitoring</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧠 Step-by-Step: Hardening GCP</h2>
+
+      <h3>1. Audit IAM Permissions</h3>
+      <p>Run the following to list all IAM policies in a project:</p>
+      <pre><code>gcloud projects get-iam-policy my-project-id</code></pre>
+      <p>Look for <code>roles/owner</code> assigned to users or service accounts unnecessarily.</p>
+
+      <h3>2. Enforce Least Privilege</h3>
+      <p>Use custom roles to give only the permissions needed. Avoid using <code>Editor</code> or <code>Owner</code> roles in production.</p>
+
+      <h3>3. Monitor with Cloud Audit Logs</h3>
+      <pre><code>gcloud logging read "resource.type=gce_instance" --limit=10</code></pre>
+      <p>This helps identify unexpected VM actions like unauthorized creation or shutdowns.</p>
+
+      <h3>4. Secure Storage (GCS Buckets)</h3>
+      <ul>
+        <li>Make sure buckets are not public:</li>
+        <pre><code>gsutil iam get gs://my-bucket</code></pre>
+        <li>Remove <code>allUsers</code> or <code>allAuthenticatedUsers</code> bindings if not required.</li>
+      </ul>
+
+      <h3>5. Secure Service Accounts</h3>
+      <p>Restrict service accounts and disable key file downloads when possible:</p>
+      <pre><code>gcloud iam service-accounts disable-key --key=KEY_ID</code></pre>
+
+      <h3>6. Enable Security Command Center (Premium)</h3>
+      <p>Provides threat detection, misconfiguration alerts, and compliance reports in real time.</p>
+    </section>
+
+    <section class="advanced">
+      <h2>⚙️ Advanced GCP Security Techniques</h2>
+
+      <div class="card">
+        <h3>Workload Identity Federation</h3>
+        <p>Allow external identities (e.g., GitHub Actions) to access GCP resources securely without service account keys.</p>
+        <pre><code>gcloud iam workload-identity-pools create "github-pool" \
+--location="global" --display-name="GitHub Pool"</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Private Google Access</h3>
+        <p>Allow instances without public IPs to access Google APIs securely via internal networking.</p>
+        <pre><code>gcloud compute networks subnets update default \
+--region=us-central1 --enable-private-ip-google-access</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>VPC Firewall Rules</h3>
+        <p>Apply tight ingress/egress rules:</p>
+        <pre><code>gcloud compute firewall-rules create deny-all-ingress \
+--direction=INGRESS --priority=1000 --action=DENY \
+--rules=all --network=default</code></pre>
+      </div>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Scenario: Public GCS Bucket</h2>
+      <p>Example of an exposed storage bucket leaking sensitive files:</p>
+      <pre><code># Check bucket permissions
+gsutil iam get gs://client-data-bucket
+
+# Remove public access
+gsutil iam ch -d allUsers gs://client-data-bucket</code></pre>
+      <p>This type of misconfiguration is often exploited in bug bounty programs.</p>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips</h2>
+      <ul>
+        <li>Enable MFA for all users in GCP IAM</li>
+        <li>Rotate service account keys regularly (or disable them entirely)</li>
+        <li>Use the principle of separation of duties: don’t assign multiple roles to a single account</li>
+        <li>Enable alerts for IAM policy changes</li>
+        <li>Review access logs weekly</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Useful Resources</h2>
+      <ul>
+        <li><a href="https://cloud.google.com/security" target="_blank">Google Cloud Security Center</a></li>
+        <li><a href="https://cloud.google.com/iam/docs" target="_blank">IAM Documentation</a></li>
+        <li><a href="https://github.com/google/cloud-forensics-utils" target="_blank">Cloud Forensics Tools</a></li>
+        <li><a href="https://gcp.security" target="_blank">Unofficial GCP Security Guide</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

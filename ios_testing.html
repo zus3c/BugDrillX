@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>iOS Testing - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🍏 iOS Application Testing</h1>
+    <p class="subtitle">Master the art of testing iOS apps – from static analysis to reverse engineering</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>📱 What is iOS Application Security Testing?</h2>
+      <p>
+        iOS application testing is the process of evaluating iOS apps for security vulnerabilities, flaws in business logic, and unsafe implementation of features. This testing ensures that mobile apps handle data securely, especially since iOS devices are widely used in enterprise environments.
+      </p>
+    </section>
+
+    <section class="threats">
+      <h2>🚨 Common iOS Security Threats</h2>
+      <ul>
+        <li>Improper platform usage (e.g. misuse of TouchID/FaceID)</li>
+        <li>Insecure data storage (e.g. sensitive data in plist or NSUserDefaults)</li>
+        <li>Insecure communication (lack of SSL pinning, MITM risks)</li>
+        <li>Code tampering or jailbreak detection bypass</li>
+        <li>Reverse engineering and code extraction</li>
+      </ul>
+    </section>
+
+    <section class="phases">
+      <h2>🔍 Testing Phases</h2>
+
+      <div class="card">
+        <h3>1. Static Analysis</h3>
+        <p>Performed without executing the app. Involves analyzing source code, binaries, or decompiled content.</p>
+        <ul>
+          <li>Extract the IPA or .app file from device or simulator</li>
+          <li>Use <code>class-dump</code> to extract headers</li>
+          <li>Inspect the <code>Info.plist</code> file for insecure settings</li>
+          <li>Check for sensitive data in files using <code>strings</code></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>2. Dynamic Analysis</h3>
+        <p>Involves runtime inspection of the app in an emulator or real device (preferably jailbroken).</p>
+        <ul>
+          <li>Use tools like <code>Frida</code>, <code>Cycript</code>, <code>Objection</code> to hook into the app</li>
+          <li>Test runtime permissions, local data leaks, insecure API calls</li>
+          <li>Intercept traffic using Burp Suite (with SSL unpinning if required)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>3. Reverse Engineering</h3>
+        <p>Break down the app binary to understand its logic, identify hidden features or hardcoded secrets.</p>
+        <ul>
+          <li>Use <code>Hopper</code> or <code>Ghidra</code> to disassemble and analyze the Mach-O binary</li>
+          <li>Identify hardcoded keys, authentication tokens, debug flags</li>
+          <li>Analyze how the app detects jailbreaks or SSL pinning</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="examples">
+      <h2>🧪 Real-World Example</h2>
+      <pre><code># Step 1: Pull IPA from iOS device
+ideviceinstaller -l
+ideviceinstaller -u UDID -o app=AppName
+
+# Step 2: Extract binary and analyze
+unzip AppName.ipa
+class-dump --arch arm64 -H AppName -o headers
+
+# Step 3: Bypass SSL pinning with Frida
+frida -U -n AppName -l ios-ssl-pinning-bypass.js
+</code></pre>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips for iOS Pentesters</h2>
+      <ul>
+        <li>Always test on a jailbroken device for full access</li>
+        <li>Be aware of iOS security mechanisms: sandboxing, entitlements, keychain, etc.</li>
+        <li>Look for plist files, SQLite databases, cached web content</li>
+        <li>Document any signs of insecure coding practices or weak obfuscation</li>
+      </ul>
+    </section>
+
+    <section class="tools">
+      <h2>🛠️ Recommended Tools</h2>
+      <ul>
+        <li><a href="https://github.com/nowsecure/frida" target="_blank">Frida</a> – Dynamic instrumentation toolkit</li>
+        <li><a href="https://github.com/sensepost/objection" target="_blank">Objection</a> – Runtime mobile exploration</li>
+        <li><a href="https://www.hopperapp.com/" target="_blank">Hopper</a> – Disassembler for iOS apps</li>
+        <li><a href="https://ghidra-sre.org/" target="_blank">Ghidra</a> – NSA's reverse engineering suite</li>
+        <li><a href="https://github.com/DavidSchultz/class-dump" target="_blank">class-dump</a> – Extract Objective-C headers</li>
+      </ul>
+    </section>
+
+    <section class="checklist">
+      <h2>📋 iOS Testing Checklist</h2>
+      <ul>
+        <li>⬜ Jailbreak detection & bypass</li>
+        <li>⬜ SSL pinning implementation</li>
+        <li>⬜ Secure keychain usage</li>
+        <li>⬜ Obfuscation of business logic</li>
+        <li>⬜ No sensitive data in logs or caches</li>
+        <li>⬜ Proper usage of permissions</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

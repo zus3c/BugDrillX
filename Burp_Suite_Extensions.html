@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Burp Suite Extensions - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🧩 Burp Suite Extensions</h1>
+    <p class="subtitle">Expand your hacking toolkit with powerful extensions in Burp Suite</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What are Burp Suite Extensions?</h2>
+      <p>
+        Burp Suite Extensions are add-ons that extend the capabilities of Burp Suite beyond its default features. These can be developed using Java, Python (via Jython), or Ruby (via JRuby) and are managed through the built-in Burp Extender interface.
+      </p>
+      <p>
+        Extensions help automate repetitive tasks, identify complex vulnerabilities, integrate external tools, or enhance visualization and workflow.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>🛠️ Types of Extensions</h2>
+
+      <div class="card">
+        <h3>1. Official Extensions</h3>
+        <p>Developed and supported by PortSwigger, they provide enhanced core functionality. Examples:</p>
+        <ul>
+          <li>Logger++</li>
+          <li>Turbo Intruder</li>
+          <li>Burp Bounty</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>2. Community Extensions</h3>
+        <p>Created by researchers and developers in the infosec community. These often cover very specific use cases or cutting-edge techniques. Examples:</p>
+        <ul>
+          <li>Autorize</li>
+          <li>CO2</li>
+          <li>UploadScanner</li>
+          <li>Reflection Hunter</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>3. Custom Extensions</h3>
+        <p>Built by pentesters to automate or enhance specific workflows. Burp provides APIs to build custom extensions in Java, Python (Jython), and Ruby (JRuby).</p>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🚀 How to Install and Use Burp Extensions</h2>
+
+      <h3>Step 1: Open Burp Extender</h3>
+      <p>Navigate to <code>Extender → BApp Store</code> in Burp Suite Professional or Community edition.</p>
+
+      <h3>Step 2: Browse & Install</h3>
+      <p>Select any extension and click <strong>Install</strong>. For example, try installing <strong>Autorize</strong> to test for authorization flaws.</p>
+
+      <h3>Step 3: Configure Extensions</h3>
+      <p>Most extensions allow for detailed configuration. You can often set rules, filters, or payloads depending on the tool.</p>
+
+      <h3>Step 4: Use in Your Workflow</h3>
+      <p>Once installed, extensions integrate into different tabs such as <code>Proxy</code>, <code>Intruder</code>, or <code>Scanner</code> depending on their function.</p>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Usage Example</h2>
+      <p>Here’s how a typical pentester uses extensions in a black-box test:</p>
+
+      <pre><code># Scenario: Testing IDOR vulnerabilities
+1. Use Burp's Proxy to intercept all requests.
+2. Install and configure "Autorize" extension.
+3. Run automated checks for horizontal privilege escalation.
+4. Review logs via "Logger++" to analyze anomalies.
+5. Generate custom fuzzing payloads using "Turbo Intruder".</code></pre>
+    </section>
+
+    <section class="top-extensions">
+      <h2>⭐ Top Recommended Extensions</h2>
+      <ul>
+        <li><strong>Autorize:</strong> Detect IDOR and access control issues</li>
+        <li><strong>Burp Bounty:</strong> Define custom scanning profiles and payloads</li>
+        <li><strong>Logger++:</strong> Enhanced logging for all HTTP traffic</li>
+        <li><strong>Turbo Intruder:</strong> Ultra-fast intruder replacement for fuzzing</li>
+        <li><strong>Active Scan++:</strong> Advanced scanning engine enhancements</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Tips for Using Burp Extensions</h2>
+      <ul>
+        <li>Test extensions in a lab before using on live apps</li>
+        <li>Keep Burp and extensions updated to avoid bugs</li>
+        <li>Not all extensions are compatible with Burp Community Edition</li>
+        <li>Use <code>Logger++</code> to monitor automated activity in real-time</li>
+        <li>Create your own Python-based tools using the Burp API and Jython</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Useful Resources</h2>
+      <ul>
+        <li><a href="https://portswigger.net/bappstore" target="_blank">Official BApp Store</a></li>
+        <li><a href="https://portswigger.net/burp/extender/api" target="_blank">Burp Extender API</a></li>
+        <li><a href="https://github.com/snoopysecurity/awesome-burp-extensions" target="_blank">Awesome Burp Extensions (GitHub)</a></li>
+        <li><a href="https://www.youtube.com/c/PortSwigger" target="_blank">PortSwigger YouTube Channel</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

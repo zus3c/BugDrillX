@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sensitive Data Exposure - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🔓 Sensitive Data Exposure</h1>
+    <p class="subtitle">Understanding, identifying, and preventing unintended data leaks in web applications</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Sensitive Data Exposure?</h2>
+      <p>
+        Sensitive data exposure occurs when confidential information such as passwords, credit card numbers, health records, or API keys is inadvertently exposed, stored insecurely, or transmitted without proper protection. Unlike direct attacks, this vulnerability often stems from poor security practices or misconfigurations.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>🧬 Common Types of Sensitive Data</h2>
+      <ul>
+        <li>Usernames and passwords (especially in plaintext)</li>
+        <li>Credit card numbers and financial details</li>
+        <li>Health records (PHI/PII)</li>
+        <li>Session tokens and authentication cookies</li>
+        <li>Internal IP addresses and configuration files</li>
+        <li>Source code, API secrets, and environment variables</li>
+      </ul>
+    </section>
+
+    <section class="examples">
+      <h2>🌐 Real-World Examples</h2>
+      <div class="card">
+        <h3>Example 1: Exposed `.git` Directory</h3>
+        <p>If the <code>.git</code> folder is publicly accessible, an attacker can download the source code and discover hardcoded secrets.</p>
+        <pre><code>https://example.com/.git/config
+https://example.com/.env</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Example 2: Unencrypted Transmission</h3>
+        <p>Sending login credentials over HTTP allows attackers to intercept data using packet sniffers.</p>
+        <pre><code>POST /login HTTP/1.1
+Host: example.com
+Content-Type: application/x-www-form-urlencoded
+
+username=admin&password=123456</code></pre>
+        <p>This should always be transmitted over HTTPS with proper SSL/TLS.</p>
+      </div>
+
+      <div class="card">
+        <h3>Example 3: Verbose API Responses</h3>
+        <p>Some APIs return sensitive internal fields in JSON responses unintentionally.</p>
+        <pre><code>{
+  "user": {
+    "id": 101,
+    "email": "user@example.com",
+    "password_hash": "$2y$10$AbCdEf...",
+    "auth_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  }
+}</code></pre>
+        <p>Response fields must be sanitized before being sent to the client.</p>
+      </div>
+    </section>
+
+    <section class="detection">
+      <h2>🔎 How to Detect Sensitive Data Exposure</h2>
+      <ul>
+        <li>Inspect HTTP traffic using tools like Burp Suite or Wireshark</li>
+        <li>Search for exposed configuration files (<code>.env</code>, <code>config.php</code>, <code>web.config</code>)</li>
+        <li>Look for public S3 buckets or exposed storage services</li>
+        <li>Check for backup files (e.g., <code>db.sql</code>, <code>backup.zip</code>) via directory brute-forcing</li>
+        <li>Audit verbose error messages that reveal sensitive data</li>
+      </ul>
+    </section>
+
+    <section class="remediation">
+      <h2>🛡️ Prevention & Remediation</h2>
+      <ul>
+        <li>Use strong encryption (AES-256, SHA-256) to store sensitive data</li>
+        <li>Never transmit credentials over HTTP—use HTTPS only</li>
+        <li>Store passwords using secure hash algorithms (e.g., bcrypt, Argon2)</li>
+        <li>Limit data exposure in API responses</li>
+        <li>Sanitize logs and error messages to avoid leaking secrets</li>
+        <li>Use security headers (e.g., <code>Strict-Transport-Security</code>)</li>
+        <li>Implement access controls on public storage (S3 buckets, Git repos)</li>
+      </ul>
+    </section>
+
+    <section class="tools">
+      <h2>🧰 Tools for Discovery & Testing</h2>
+      <ul>
+        <li><a href="https://portswigger.net/burp" target="_blank">Burp Suite</a> – Intercept traffic, test for leaks</li>
+        <li><a href="https://github.com/maurosoria/dirsearch" target="_blank">dirsearch</a> – Directory brute-forcing</li>
+        <li><a href="https://github.com/projectdiscovery/httpx" target="_blank">httpx</a> – Scan for HTTP misconfigurations</li>
+        <li><a href="https://github.com/projectdiscovery/nuclei" target="_blank">Nuclei</a> – Vulnerability scanner for sensitive info</li>
+        <li><a href="https://www.shodan.io/" target="_blank">Shodan</a> – Identify exposed infrastructure</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips</h2>
+      <ul>
+        <li>Use Google Dorks like <code>inurl:.env</code>, <code>filetype:sql password</code> to identify exposed data</li>
+        <li>Set up alerts for new open storage buckets (e.g., AWS S3)</li>
+        <li>Automate checks with CI/CD security tools (e.g., GitLeaks, TruffleHog)</li>
+        <li>Perform regular audits of code, cloud storage, and logs</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Service Enumeration - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🔎 Service Enumeration</h1>
+    <p class="subtitle">Dig deeper into discovered ports and identify running services, versions, and potential misconfigurations.</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Service Enumeration?</h2>
+      <p>
+        Service enumeration is the process of probing open ports on a target system to identify the specific services running behind them — including their versions, configurations, and sometimes even vulnerabilities. It is an essential step in active reconnaissance, allowing ethical hackers to build a detailed attack surface map.
+      </p>
+    </section>
+
+    <section class="why-it-matters">
+      <h2>🎯 Why is Service Enumeration Important?</h2>
+      <ul>
+        <li>Identify service banners and version numbers</li>
+        <li>Detect weak or misconfigured services (e.g., outdated FTP, anonymous SMB shares)</li>
+        <li>Discover hidden functionality like admin panels or default creds</li>
+        <li>Enable targeted vulnerability exploitation</li>
+      </ul>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧠 Step-by-Step Guide</h2>
+
+      <div class="card">
+        <h3>Step 1: Identify Open Ports</h3>
+        <p>Use tools like <code>nmap</code> or <code>masscan</code> to get a list of open ports on the target.</p>
+        <pre><code>nmap -p- -T4 target_ip</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Step 2: Perform Version Detection</h3>
+        <p>Once ports are found, scan for service and version detection.</p>
+        <pre><code>nmap -sV -p 21,22,80,443 target_ip</code></pre>
+        <p><strong>Tip:</strong> Add <code>-sC</code> to include default scripts.</p>
+      </div>
+
+      <div class="card">
+        <h3>Step 3: Analyze Results</h3>
+        <p>Check for outdated or unusual services. Look for:</p>
+        <ul>
+          <li>FTP with anonymous login</li>
+          <li>SSH versions vulnerable to CVEs</li>
+          <li>Web servers with default pages or admin panels</li>
+          <li>Exposed RPC or SMB services</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Step 4: Use Specialized Tools</h3>
+        <p>Depending on what you find, use enumeration-specific tools:</p>
+        <ul>
+          <li><code>enum4linux</code> or <code>smbclient</code> for SMB</li>
+          <li><code>nbtscan</code> for NetBIOS info</li>
+          <li><code>smtp-user-enum</code> for SMTP</li>
+          <li><code>nmap --script</code> to run NSE scripts on services</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Example</h2>
+      <pre><code># Discover open ports
+nmap -p- -T4 10.10.10.5
+
+# Find service versions
+nmap -sV -p 21,22,80,139,445 10.10.10.5
+
+# Enumerate SMB shares
+smbclient -L \\10.10.10.5\\ -N
+
+# Check HTTP title and tech stack
+whatweb http://10.10.10.5</code></pre>
+    </section>
+
+    <section class="advanced">
+      <h2>🔬 Advanced Enumeration Tactics</h2>
+      <ul>
+        <li><strong>Banner grabbing:</strong> Use <code>nc</code> or <code>telnet</code> to manually check responses.</li>
+        <li><strong>NSE scripts:</strong> Leverage Nmap Scripting Engine for in-depth analysis:</li>
+        <pre><code>nmap -p 80 --script http-enum target_ip</code></pre>
+        <li><strong>Bruteforce login portals:</strong> Carefully test for default or weak credentials using Hydra or Medusa (ensure permission).</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips</h2>
+      <ul>
+        <li>Always save your scan output (use <code>-oN</code>, <code>-oG</code>, or <code>-oA</code>)</li>
+        <li>Use multiple tools for verification</li>
+        <li>Stay stealthy with timing options: <code>-T1</code> for IDS-evading scans</li>
+        <li>Don't just scan ports — understand the services behind them</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Recommended Tools & Resources</h2>
+      <ul>
+        <li><a href="https://nmap.org/" target="_blank">Nmap</a> – the gold standard for network/service discovery</li>
+        <li><a href="https://github.com/shadow1ng/fscan" target="_blank">Fscan</a> – fast internal scanner</li>
+        <li><a href="https://github.com/portcullislabs/enum4linux" target="_blank">Enum4linux</a> – for SMB enumeration</li>
+        <li><a href="https://github.com/wireghoul/dotdotpwn" target="_blank">DotDotPwn</a> – directory traversal fuzzer (useful for HTTP services)</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

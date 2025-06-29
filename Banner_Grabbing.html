@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Banner Grabbing - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🛰️ Banner Grabbing</h1>
+    <p class="subtitle">Extract service information to identify potential vulnerabilities</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>📌 What is Banner Grabbing?</h2>
+      <p>
+        Banner grabbing is a technique used in cybersecurity to collect information from network services by reading the banner information returned by applications. These banners may reveal software versions, server types, operating systems, and more—often unintentionally.
+      </p>
+    </section>
+
+    <section class="importance">
+      <h2>🎯 Why is Banner Grabbing Important?</h2>
+      <p>Understanding what software is running on a host helps ethical hackers:</p>
+      <ul>
+        <li>Identify potential vulnerabilities associated with software versions</li>
+        <li>Detect misconfigurations or outdated services</li>
+        <li>Prepare for more targeted enumeration or exploitation</li>
+      </ul>
+    </section>
+
+    <section class="types">
+      <h2>🧰 Types of Banner Grabbing</h2>
+
+      <div class="card">
+        <h3>1. Passive Banner Grabbing</h3>
+        <p>
+          Involves monitoring traffic or using third-party tools (e.g., Shodan, Censys) to gather information without actively connecting to the target.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>2. Active Banner Grabbing</h3>
+        <p>
+          Involves sending direct requests to services (e.g., HTTP, FTP, SSH) and analyzing the response to extract banner information.
+        </p>
+      </div>
+    </section>
+
+    <section class="tools">
+      <h2>🛠️ Common Tools for Banner Grabbing</h2>
+      <ul>
+        <li><strong>Netcat (nc):</strong> Simple TCP/IP client for banner grabbing manually</li>
+        <li><strong>Telnet:</strong> Connect to a specific port and view response</li>
+        <li><strong>Nmap:</strong> With <code>-sV</code> flag to detect service versions</li>
+        <li><strong>WhatWeb / Wappalyzer:</strong> Identify web technologies and server info</li>
+        <li><strong>Python Scripting:</strong> Automate custom banner grabbing</li>
+      </ul>
+    </section>
+
+    <section class="example">
+      <h2>💻 Real-World Examples</h2>
+
+      <h3>Using Netcat</h3>
+      <pre><code># Connect to HTTP port
+nc targetsite.com 80
+
+# Type this and hit Enter twice
+HEAD / HTTP/1.1
+Host: targetsite.com</code></pre>
+
+      <p>This might return:</p>
+      <pre><code>HTTP/1.1 200 OK
+Server: Apache/2.4.29 (Ubuntu)
+Date: Thu, 26 Jun 2025 20:15:00 GMT</code></pre>
+
+      <h3>Using Nmap</h3>
+      <pre><code>nmap -sV targetsite.com</code></pre>
+
+      <p>Sample output:</p>
+      <pre><code>PORT     STATE SERVICE VERSION
+22/tcp   open  ssh     OpenSSH 7.6p1 Ubuntu
+80/tcp   open  http    Apache httpd 2.4.29</code></pre>
+    </section>
+
+    <section class="tips">
+      <h2>🧠 Practical Tips & Insights</h2>
+      <ul>
+        <li>Use banner grabbing early in recon to map software stack</li>
+        <li>Combine passive methods (Shodan) with active tools (Nmap) for better coverage</li>
+        <li>Look for outdated or EOL software versions for potential CVEs</li>
+        <li>Be careful with active probing on production systems—ensure permission</li>
+      </ul>
+    </section>
+
+    <section class="defense">
+      <h2>🛡️ How to Defend Against Banner Grabbing</h2>
+      <p>System admins can reduce exposure by:</p>
+      <ul>
+        <li>Disabling or obfuscating server banners (e.g., <code>ServerTokens Prod</code> in Apache)</li>
+        <li>Using reverse proxies to hide backend server details</li>
+        <li>Enabling firewall rules to limit probing from unauthorized IPs</li>
+        <li>Using intrusion detection systems to flag banner grabbing attempts</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Useful References</h2>
+      <ul>
+        <li><a href="https://nmap.org/book/man-version-detection.html" target="_blank">Nmap Version Detection</a></li>
+        <li><a href="https://www.shodan.io/" target="_blank">Shodan - Passive Recon Tool</a></li>
+        <li><a href="https://github.com/urbanadventurer/WhatWeb" target="_blank">WhatWeb GitHub</a></li>
+        <li><a href="https://portswigger.net/web-security/information-disclosure" target="_blank">PortSwigger: Information Disclosure</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

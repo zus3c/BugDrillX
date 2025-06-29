@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Broken Authentication - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🔐 Broken Authentication</h1>
+    <p class="subtitle">Understand how weak authentication mechanisms lead to full account compromise</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Broken Authentication?</h2>
+      <p>
+        Broken Authentication refers to vulnerabilities in authentication mechanisms that allow attackers to gain unauthorized access to systems or user accounts. It’s part of the <strong>OWASP Top 10</strong> and includes flaws like weak credential management, session hijacking, brute-force exposure, and improper implementation of login mechanisms.
+      </p>
+    </section>
+
+    <section class="concepts">
+      <h2>🧩 Core Concepts & Risks</h2>
+      <div class="card">
+        <h3>Common Issues:</h3>
+        <ul>
+          <li>Use of weak or predictable passwords</li>
+          <li>Credential stuffing due to reused passwords</li>
+          <li>Missing or ineffective rate-limiting on login forms</li>
+          <li>Exposed session IDs in URLs or logs</li>
+          <li>Session fixation or session ID not rotated after login</li>
+          <li>Insecure password reset flows</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Potential Impact:</h3>
+        <ul>
+          <li>Full account takeover</li>
+          <li>Privilege escalation</li>
+          <li>Compromise of sensitive data</li>
+          <li>Persistence via stolen session tokens</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🔍 Step-by-Step Exploitation Scenarios</h2>
+
+      <h3>1. Credential Stuffing Attack</h3>
+      <p>Using leaked username/password pairs from previous breaches against a login page.</p>
+      <pre><code>POST /login HTTP/1.1
+Host: vulnerable-site.com
+Content-Type: application/json
+
+{
+  "username": "admin@example.com",
+  "password": "admin123"
+}</code></pre>
+
+      <p>If no rate-limiting or CAPTCHA is implemented, attackers can automate this process using tools like <code>Burp Suite Intruder</code> or <code>Hydra</code>.</p>
+
+      <h3>2. Session ID Hijacking</h3>
+      <p>Weak session handling can lead to session fixation or leakage via referer headers, logs, or URLs.</p>
+      <pre><code>GET /dashboard?sessionID=abc123xyz HTTP/1.1
+Cookie: sessionID=abc123xyz</code></pre>
+      <p>If this ID is predictable or captured via MITM, the attacker can impersonate the user.</p>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Case Study</h2>
+      <p>In 2021, an online financial service provider was breached through a weak password reset implementation. Attackers exploited the lack of token expiration and predictable reset tokens to reset passwords of high-value accounts.</p>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Defensive Tips & Best Practices</h2>
+      <ul>
+        <li>Implement multi-factor authentication (MFA) for all users</li>
+        <li>Enforce strong password policies (length, complexity, history)</li>
+        <li>Use rate limiting and CAPTCHA on login endpoints</li>
+        <li>Invalidate and rotate session IDs after login/logout</li>
+        <li>Do not expose session tokens in URLs</li>
+        <li>Use secure, time-limited password reset flows</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Recommended Tools & Resources</h2>
+      <ul>
+        <li><a href="https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/" target="_blank">OWASP - Broken Authentication</a></li>
+        <li><a href="https://portswigger.net/web-security/authentication" target="_blank">PortSwigger Authentication Labs</a></li>
+        <li><a href="https://github.com/danielmiessler/SecLists" target="_blank">SecLists (for common passwords)</a></li>
+        <li><a href="https://haveibeenpwned.com/" target="_blank">Have I Been Pwned</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

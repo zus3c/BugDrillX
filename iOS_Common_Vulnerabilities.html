@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>iOS Common Vulnerabilities - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>📱 iOS Common Vulnerabilities</h1>
+    <p class="subtitle">Explore the top security risks in iOS apps – from insecure storage to jailbreak detection bypasses</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>🔎 Overview</h2>
+      <p>
+        iOS is considered a highly secure mobile platform, but applications built for iOS are not immune to common vulnerabilities. Many mobile apps fail to follow secure coding practices, exposing users to risks such as data leakage, weak authentication, or reverse engineering. This guide explores the most common vulnerabilities found in iOS apps, complete with examples and tips to mitigate them.
+      </p>
+    </section>
+
+    <section class="card">
+      <h3>1. Insecure Data Storage</h3>
+      <p>
+        Sensitive information like tokens, passwords, or personal user data is sometimes stored unencrypted in places like <code>UserDefaults</code>, <code>NSCachesDirectory</code>, or <code>SQLite</code> databases.
+      </p>
+      <pre><code>// Example (bad practice)
+UserDefaults.standard.set("supersecrettoken", forKey: "auth_token")</code></pre>
+      <p><strong>Mitigation:</strong> Use Keychain for sensitive data and always encrypt local storage.</p>
+    </section>
+
+    <section class="card">
+      <h3>2. Weak Jailbreak Detection</h3>
+      <p>
+        Many apps attempt to detect jailbroken devices but use outdated or easily bypassable techniques (e.g., checking for Cydia.app).
+      </p>
+      <pre><code>// Weak check
+if FileManager.default.fileExists(atPath: "/Applications/Cydia.app") {
+    print("Jailbroken")
+}</code></pre>
+      <p><strong>Mitigation:</strong> Use multiple and obfuscated checks; integrate runtime integrity verification.</p>
+    </section>
+
+    <section class="card">
+      <h3>3. Insecure Communication</h3>
+      <p>
+        Apps transmitting sensitive data over HTTP instead of HTTPS, or failing to validate SSL certificates, are vulnerable to man-in-the-middle (MitM) attacks.
+      </p>
+      <p><strong>Mitigation:</strong> Enforce HTTPS, enable App Transport Security (ATS), and implement SSL pinning if needed.</p>
+    </section>
+
+    <section class="card">
+      <h3>4. Reverse Engineering & Lack of Obfuscation</h3>
+      <p>
+        iOS apps can be decompiled using tools like Hopper or class-dumped to reveal method names, logic, and API keys.
+      </p>
+      <p><strong>Mitigation:</strong> Strip symbols from builds, use Swift’s obfuscation tools, and avoid hardcoding secrets in code.</p>
+    </section>
+
+    <section class="card">
+      <h3>5. Insecure API Endpoints</h3>
+      <p>
+        Many iOS apps expose APIs that lack authentication, authorization, or proper input validation, leading to issues like IDOR or injection.
+      </p>
+      <p><strong>Mitigation:</strong> Use proper authentication tokens (JWT, OAuth), validate user roles, and sanitize input on the server side.</p>
+    </section>
+
+    <section class="card">
+      <h3>6. Biometric Misconfigurations</h3>
+      <p>
+        Improper use of Touch ID / Face ID can lead to privilege escalation or unauthorized access to sensitive features.
+      </p>
+      <p><strong>Mitigation:</strong> Always verify biometric results server-side and avoid relying on them as the sole security mechanism.</p>
+    </section>
+
+    <section class="card">
+      <h3>7. Improper Session Handling</h3>
+      <p>
+        Sessions that never expire or fail to properly handle logout can be hijacked, especially on jailbroken devices.
+      </p>
+      <p><strong>Mitigation:</strong> Use short-lived tokens, rotate them frequently, and invalidate sessions server-side upon logout.</p>
+    </section>
+
+    <section class="real-world">
+      <h2>🧪 Real-World Example</h2>
+      <p>A financial iOS app was found storing unencrypted JWT tokens in <code>UserDefaults</code>. Using a jailbroken device and accessing the app's sandbox, an attacker extracted the token and reused it via API to perform unauthorized transfers.</p>
+      <pre><code>$ frida-trace -n TargetApp -m "*NSUserDefaults*"
+$ strings ~/Library/Developer/CoreSimulator/Devices/.../data/Containers/Data/Application/.../Library/Preferences/*.plist</code></pre>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips for Pentesters</h2>
+      <ul>
+        <li>Use <code>Objection</code> and <code>Frida</code> for runtime analysis</li>
+        <li>Check for exposed URL schemes via <code>strings</code></li>
+        <li>Enumerate local files with <code>filza</code> or <code>iExplorer</code></li>
+        <li>Intercept traffic with <code>Burp Suite + iOS proxy cert</code></li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Recommended Tools & Resources</h2>
+      <ul>
+        <li><a href="https://github.com/nowsecure/objection" target="_blank">Objection</a></li>
+        <li><a href="https://frida.re/" target="_blank">Frida</a></li>
+        <li><a href="https://developer.apple.com/security/" target="_blank">Apple Security Documentation</a></li>
+        <li><a href="https://owasp.org/www-project-mobile-top-10/" target="_blank">OWASP Mobile Top 10</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

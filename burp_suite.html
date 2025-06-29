@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Burp Suite - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🧪 Burp Suite</h1>
+    <p class="subtitle">Master the ultimate toolkit for web application penetration testing</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>🔎 What is Burp Suite?</h2>
+      <p>
+        Burp Suite is an integrated platform for performing security testing of web applications. Developed by PortSwigger, it is widely used by ethical hackers, bug bounty hunters, and professional pentesters to identify and exploit security flaws.
+      </p>
+    </section>
+
+    <section class="versions">
+      <h2>📦 Burp Suite Editions</h2>
+      <ul>
+        <li><strong>Community:</strong> Free with limited features. Ideal for learning and basic testing.</li>
+        <li><strong>Professional:</strong> Paid version with advanced tools like Burp Scanner, Intruder, and more.</li>
+        <li><strong>Enterprise:</strong> Designed for large-scale automated scanning in corporate environments.</li>
+      </ul>
+    </section>
+
+    <section class="core-components">
+      <h2>🧩 Core Components</h2>
+      <div class="card">
+        <h3>Proxy</h3>
+        <p>Intercepts and modifies traffic between your browser and the target application.</p>
+      </div>
+      <div class="card">
+        <h3>Repeater</h3>
+        <p>Allows manual modification and re-sending of HTTP requests for testing parameter behavior.</p>
+      </div>
+      <div class="card">
+        <h3>Intruder</h3>
+        <p>Automated tool for fuzzing parameters, brute-forcing credentials, and identifying injection points.</p>
+      </div>
+      <div class="card">
+        <h3>Scanner</h3>
+        <p>(Pro version only) Performs passive and active scanning to detect vulnerabilities like XSS, SQLi, and more.</p>
+      </div>
+      <div class="card">
+        <h3>Decoder & Comparer</h3>
+        <p>Used to encode/decode data formats (Base64, URL, etc.) and compare responses.</p>
+      </div>
+    </section>
+
+    <section class="setup">
+      <h2>⚙️ Getting Started with Burp Suite</h2>
+
+      <h3>Step 1: Install Burp Suite</h3>
+      <p>Download from <a href="https://portswigger.net/burp" target="_blank">portswigger.net</a> and install for your OS (Windows, Linux, macOS).</p>
+
+      <h3>Step 2: Configure the Browser Proxy</h3>
+      <p>Set your browser proxy to <code>127.0.0.1:8080</code>. Import Burp's CA certificate to trust HTTPS interception.</p>
+
+      <h3>Step 3: Start Intercepting</h3>
+      <p>With "Intercept" enabled, visit a website and view/modify HTTP requests in real time.</p>
+    </section>
+
+    <section class="real-world">
+      <h2>🌍 Real-World Use Case: Testing Login Bypass</h2>
+      <p>Example of using <strong>Repeater</strong> to test login functionality:</p>
+      <pre><code>POST /login HTTP/1.1
+Host: target.com
+Content-Type: application/x-www-form-urlencoded
+
+username=admin&password=wrongpassword</code></pre>
+      <p>After sending the request to Repeater, change <code>password=wrongpassword</code> to a SQL payload like <code>' OR 1=1--</code> and observe the response.</p>
+    </section>
+
+    <section class="pro-tips">
+      <h2>💡 Pro Tips</h2>
+      <ul>
+        <li>Use extensions from the BApp Store like <strong>Autorize</strong>, <strong>Logger++</strong>, and <strong>JWT Editor</strong>.</li>
+        <li>Map the target completely before active testing using <em>Spider</em>.</li>
+        <li>Use <code>Ctrl + Shift + Q</code> to quickly send requests between tabs.</li>
+        <li>Bookmark interesting requests with comments for later review.</li>
+      </ul>
+    </section>
+
+    <section class="extensions">
+      <h2>🔌 Recommended Extensions</h2>
+      <ul>
+        <li><strong>Autorize:</strong> Detect broken access control issues.</li>
+        <li><strong>Turbo Intruder:</strong> High-speed brute forcing.</li>
+        <li><strong>Logger++:</strong> Advanced logging and tracking.</li>
+        <li><strong>Hackvertor:</strong> Encode/obfuscate payloads quickly.</li>
+        <li><strong>J2EEScan:</strong> Vulnerability scanner for Java apps.</li>
+      </ul>
+    </section>
+
+    <section class="shortcuts">
+      <h2>⌨️ Useful Keyboard Shortcuts</h2>
+      <ul>
+        <li><strong>Ctrl + I:</strong> Send request to Repeater</li>
+        <li><strong>Ctrl + U:</strong> URL-decode selected text</li>
+        <li><strong>Ctrl + Shift + H:</strong> Highlight request</li>
+        <li><strong>Ctrl + F:</strong> Search inside a request or response</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Learning Resources</h2>
+      <ul>
+        <li><a href="https://portswigger.net/web-security" target="_blank">Web Security Academy by PortSwigger</a></li>
+        <li><a href="https://github.com/snoopysecurity/awesome-burp-extensions" target="_blank">Awesome Burp Extensions (GitHub)</a></li>
+        <li><a href="https://book.hacktricks.xyz/" target="_blank">HackTricks Burp Tips</a></li>
+        <li><a href="https://www.youtube.com/@Stök" target="_blank">Stök YouTube Channel – Burp Live Tutorials</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

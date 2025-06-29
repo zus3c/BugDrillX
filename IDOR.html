@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IDOR - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🔓 IDOR - Insecure Direct Object Reference</h1>
+    <p class="subtitle">Understand how broken object-level authorization exposes sensitive data and actions</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is IDOR?</h2>
+      <p>
+        IDOR (Insecure Direct Object Reference) is a type of access control vulnerability that occurs when an application exposes internal objects (like files, records, or database entries) through user-supplied input without proper authorization checks.
+      </p>
+      <p>
+        It allows attackers to manipulate IDs in the URL or request body to access data or perform unauthorized actions belonging to other users.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>📂 Common IDOR Scenarios</h2>
+      <div class="card">
+        <h3>1. URL-based IDOR</h3>
+        <p>User A accesses <code>/invoice/1234</code>. If changing the ID to <code>/invoice/1235</code> shows another user's invoice, it's vulnerable.</p>
+      </div>
+      <div class="card">
+        <h3>2. POST Body Manipulation</h3>
+        <p>Modifying JSON request bodies to change <code>"user_id":123</code> to <code>"user_id":124</code> may grant unauthorized access.</p>
+      </div>
+      <div class="card">
+        <h3>3. File Download/Upload IDs</h3>
+        <p>Guessable file IDs like <code>/download/file?id=567</code> can leak private documents if not checked against user permissions.</p>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧠 How to Identify and Exploit IDOR</h2>
+
+      <h3>Step 1: Observe URLs and Requests</h3>
+      <p>Look for numeric or sequential IDs in URLs, cookies, headers, or request bodies.</p>
+
+      <h3>Step 2: Modify the ID</h3>
+      <p>Increment or guess another user's ID (e.g., change <code>user_id=101</code> to <code>user_id=102</code>).</p>
+
+      <h3>Step 3: Analyze the Response</h3>
+      <p>If you receive unauthorized data (e.g., someone else's profile or document), the application is likely vulnerable.</p>
+
+      <h3>Step 4: Confirm Authorization Failure</h3>
+      <p>Ensure there's no access control logic (session checks, role checks, etc.) being enforced.</p>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Example</h2>
+      <p>Request made by a logged-in user to access their own profile:</p>
+      <pre><code>GET /api/user/2345 HTTP/1.1
+Host: vulnerable.site
+Authorization: Bearer eyJhbGciOi...
+</code></pre>
+
+      <p>Attacker changes the ID:</p>
+      <pre><code>GET /api/user/2346 HTTP/1.1
+Host: vulnerable.site
+Authorization: Bearer eyJhbGciOi...
+</code></pre>
+
+      <p><strong>If the server responds with another user's data</strong> without verifying ownership of ID <code>2346</code>, it confirms IDOR.</p>
+    </section>
+
+    <section class="prevention">
+      <h2>🛡️ How to Prevent IDOR</h2>
+      <ul>
+        <li>Enforce object-level authorization checks on every request, both GET and POST.</li>
+        <li>Use indirect references (UUIDs or hashed identifiers) instead of raw numeric IDs.</li>
+        <li>Never rely on client-side data to validate permissions.</li>
+        <li>Implement role-based access control (RBAC) or access control lists (ACLs).</li>
+        <li>Use secure server-side logic to filter access per user/session.</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips for Pentesters</h2>
+      <ul>
+        <li>Test authenticated endpoints thoroughly with multiple user roles (admin/user/guest).</li>
+        <li>Automate fuzzing of ID parameters using tools like Burp Suite's Intruder.</li>
+        <li>Check for hidden parameters in JavaScript and hidden fields.</li>
+        <li>Validate if logged-in users can access or delete resources they don’t own.</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Recommended Tools & References</h2>
+      <ul>
+        <li><a href="https://owasp.org/www-project-top-ten/2017/A5_2017-Broken_Access_Control" target="_blank">OWASP: Broken Access Control</a></li>
+        <li><a href="https://portswigger.net/web-security/access-control" target="_blank">PortSwigger - Access Control Labs</a></li>
+        <li><a href="https://book.hacktricks.xyz/pentesting-web/idor-insecure-direct-object-reference" target="_blank">HackTricks - IDOR Cheatsheet</a></li>
+        <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Insecure%20Direct%20Object%20Reference" target="_blank">PayloadsAllTheThings - IDOR</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

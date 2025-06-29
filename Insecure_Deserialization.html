@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Insecure Deserialization - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🧱 Insecure Deserialization</h1>
+    <p class="subtitle">OWASP A05:2021 – One of the most common yet overlooked security flaws</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>🔎 What is Security Misconfiguration?</h2>
+      <p>
+        Security misconfiguration happens when systems, applications, or networks are insecurely configured or left with default settings that can be exploited. It is one of the easiest attack vectors to exploit and commonly affects cloud services, web servers, databases, frameworks, and more.
+      </p>
+    </section>
+
+    <section class="examples">
+      <h2>📌 Real-World Examples</h2>
+      <div class="card">
+        <ul>
+          <li>Admin consoles exposed to the internet without authentication</li>
+          <li>Default credentials still enabled (e.g., admin/admin)</li>
+          <li>Verbose error messages revealing stack traces or sensitive paths</li>
+          <li>Unnecessary services (FTP, Telnet) running on production servers</li>
+          <li>Misconfigured CORS policies allowing unsafe cross-origin requests</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="detection">
+      <h2>🛠 How to Detect Misconfigurations</h2>
+      <ul>
+        <li>Perform manual and automated scans using tools like <strong>Nikto, Nmap, Nessus</strong></li>
+        <li>Review server headers, application responses, and cloud permissions</li>
+        <li>Check exposed admin panels, directories, or debug endpoints</li>
+        <li>Conduct code reviews for default/unsafe settings</li>
+      </ul>
+    </section>
+
+    <section class="steps">
+      <h2>🧠 Step-by-Step Attack Scenario</h2>
+      <h3>Target: Misconfigured Web Server</h3>
+      <ol>
+        <li>Run <code>nmap -sV target.com</code> to find open ports and service versions</li>
+        <li>Access <code>http://target.com:8080/</code> — reveals Apache Tomcat Manager</li>
+        <li>Try default creds: <code>admin:admin</code> → Success!</li>
+        <li>Deploy malicious WAR file via the web interface</li>
+        <li>Obtain remote shell access</li>
+      </ol>
+
+      <pre><code># Example default Tomcat login
+URL: http://target.com:8080/manager/html
+Credentials: admin / admin
+
+# Upload malicious payload
+curl -T shell.war "http://admin:admin@target.com:8080/manager/text/deploy?path=/shell"</code></pre>
+    </section>
+
+    <section class="prevention">
+      <h2>✅ Prevention and Best Practices</h2>
+      <ul>
+        <li>Disable unused services, ports, and features in all environments</li>
+        <li>Change all default usernames/passwords before deployment</li>
+        <li>Set proper permissions and file access controls (principle of least privilege)</li>
+        <li>Ensure security headers are correctly configured (e.g., Content-Security-Policy, X-Frame-Options)</li>
+        <li>Automate security configuration checks using Infrastructure-as-Code scanning tools like <strong>Checkov</strong> or <strong>tfsec</strong></li>
+      </ul>
+    </section>
+
+    <section class="tools">
+      <h2>🧰 Recommended Tools</h2>
+      <ul>
+        <li><a href="https://nmap.org/" target="_blank">Nmap</a></li>
+        <li><a href="https://github.com/sullo/nikto" target="_blank">Nikto</a></li>
+        <li><a href="https://portswigger.net/burp" target="_blank">Burp Suite</a></li>
+        <li><a href="https://checkov.io/" target="_blank">Checkov (IaC security scanner)</a></li>
+        <li><a href="https://owasp.org/www-project-defectdojo/" target="_blank">OWASP DefectDojo</a></li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Expert Tips</h2>
+      <ul>
+        <li>Always remove sample files, setup scripts, and documentation in production</li>
+        <li>Regularly run config audits and CIS benchmarks for servers and services</li>
+        <li>Use centralized logging and SIEMs to detect unusual access patterns</li>
+        <li>Conduct internal Red Team assessments to identify overlooked misconfigurations</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Business Logic Flaws - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🧠 Business Logic Flaws</h1>
+    <p class="subtitle">Understand how logic vulnerabilities break application workflows and how to detect them</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What Are Business Logic Flaws?</h2>
+      <p>
+        Business logic flaws are vulnerabilities caused by incorrect implementation of the application's intended behavior. They are not caused by coding bugs, but rather by flawed assumptions about how users will interact with the system.
+        These flaws can lead to severe consequences such as bypassing payment flows, privilege escalation, or abuse of discounts and limits.
+      </p>
+    </section>
+
+    <section class="concepts">
+      <h2>🧩 Key Concepts</h2>
+      <ul>
+        <li><strong>Application Workflow:</strong> The expected sequence of actions or validations in a process (e.g., checkout, registration).</li>
+        <li><strong>Logical Validation:</strong> Ensuring actions are allowed in the current context (e.g., preventing refunds after shipping).</li>
+        <li><strong>User Manipulation:</strong> Attackers tamper with parameters or order of actions to trick the system.</li>
+      </ul>
+    </section>
+
+    <section class="examples">
+      <h2>🔍 Real-World Examples</h2>
+
+      <div class="card">
+        <h3>1. Skipping Payment Step</h3>
+        <p>
+          A user modifies a request to change the status of an order to “paid” without completing the payment process.
+        </p>
+        <pre><code>POST /checkout/complete
+order_id=789&payment_status=paid</code></pre>
+        <p>💥 Impact: The system marks the order as paid without validating the actual transaction.</p>
+      </div>
+
+      <div class="card">
+        <h3>2. Abuse of Discount Logic</h3>
+        <p>
+          A site allows a discount coupon once per user. By registering multiple accounts or manipulating the user ID in requests, the same coupon can be reused.
+        </p>
+        <pre><code>POST /apply-coupon
+user_id=1002&coupon=SUMMER50</code></pre>
+        <p>💥 Impact: Business suffers financial loss from uncontrolled discounts.</p>
+      </div>
+
+      <div class="card">
+        <h3>3. Bypassing Access Control</h3>
+        <p>
+          A user requests another user’s invoice by changing the ID in the URL:
+        </p>
+        <pre><code>GET /invoices/view?id=401</code></pre>
+        <p>💥 Impact: Sensitive financial data is exposed due to missing logic validation on ownership.</p>
+      </div>
+    </section>
+
+    <section class="approach">
+      <h2>🧪 How to Test for Business Logic Flaws</h2>
+      <ol>
+        <li>Understand the intended business flow by using the application as a normal user.</li>
+        <li>Analyze edge cases: incomplete steps, wrong sequences, replaying requests.</li>
+        <li>Tamper with parameters, skip steps, or modify HTTP methods.</li>
+        <li>Use tools like Burp Suite Repeater/Intruder to simulate variations.</li>
+        <li>Test multi-user scenarios (e.g., impersonation, privilege boundaries).</li>
+      </ol>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Actionable Tips</h2>
+      <ul>
+        <li>Always validate business conditions server-side (never trust client logic).</li>
+        <li>Define and enforce correct workflows with strict state transitions.</li>
+        <li>Use rate-limiting, identity checks, and audit trails for financial processes.</li>
+        <li>Focus testing on features with monetary value: coupons, refunds, loyalty points, etc.</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Recommended Resources</h2>
+      <ul>
+        <li><a href="https://owasp.org/www-community/attacks/Business_Logic_Attack" target="_blank">OWASP - Business Logic Attack</a></li>
+        <li><a href="https://portswigger.net/web-security/logic-flaws" target="_blank">PortSwigger - Business Logic Vulnerabilities</a></li>
+        <li><a href="https://www.hackerone.com/blog/Business-Logic-Vulnerabilities-Explained" target="_blank">HackerOne - Logic Flaws Explained</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

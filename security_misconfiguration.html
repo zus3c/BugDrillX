@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Security Misconfiguration - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🔐 Security Misconfiguration</h1>
+    <p class="subtitle">How minor configuration issues can lead to major breaches</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>🧩 What is Security Misconfiguration?</h2>
+      <p>
+        Security misconfiguration occurs when systems, frameworks, cloud environments, or applications are configured with insecure settings or default configurations. This is one of the most common and dangerous vulnerabilities in modern infrastructures.
+      </p>
+    </section>
+
+    <section class="examples">
+      <h2>💥 Common Misconfiguration Scenarios</h2>
+      <ul>
+        <li>Exposed admin interfaces without authentication</li>
+        <li>Verbose error messages revealing stack traces or server paths</li>
+        <li>Directory listing enabled on web servers</li>
+        <li>Default credentials or unused services enabled</li>
+        <li>Open S3 buckets or misconfigured cloud storage</li>
+        <li>Unpatched software or unnecessary ports exposed</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>📌 Real-World Breach: Capital One (2019)</h2>
+      <p>
+        A cloud misconfiguration in AWS allowed an attacker to exploit a poorly configured WAF, exfiltrating over 100 million customer records from Capital One. The root cause? Excessive permissions and poor configuration practices.
+      </p>
+    </section>
+
+    <section class="how-to-find">
+      <h2>🕵️ How Attackers Discover Misconfigurations</h2>
+      <ul>
+        <li><strong>Nikto / Nmap:</strong> For identifying unnecessary open ports and services</li>
+        <li><strong>Dirb / Gobuster:</strong> For finding sensitive directories</li>
+        <li><strong>SSRF or LFI:</strong> Can sometimes exploit configuration flaws indirectly</li>
+        <li><strong>S3Scanner / Grayhat Warfare:</strong> Tools for finding exposed S3 buckets</li>
+        <li><strong>Error-based recon:</strong> Viewing stack traces, debug pages, environment dumps</li>
+      </ul>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧪 Step-by-Step Attack Simulation</h2>
+      <p>Let’s walk through a basic example using Nmap and Gobuster:</p>
+<pre><code># Step 1: Scan for open ports
+nmap -sV targetsite.com
+
+# Output:
+# PORT     STATE SERVICE    VERSION
+# 80/tcp   open  http       Apache 2.4.49
+# 8080/tcp open  http-proxy Admin interface (unauthenticated)
+
+# Step 2: Try directory enumeration
+gobuster dir -u http://targetsite.com -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+
+# Output:
+# /admin
+# /backup
+# /.git
+</code></pre>
+      <p>
+        Finding a misconfigured admin panel or exposed version control folder could allow an attacker to gain further access or leak sensitive data.
+      </p>
+    </section>
+
+    <section class="defense">
+      <h2>🛡️ Defensive Recommendations</h2>
+      <ul>
+        <li>Disable directory listing and unnecessary services</li>
+        <li>Change default credentials immediately</li>
+        <li>Restrict access to admin panels and use IP whitelisting</li>
+        <li>Regularly patch systems and rotate secrets</li>
+        <li>Use automated tools (e.g., ScoutSuite, AWS Trusted Advisor) to audit cloud configs</li>
+        <li>Harden HTTP headers: disable X-Powered-By, enable CSP, HSTS</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Tools for Detection</h2>
+      <ul>
+        <li><a href="https://nmap.org/" target="_blank">Nmap</a> – Port and service scanner</li>
+        <li><a href="https://github.com/OJ/gobuster" target="_blank">Gobuster</a> – Directory & file brute-forcer</li>
+        <li><a href="https://github.com/s0md3v/Arjun" target="_blank">Arjun</a> – Parameter discovery</li>
+        <li><a href="https://github.com/guelfoweb/dirsearch" target="_blank">Dirsearch</a> – Web path scanner</li>
+        <li><a href="https://github.com/aboul3la/Sublist3r" target="_blank">Sublist3r</a> – Subdomain enumeration</li>
+      </ul>
+    </section>
+
+    <section class="pro-tips">
+      <h2>💡 Pro Tips</h2>
+      <ul>
+        <li>Scan your own web apps using tools like <strong>OWASP ZAP</strong> or <strong>Burp Suite</strong></li>
+        <li>Use CI/CD pipelines to catch configuration drift (e.g., Terraform with Sentinel)</li>
+        <li>Hide error details from users, log them securely instead</li>
+        <li>Document and review configs quarterly with DevSecOps teams</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

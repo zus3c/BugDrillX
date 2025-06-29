@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sublist3r - Subdomain Enumeration Tool</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🌐 Sublist3r</h1>
+    <p class="subtitle">Fast and powerful subdomain enumeration tool for OSINT and reconnaissance</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Sublist3r?</h2>
+      <p>
+        <strong>Sublist3r</strong> is a fast and open-source subdomain enumeration tool written in Python. It's commonly used in the reconnaissance phase of ethical hacking to discover subdomains of a target domain using OSINT (Open Source Intelligence).
+      </p>
+    </section>
+
+    <section class="features">
+      <h2>🚀 Key Features</h2>
+      <ul>
+        <li>Enumerates subdomains using multiple search engines (Google, Bing, Yahoo, Baidu, etc.)</li>
+        <li>Integrates with <code>subbrute</code> for bruteforce enumeration</li>
+        <li>Fast, lightweight, and easy to use</li>
+        <li>Supports saving results to a file</li>
+      </ul>
+    </section>
+
+    <section class="installation">
+      <h2>💻 Installation Guide</h2>
+      <pre><code># Clone the repository
+git clone https://github.com/aboul3la/Sublist3r.git
+
+# Navigate into the directory
+cd Sublist3r
+
+# Install the required packages
+pip install -r requirements.txt</code></pre>
+      <p><strong>Note:</strong> Ensure you have Python 2.7 or Python 3+ and pip installed.</p>
+    </section>
+
+    <section class="usage">
+      <h2>🛠️ How to Use Sublist3r</h2>
+      <p>Basic syntax:</p>
+      <pre><code>python sublist3r.py -d example.com</code></pre>
+
+      <div class="card">
+        <h3>Examples:</h3>
+        <ul>
+          <li><code>python sublist3r.py -d target.com -o subdomains.txt</code>  
+            → Saves the results to a file</li>
+          <li><code>python sublist3r.py -d example.com -p 80,443</code>  
+            → Launches port scan on discovered subdomains</li>
+          <li><code>python sublist3r.py -d example.com -v</code>  
+            → Enables verbose mode to see real-time progress</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="advanced">
+      <h2>📡 Advanced Usage</h2>
+      <p>Sublist3r can be combined with other tools like <code>Amass</code>, <code>Assetfinder</code>, or DNS resolvers to verify and expand subdomain results.</p>
+
+      <p>Example chaining with DNS resolution:</p>
+      <pre><code>python sublist3r.py -d example.com -o domains.txt
+cat domains.txt | dnsx -silent -a -resp</code></pre>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips & Insights</h2>
+      <ul>
+        <li>Use multiple subdomain tools for broader coverage</li>
+        <li>Run Sublist3r regularly during engagement as DNS records may change</li>
+        <li>Check discovered subdomains for exposed services like admin panels or dev environments</li>
+        <li>Use <code>-o</code> flag to store results and process them with automation scripts</li>
+      </ul>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Use Case</h2>
+      <p>During a bug bounty assessment, a researcher used Sublist3r to discover <code>dev.target.com</code> — a forgotten development server running outdated software with default credentials, resulting in critical RCE vulnerability. Subdomain enumeration often reveals the weakest entry point.</p>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Further Reading & Tools</h2>
+      <ul>
+        <li><a href="https://github.com/aboul3la/Sublist3r" target="_blank">Official GitHub Repository</a></li>
+        <li><a href="https://osintframework.com/" target="_blank">OSINT Framework</a></li>
+        <li><a href="https://github.com/projectdiscovery/dnsx" target="_blank">dnsx – Passive DNS Resolver</a></li>
+        <li><a href="https://www.youtube.com/watch?v=LYIpqhvYSkM" target="_blank">YouTube Tutorial: Sublist3r Explained</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

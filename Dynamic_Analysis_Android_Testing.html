@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dynamic Analysis Android Testing - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>📱 Dynamic Analysis - Android Testing</h1>
+    <p class="subtitle">Analyze Android app behavior in real time to uncover runtime vulnerabilities and misconfigurations</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>🔎 What is Dynamic Analysis?</h2>
+      <p>
+        Dynamic analysis refers to observing and interacting with an Android application while it's running on a real device or emulator. This helps identify runtime issues such as insecure API calls, data leakage, improper authentication, or unintended access to sensitive functionality.
+      </p>
+    </section>
+
+    <section class="why-important">
+      <h2>📌 Why is it Important?</h2>
+      <ul>
+        <li>Static analysis alone may miss runtime issues</li>
+        <li>It helps catch logic flaws, API abuse, or hidden features</li>
+        <li>Essential for testing real-world behavior under different conditions</li>
+      </ul>
+    </section>
+
+    <section class="setup">
+      <h2>⚙️ Setting Up Your Lab</h2>
+      <p>You can choose between real devices or emulators. Here's a basic setup:</p>
+
+      <div class="card">
+        <h3>1. Required Tools</h3>
+        <ul>
+          <li><strong>Android Emulator (AVD or Genymotion)</strong></li>
+          <li><strong>Frida</strong> - dynamic instrumentation toolkit</li>
+          <li><strong>Burp Suite</strong> - for intercepting HTTP(S) traffic</li>
+          <li><strong>adb</strong> - Android Debug Bridge</li>
+          <li><strong>APKTool / jadx</strong> - for reversing APKs</li>
+          <li><strong>Rooted Device or Emulator</strong> - for deeper analysis</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🚀 Step-by-Step Guide</h2>
+
+      <h3>Step 1: Install the APK</h3>
+      <pre><code>adb install targetapp.apk</code></pre>
+
+      <h3>Step 2: Set Up Burp Proxy</h3>
+      <ul>
+        <li>Configure Android Wi-Fi to use your host IP as a proxy (port 8080)</li>
+        <li>Install Burp's CA certificate on the device (under User credentials)</li>
+      </ul>
+
+      <h3>Step 3: Observe API Traffic</h3>
+      <p>Launch the app and monitor HTTP/HTTPS calls via Burp Suite. Look for:</p>
+      <ul>
+        <li>Insecure endpoints (HTTP instead of HTTPS)</li>
+        <li>Hardcoded API keys in headers</li>
+        <li>Sensitive data (tokens, credentials, PII) in responses</li>
+      </ul>
+
+      <h3>Step 4: Runtime Hooking with Frida</h3>
+      <p>Use <code>frida-trace</code> or custom scripts to hook into app functions.</p>
+      <pre><code># Example: Hooking a Java method
+frida -U -n com.target.app -l hook.js</code></pre>
+
+      <h3>Step 5: Monitor Logs and Intents</h3>
+      <pre><code>adb logcat | grep "your.package.name"</code></pre>
+      <p>This reveals runtime logs, crash info, and debug messages.</p>
+    </section>
+
+    <section class="common-findings">
+      <h2>🧠 Common Vulnerabilities Found via Dynamic Analysis</h2>
+      <ul>
+        <li>Insecure data storage (e.g., SharedPreferences storing passwords)</li>
+        <li>Improper certificate validation (MITM attacks possible)</li>
+        <li>Debug or test functions left in production builds</li>
+        <li>Hardcoded secrets accessed at runtime</li>
+        <li>Abuse of exported components (Activities, Services, etc.)</li>
+      </ul>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Example</h2>
+      <pre><code># Hooking the login function to dump credentials
+Java.perform(function () {
+  var LoginManager = Java.use("com.target.app.LoginManager");
+  LoginManager.authenticate.overload('java.lang.String', 'java.lang.String').implementation = function(u, p) {
+    console.log("Username: " + u);
+    console.log("Password: " + p);
+    return this.authenticate(u, p);
+  };
+});</code></pre>
+      <p>➡️ This reveals real credentials sent during login attempts, useful in testing weak authentication logic.</p>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips</h2>
+      <ul>
+        <li>Always test in a controlled, isolated environment</li>
+        <li>Rooted emulators provide deeper access (Magisk + Xposed)</li>
+        <li>Use snapshots to revert emulator to clean state</li>
+        <li>Combine with static analysis to cross-check logic</li>
+        <li>Logcat output is gold — don’t ignore it!</li>
+      </ul>
+    </section>
+
+    <section class="tools">
+      <h2>🛠️ Top Tools for Dynamic Android Testing</h2>
+      <ul>
+        <li><a href="https://frida.re/" target="_blank">Frida</a></li>
+        <li><a href="https://portswigger.net/burp" target="_blank">Burp Suite</a></li>
+        <li><a href="https://developer.android.com/studio/command-line/adb" target="_blank">ADB (Android Debug Bridge)</a></li>
+        <li><a href="https://github.com/joeybooth/frida-android-tools" target="_blank">Frida Android Tools</a></li>
+        <li><a href="https://github.com/androguard/androguard" target="_blank">Androguard</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

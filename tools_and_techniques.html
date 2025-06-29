@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tools and Techniques - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🛠️ Tools and Techniques</h1>
+    <p class="subtitle">Master the essential tools and methods used by ethical hackers and security researchers</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>Overview</h2>
+      <p>
+        The right tools make all the difference in cybersecurity. From passive reconnaissance to exploitation and reporting, every phase of ethical hacking relies on specialized utilities and frameworks. This guide introduces must-know tools, how they work, and when to use them effectively.
+      </p>
+    </section>
+
+    <section class="categories">
+      <h2>🧰 Tool Categories and Use Cases</h2>
+
+      <div class="card">
+        <h3>🔍 Reconnaissance</h3>
+        <ul>
+          <li><strong>theHarvester:</strong> Gathers emails, domains, and subdomains from public sources</li>
+          <li><strong>Sublist3r:</strong> Rapid subdomain enumeration using OSINT techniques</li>
+          <li><strong>Shodan:</strong> Search engine for Internet-connected devices</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>🌐 Scanning and Enumeration</h3>
+        <ul>
+          <li><strong>Nmap:</strong> Industry standard for port scanning and service discovery</li>
+          <li><strong>Masscan:</strong> Extremely fast scanner for large networks</li>
+          <li><strong>WhatWeb:</strong> Identifies web technologies and CMS platforms</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>🔓 Exploitation Frameworks</h3>
+        <ul>
+          <li><strong>Metasploit:</strong> Powerful framework for exploit development and post-exploitation</li>
+          <li><strong>SQLmap:</strong> Automated SQL injection detection and exploitation</li>
+          <li><strong>XSStrike:</strong> Advanced XSS detection suite</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>📂 Directory & File Enumeration</h3>
+        <ul>
+          <li><strong>Gobuster:</strong> Brute-force URIs and DNS subdomains</li>
+          <li><strong>Dirsearch:</strong> Directory brute-forcing with powerful options</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>📦 Miscellaneous Tools</h3>
+        <ul>
+          <li><strong>Burp Suite:</strong> Web application proxy for testing and modifying HTTP traffic</li>
+          <li><strong>Netcat:</strong> Network tool for banner grabbing, reverse shells, and more</li>
+          <li><strong>John the Ripper:</strong> Password cracker supporting multiple hash formats</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="examples">
+      <h2>🔧 Practical Usage Examples</h2>
+      <pre><code># Run Nmap for port scanning and service detection
+nmap -sS -sV -T4 192.168.1.1
+
+# Use Sublist3r for subdomain discovery
+sublist3r -d example.com
+
+# Directory brute-forcing with Gobuster
+gobuster dir -u https://example.com -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+
+# SQL injection detection with SQLmap
+sqlmap -u "https://example.com/page.php?id=5" --batch --dbs</code></pre>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Tips and Best Practices</h2>
+      <ul>
+        <li>Start with passive tools to avoid detection</li>
+        <li>Combine tools for greater accuracy (e.g., Sublist3r + Amass)</li>
+        <li>Validate results manually, especially in exploitation scenarios</li>
+        <li>Keep tools updated regularly (many are actively maintained)</li>
+        <li>Use VPNs or isolated VMs for operations involving scanning or exploitation</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Recommended Resources</h2>
+      <ul>
+        <li><a href="https://nmap.org/" target="_blank">Nmap Official Site</a></li>
+        <li><a href="https://portswigger.net/burp" target="_blank">Burp Suite by PortSwigger</a></li>
+        <li><a href="https://github.com/sqlmapproject/sqlmap" target="_blank">SQLmap GitHub</a></li>
+        <li><a href="https://www.kali.org/tools/" target="_blank">Kali Linux Tool List</a></li>
+        <li><a href="https://osintframework.com/" target="_blank">OSINT Framework</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

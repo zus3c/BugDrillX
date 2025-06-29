@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AWS Security - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>☁️ AWS Security</h1>
+    <p class="subtitle">Master the art of securing Amazon Web Services environments – from misconfigurations to real-world attack vectors</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is AWS Security?</h2>
+      <p>
+        AWS (Amazon Web Services) provides scalable cloud infrastructure, but misconfigurations and weak IAM (Identity and Access Management) can make it vulnerable to attacks. AWS security focuses on understanding the <strong>shared responsibility model</strong>, identifying misconfigurations, securing cloud resources, and using AWS-native and external tools for threat detection and prevention.
+      </p>
+    </section>
+
+    <section class="core-concepts">
+      <h2>🔐 Core Security Concepts</h2>
+
+      <div class="card">
+        <h3>1. Shared Responsibility Model</h3>
+        <p>
+          AWS is responsible for the security *of* the cloud (infrastructure), while users are responsible for security *in* the cloud (apps, data, config).
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>2. IAM (Identity and Access Management)</h3>
+        <p>
+          Misconfigured IAM policies are the root of many breaches. Always apply the principle of least privilege (PoLP) and use roles over long-term access keys.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>3. Public S3 Buckets</h3>
+        <p>
+          Exposing S3 buckets to the internet can leak sensitive data. Always check bucket policies and ACLs.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>4. Logging and Monitoring</h3>
+        <p>
+          Enable <code>CloudTrail</code>, <code>VPC Flow Logs</code>, and <code>Config</code> to track activity and detect anomalies.
+        </p>
+      </div>
+
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧠 Step-by-Step: Securing AWS</h2>
+
+      <h3>Step 1: Audit IAM Users & Roles</h3>
+      <ul>
+        <li>Remove unused users, roles, and keys</li>
+        <li>Ensure MFA is enforced for root accounts</li>
+        <li>Use IAM Access Analyzer to detect overly permissive policies</li>
+      </ul>
+
+      <h3>Step 2: S3 Bucket Permissions</h3>
+      <ul>
+        <li>Use <code>Block Public Access</code> settings on all buckets</li>
+        <li>Audit bucket policies for <code>"Principal": "*"</code></li>
+        <li>Enable server-side encryption (SSE)</li>
+      </ul>
+
+      <h3>Step 3: Enable CloudTrail & GuardDuty</h3>
+      <ul>
+        <li><strong>CloudTrail:</strong> Logs all account activity</li>
+        <li><strong>GuardDuty:</strong> Detects suspicious behavior (like crypto mining or credential abuse)</li>
+      </ul>
+
+      <h3>Step 4: Network Security Best Practices</h3>
+      <ul>
+        <li>Use Security Groups (SGs) and NACLs to restrict access</li>
+        <li>Avoid exposing EC2 instances to 0.0.0.0/0 unless necessary</li>
+        <li>Use AWS WAF and Shield for web application protection</li>
+      </ul>
+    </section>
+
+    <section class="real-world">
+      <h2>🧨 Real-World Example: Exposed S3 Bucket</h2>
+      <p>In 2020, hundreds of GB of data from U.S. companies were exposed due to misconfigured S3 buckets. Anyone could access files simply by browsing the bucket's URL.</p>
+
+<pre><code># Example of listing a public S3 bucket
+aws s3 ls s3://vulnerable-bucket-name --no-sign-request
+
+# Downloading sensitive data
+aws s3 cp s3://vulnerable-bucket-name/database_backup.sql.gz . --no-sign-request
+</code></pre>
+
+      <p><strong>Fix:</strong> Apply a <code>Deny-All</code> bucket policy and use access points or signed URLs for controlled access.</p>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips & Tools</h2>
+      <ul>
+        <li>Use <a href="https://github.com/nccgroup/ScoutSuite" target="_blank">ScoutSuite</a> or <a href="https://github.com/toniblyx/prowler" target="_blank">Prowler</a> to audit your AWS account security posture</li>
+        <li>Rotate IAM keys regularly (or remove them entirely in favor of IAM roles)</li>
+        <li>Use Security Hub to centralize security findings</li>
+        <li>Limit regions enabled in your account to reduce attack surface</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Recommended Learning</h2>
+      <ul>
+        <li><a href="https://aws.amazon.com/security/" target="_blank">AWS Official Security Documentation</a></li>
+        <li><a href="https://cloudsecurityalliance.org/" target="_blank">Cloud Security Alliance</a></li>
+        <li><a href="https://github.com/toniblyx/aws-cis-security-benchmark" target="_blank">AWS CIS Benchmark Scripts</a></li>
+        <li><a href="https://hackingthe.cloud/" target="_blank">Hacking the Cloud – Red Team AWS Techniques</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

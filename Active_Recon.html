@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Active Recon - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>⚡ Active Reconnaissance</h1>
+    <p class="subtitle">Discover services, ports, and entry points with direct interaction techniques</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Active Reconnaissance?</h2>
+      <p>
+        Active reconnaissance is a phase of the hacking lifecycle where the attacker (or ethical hacker) interacts directly with the target system to gather detailed information about services, open ports, technologies in use, and more. Unlike passive recon, these actions can be logged or detected by defensive systems.
+      </p>
+    </section>
+
+    <section class="concepts">
+      <h2>🔧 Key Techniques in Active Recon</h2>
+      <div class="card">
+        <h3>Port Scanning</h3>
+        <p>Identify which ports are open and what services are running. Essential for attack surface mapping.</p>
+        <code>nmap -sS -Pn -T4 target.com</code>
+      </div>
+
+      <div class="card">
+        <h3>Service Enumeration</h3>
+        <p>Detect the version and details of a service. Used to match known vulnerabilities.</p>
+        <code>nmap -sV target.com</code>
+      </div>
+
+      <div class="card">
+        <h3>Banner Grabbing</h3>
+        <p>Manually or automatically retrieve banners to identify services, versions, and misconfigurations.</p>
+        <code>nc target.com 80</code>
+      </div>
+
+      <div class="card">
+        <h3>Directory Bruteforcing</h3>
+        <p>Discover hidden files and directories using wordlists and automation tools.</p>
+        <code>gobuster dir -u https://target.com -w wordlist.txt</code>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>📌 Step-by-Step Process</h2>
+
+      <h3>Step 1: Scan for Live Hosts</h3>
+      <p>Use ping sweeps or ARP scans to detect online systems (if within same network).</p>
+      <pre><code>nmap -sn 192.168.1.0/24</code></pre>
+
+      <h3>Step 2: Scan for Open Ports</h3>
+      <p>Identify common and uncommon ports:</p>
+      <pre><code>nmap -sS -p- target.com</code></pre>
+
+      <h3>Step 3: Identify Services and Versions</h3>
+      <p>Determine what software is running and its version:</p>
+      <pre><code>nmap -sV -sC target.com</code></pre>
+
+      <h3>Step 4: Web Directory Discovery</h3>
+      <p>Find admin panels, login pages, or misconfigured endpoints:</p>
+      <pre><code>gobuster dir -u https://target.com -w /usr/share/wordlists/dirb/common.txt -x php,html,txt</code></pre>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Example</h2>
+      <p>Target: <code>insecure-website.local</code></p>
+      <pre><code># Step 1: Port scan
+nmap -T4 -sS -p- insecure-website.local
+
+# Step 2: Service and version detection
+nmap -sV -sC -p 22,80,443 insecure-website.local
+
+# Step 3: Directory brute-force
+gobuster dir -u http://insecure-website.local -w common.txt -x php,html</code></pre>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips</h2>
+      <ul>
+        <li>Use <code>-T4</code> in Nmap for faster scanning, but test <code>-T3</code> if rate-limiting is present.</li>
+        <li>Never run active recon on systems without authorization.</li>
+        <li>Use VPNs or isolated labs to avoid exposing your real IP.</li>
+        <li>Correlate Nmap results with vulnerability databases (e.g., CVE, Exploit-DB).</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>🔗 Tools & Resources</h2>
+      <ul>
+        <li><a href="https://nmap.org/" target="_blank">Nmap – Port scanner & service detection</a></li>
+        <li><a href="https://github.com/OJ/gobuster" target="_blank">Gobuster – Directory brute-forcer</a></li>
+        <li><a href="https://www.hackers-arise.com/post/2016/04/17/bash-banners-for-banner-grabbing" target="_blank">Banner Grabbing Techniques</a></li>
+        <li><a href="https://book.hacktricks.xyz/" target="_blank">HackTricks – Enumeration and exploitation tactics</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

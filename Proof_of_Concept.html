@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proof of Concept - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🧪 Proof of Concept (PoC)</h1>
+    <p class="subtitle">Demonstrating the impact of vulnerabilities with precision and ethics</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is a Proof of Concept?</h2>
+      <p>
+        A <strong>Proof of Concept (PoC)</strong> in cybersecurity is a demonstration that shows how a vulnerability can be exploited to achieve an impact. It's not about full exploitation, but rather about verifying that the issue is real and can be used under certain conditions. A well-structured PoC is critical for convincing stakeholders and developers to prioritize remediation.
+      </p>
+    </section>
+
+    <section class="importance">
+      <h2>🚨 Why PoCs Matter</h2>
+      <ul>
+        <li>Validate vulnerabilities in a safe and controlled way</li>
+        <li>Provide evidence for risk assessment and remediation</li>
+        <li>Help developers reproduce the issue for testing fixes</li>
+        <li>Strengthen the credibility of a report or bug bounty submission</li>
+      </ul>
+    </section>
+
+    <section class="key-concepts">
+      <h2>📌 Key Concepts</h2>
+      <div class="card">
+        <h3>Clarity</h3>
+        <p>Explain exactly how the vulnerability was discovered and how it can be replicated. Include URLs, parameters, payloads, headers, etc.</p>
+      </div>
+      <div class="card">
+        <h3>Minimal Impact</h3>
+        <p>Show enough to prove the risk without damaging the system or data.</p>
+      </div>
+      <div class="card">
+        <h3>Repeatability</h3>
+        <p>Anyone following your PoC steps should be able to reproduce the result.</p>
+      </div>
+    </section>
+
+    <section class="steps">
+      <h2>🧭 How to Write a Good PoC (Step-by-Step)</h2>
+      <ol>
+        <li><strong>Describe the vulnerability:</strong> Include what, where, and how it occurs.</li>
+        <li><strong>Include context:</strong> Mention affected endpoints, roles, parameters, and requirements (auth/no auth).</li>
+        <li><strong>Build the request:</strong> Use curl, Burp Suite, Postman, or raw HTTP to demonstrate.</li>
+        <li><strong>Explain the response:</strong> Highlight what confirms the vulnerability (error message, behavior, data, etc.).</li>
+        <li><strong>Visuals (optional):</strong> Add screenshots or GIFs to make it clearer.</li>
+      </ol>
+    </section>
+
+    <section class="example">
+      <h2>🛠️ Real-World Example: IDOR PoC</h2>
+      <p>Vulnerability: Insecure Direct Object Reference (IDOR) on <code>/api/user/profile?id=</code></p>
+      <pre><code># Authenticated request with user A's token
+GET /api/user/profile?id=102 HTTP/1.1
+Host: vulnerable.site
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...
+
+# Response reveals user B's data
+{
+  "id": 102,
+  "email": "b.user@example.com",
+  "role": "editor"
+}</code></pre>
+      <p>
+        <strong>Explanation:</strong> By simply changing the <code>id</code> parameter, an attacker can access data belonging to another user. No access control validation is performed server-side.
+      </p>
+    </section>
+
+    <section class="tips">
+      <h2>💡 PoC Writing Tips</h2>
+      <ul>
+        <li>Use tools like <code>curl</code> or <code>Burp Suite</code> to capture and replay HTTP requests.</li>
+        <li>Highlight the exact line or response portion that proves the exploit works.</li>
+        <li>Always test in a safe environment or with permission.</li>
+        <li>Never include personal or sensitive data from others in public reports.</li>
+        <li>Keep your PoC short, impactful, and easy to reproduce.</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Additional Resources</h2>
+      <ul>
+        <li><a href="https://owasp.org/www-community/Vulnerability_Disclosure" target="_blank">OWASP Vulnerability Disclosure Guide</a></li>
+        <li><a href="https://portswigger.net/web-security" target="_blank">PortSwigger Web Security Academy</a></li>
+        <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings" target="_blank">PayloadsAllTheThings – PoC Samples</a></li>
+        <li><a href="https://hackerone.com/hacktivity" target="_blank">HackerOne Hacktivity (Public Reports)</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

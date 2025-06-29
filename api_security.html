@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>API Security - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🔐 API Security</h1>
+    <p class="subtitle">Learn how to test, secure, and defend APIs in modern applications</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is API Security?</h2>
+      <p>
+        API (Application Programming Interface) security is the practice of protecting APIs from unauthorized access, abuse, and exploitation. As modern applications rely heavily on REST, SOAP, and GraphQL APIs, attackers target these endpoints to extract sensitive data, bypass logic, or take control of backend systems.
+      </p>
+    </section>
+
+    <section class="importance">
+      <h2>🚨 Why is API Security Critical?</h2>
+      <ul>
+        <li>APIs often expose sensitive data like credentials, tokens, or PII</li>
+        <li>Improperly secured APIs can allow privilege escalation, mass data extraction, or business logic abuse</li>
+        <li>They are commonly overlooked in traditional web security testing</li>
+      </ul>
+    </section>
+
+    <section class="common-issues">
+      <h2>🧨 Common API Vulnerabilities</h2>
+      <div class="card">
+        <ul>
+          <li><strong>BOLA (Broken Object Level Authorization):</strong> Accessing objects using user-controlled IDs</li>
+          <li><strong>Broken Authentication:</strong> Weak tokens, missing auth checks, insecure OAuth implementations</li>
+          <li><strong>Excessive Data Exposure:</strong> APIs returning more data than necessary</li>
+          <li><strong>Lack of Rate Limiting:</strong> Enables brute force or scraping attacks</li>
+          <li><strong>Mass Assignment:</strong> Overwriting object properties via JSON parameters</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🔍 API Security Testing - Step by Step</h2>
+
+      <h3>1. Discover the API</h3>
+      <p>Use tools like <code>Burp Suite</code> or <code>Postman</code> to inspect traffic or analyze documentation (e.g., Swagger/OpenAPI).</p>
+
+      <h3>2. Authentication Checks</h3>
+      <ul>
+        <li>Are JWTs used? Can they be tampered with?</li>
+        <li>Is there proper session invalidation on logout?</li>
+        <li>Try using expired or malformed tokens</li>
+      </ul>
+
+      <h3>3. Authorization Bypass</h3>
+      <p>Attempt to access resources of other users by changing IDs or parameters in requests.</p>
+
+      <h3>4. Rate Limiting and Brute Force</h3>
+      <p>Try fuzzing login or search endpoints to check for rate limiting. Use tools like <code>ffuf</code> or <code>Burp Intruder</code>.</p>
+
+      <h3>5. Input Validation</h3>
+      <ul>
+        <li>Inject SQL, XSS, or command payloads</li>
+        <li>Try overposting or sending unexpected JSON keys</li>
+      </ul>
+
+      <h3>6. Response Analysis</h3>
+      <p>Look for verbose error messages, stack traces, internal IPs, or unintended data in responses.</p>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Example: BOLA Exploit</h2>
+      <p>Imagine this vulnerable request:</p>
+      <pre><code>GET /api/users/1001 HTTP/1.1
+Host: vulnerableapi.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+</code></pre>
+      <p>Change the ID to another user's and observe the result:</p>
+      <pre><code>GET /api/users/1002 HTTP/1.1
+Host: vulnerableapi.com
+Authorization: [same token]</code></pre>
+      <p>If it returns another user's data, the API lacks object-level authorization control.</p>
+    </section>
+
+    <section class="best-practices">
+      <h2>🛡️ Best Practices for API Security</h2>
+      <ul>
+        <li>Enforce strong authentication (OAuth 2.0, OpenID Connect)</li>
+        <li>Implement role-based access controls on every endpoint</li>
+        <li>Never expose internal object IDs – use UUIDs or hashed IDs</li>
+        <li>Use rate limiting and throttling</li>
+        <li>Filter all inputs and validate JSON schema strictly</li>
+        <li>Log and monitor API access for anomalies</li>
+      </ul>
+    </section>
+
+    <section class="tools">
+      <h2>🧰 Recommended Tools</h2>
+      <ul>
+        <li><a href="https://portswigger.net/burp" target="_blank">Burp Suite</a></li>
+        <li><a href="https://github.com/ProjectDiscovery/nuclei-templates" target="_blank">Nuclei</a></li>
+        <li><a href="https://www.postman.com/" target="_blank">Postman</a></li>
+        <li><a href="https://www.zaproxy.org/" target="_blank">OWASP ZAP</a></li>
+        <li><a href="https://github.com/dolthub/dolt" target="_blank">Dolt (for testing data changes)</a></li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Further Reading & Resources</h2>
+      <ul>
+        <li><a href="https://owasp.org/www-project-api-security/" target="_blank">OWASP API Security Top 10</a></li>
+        <li><a href="https://cheatsheetseries.owasp.org/" target="_blank">OWASP Cheat Sheet Series</a></li>
+        <li><a href="https://swagger.io/specification/" target="_blank">Swagger/OpenAPI Specification</a></li>
+        <li><a href="https://apitester.com/" target="_blank">API Tester Platform</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

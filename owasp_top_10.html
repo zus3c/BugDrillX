@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OWASP Top 10 - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🛡️ OWASP Top 10</h1>
+    <p class="subtitle">A foundational list of the most critical web application security risks</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>🔎 What is the OWASP Top 10?</h2>
+      <p>
+        The <strong>OWASP Top 10</strong> is a standard awareness document for developers and security professionals. It represents a broad consensus about the most critical security risks to web applications. Updated periodically by the <a href="https://owasp.org/" target="_blank">Open Worldwide Application Security Project (OWASP)</a>, it's the starting point for any secure coding, pentesting, or bug bounty initiative.
+      </p>
+    </section>
+
+    <section class="list">
+      <h2>🧠 OWASP Top 10 (2021 Edition)</h2>
+
+      <div class="card">
+        <h3>1. Broken Access Control</h3>
+        <p>
+          Occurs when users can act outside their intended permissions (e.g., accessing other users' data via IDOR).
+        </p>
+        <pre><code>GET /api/user/12345 HTTP/1.1
+Authorization: Bearer valid-token
+
+➡️ Returns data of another user (no authorization check)</code></pre>
+        <p><strong>Mitigation:</strong> Enforce server-side access control checks. Never rely on client-side validation.</p>
+      </div>
+
+      <div class="card">
+        <h3>2. Cryptographic Failures</h3>
+        <p>
+          Insecure handling of sensitive data: weak encryption, missing HTTPS, or improper key storage.
+        </p>
+        <p><strong>Mitigation:</strong> Use TLS, strong algorithms (AES-256, SHA-256), and proper key management.</p>
+      </div>
+
+      <div class="card">
+        <h3>3. Injection</h3>
+        <p>
+          Attackers can send malicious data that gets executed (e.g., SQL, NoSQL, OS commands).
+        </p>
+        <pre><code>input: ' OR '1'='1
+➡️ SELECT * FROM users WHERE username = '' OR '1'='1';</code></pre>
+        <p><strong>Mitigation:</strong> Use parameterized queries and ORM frameworks. Sanitize all input.</p>
+      </div>
+
+      <div class="card">
+        <h3>4. Insecure Design</h3>
+        <p>
+          Fundamental security flaws in the architecture itself (not just implementation bugs).
+        </p>
+        <p><strong>Mitigation:</strong> Use threat modeling, secure design patterns, and defense-in-depth strategies.</p>
+      </div>
+
+      <div class="card">
+        <h3>5. Security Misconfiguration</h3>
+        <p>
+          Default settings, overly verbose error messages, or unused features left enabled.
+        </p>
+        <p><strong>Example:</strong> Admin console exposed at <code>/admin</code> with default creds.</p>
+        <p><strong>Mitigation:</strong> Harden servers, disable unused components, and monitor configs.</p>
+      </div>
+
+      <div class="card">
+        <h3>6. Vulnerable and Outdated Components</h3>
+        <p>
+          Using libraries or packages with known security flaws (e.g., Log4j, jQuery, OpenSSL bugs).
+        </p>
+        <p><strong>Mitigation:</strong> Use dependency scanners (e.g., Snyk, OWASP Dependency-Check). Update regularly.</p>
+      </div>
+
+      <div class="card">
+        <h3>7. Identification and Authentication Failures</h3>
+        <p>
+          Includes weak password policies, session hijacking, and flawed authentication logic.
+        </p>
+        <p><strong>Mitigation:</strong> Implement MFA, limit login attempts, and secure session tokens.</p>
+      </div>
+
+      <div class="card">
+        <h3>8. Software and Data Integrity Failures</h3>
+        <p>
+          Occurs when software relies on plugins, libraries, or updates from untrusted sources.
+        </p>
+        <p><strong>Mitigation:</strong> Use code signing, verify integrity of packages (hashes, checksums).</p>
+      </div>
+
+      <div class="card">
+        <h3>9. Security Logging and Monitoring Failures</h3>
+        <p>
+          Without proper logs and alerts, breaches may go undetected.
+        </p>
+        <p><strong>Mitigation:</strong> Enable security logs and integrate with SIEM tools. Monitor anomalies in real-time.</p>
+      </div>
+
+      <div class="card">
+        <h3>10. Server-Side Request Forgery (SSRF)</h3>
+        <p>
+          SSRF allows attackers to force the server to send requests on their behalf (e.g., internal networks).
+        </p>
+        <pre><code>URL: https://vulnerable.site/load?url=http://localhost:8000/admin</code></pre>
+        <p><strong>Mitigation:</strong> Validate and whitelist URLs, isolate internal services, and restrict outbound traffic.</p>
+      </div>
+    </section>
+
+    <section class="tips">
+      <h2>🚀 Pro Tips for Beginners</h2>
+      <ul>
+        <li>Study OWASP intentionally: Learn one item at a time, practice it in a lab.</li>
+        <li>Use OWASP Juice Shop or DVWA to simulate these issues.</li>
+        <li>Apply secure coding principles even for personal or small projects.</li>
+        <li>Map vulnerabilities to OWASP during a pentest report for clarity and industry alignment.</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Learn More</h2>
+      <ul>
+        <li><a href="https://owasp.org/Top10/" target="_blank">Official OWASP Top 10 Portal</a></li>
+        <li><a href="https://owasp.org/www-project-juice-shop/" target="_blank">OWASP Juice Shop (vulnerable app)</a></li>
+        <li><a href="https://portswigger.net/web-security" target="_blank">PortSwigger Web Security Academy</a></li>
+        <li><a href="https://github.com/OWASP" target="_blank">OWASP GitHub Projects</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

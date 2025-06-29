@@ -1,0 +1,141 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Android Common Vulnerabilities - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🤖 Android Common Vulnerabilities</h1>
+    <p class="subtitle">Understand the most frequent security issues in Android apps and how to test them</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>Overview</h2>
+      <p>
+        Android applications are often vulnerable due to insecure coding practices, improper storage, and lack of encryption. As an ethical hacker or security tester, recognizing these flaws can help secure mobile ecosystems. This guide covers common vulnerabilities found in Android apps, with practical testing tips.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>⚠️ Most Common Android Vulnerabilities</h2>
+
+      <div class="card">
+        <h3>1. Insecure Data Storage</h3>
+        <p>Storing sensitive data (tokens, passwords, PII) in <code>SharedPreferences</code>, internal files, or SQLite databases without encryption is a major risk.</p>
+        <ul>
+          <li>Attackers with root access or malware can extract this data.</li>
+          <li>Use Android Keystore + AES encryption for sensitive info.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>2. Improper WebView Usage</h3>
+        <p>Using <code>WebView</code> with JavaScript enabled can expose apps to XSS and RCE via <code>addJavascriptInterface()</code>.</p>
+        <pre><code>// Bad practice
+webView.getSettings().setJavaScriptEnabled(true);
+webView.addJavascriptInterface(new Object(), "Android");</code></pre>
+        <p>Only load trusted content and avoid exposing JS interfaces unnecessarily.</p>
+      </div>
+
+      <div class="card">
+        <h3>3. Hardcoded Secrets</h3>
+        <p>API keys, tokens, credentials, or encryption keys embedded in the APK are easily extractable via reverse engineering tools like <code>apktool</code> or <code>JADX</code>.</p>
+        <pre><code>String apiKey = "AIzaSyD1234EXAMPLESECRETKEY";</code></pre>
+        <ul>
+          <li>Use dynamic key fetching and store secrets server-side.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>4. Insecure Communication</h3>
+        <p>Not using HTTPS or accepting all SSL certificates with custom trust managers leads to MITM attacks.</p>
+        <pre><code>// Vulnerable trust manager example
+TrustManager[] trustAllCerts = new TrustManager[] {
+   new X509TrustManager() {
+       public void checkClientTrusted(...) {}
+       public void checkServerTrusted(...) {}
+       public X509Certificate[] getAcceptedIssuers() { return null; }
+   }
+};</code></pre>
+        <ul>
+          <li>Use proper certificate pinning and secure libraries like OkHttp with TLS.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>5. Improper Component Export</h3>
+        <p>Activities, Services, or BroadcastReceivers exposed via <code>AndroidManifest.xml</code> can be hijacked by malicious apps.</p>
+        <pre><code>&lt;activity android:name=".AdminPanel"
+    android:exported="true" /&gt;</code></pre>
+        <p>Mark components as <code>exported="false"</code> unless explicitly needed.</p>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🔬 How to Test These Vulnerabilities</h2>
+
+      <h3>Reverse Engineering</h3>
+      <p>Tools like <strong>apktool</strong> and <strong>JADX</strong> can be used to decompile the APK and inspect for hardcoded secrets or insecure logic.</p>
+
+      <pre><code># Decompile APK
+apktool d vulnerableApp.apk
+jadx-gui vulnerableApp.apk</code></pre>
+
+      <h3>Static Analysis</h3>
+      <p>Look for the following red flags in source code:</p>
+      <ul>
+        <li>Plaintext storage in <code>SharedPreferences</code></li>
+        <li>Unprotected exported components</li>
+        <li>Custom TrustManagers accepting all certs</li>
+      </ul>
+
+      <h3>Dynamic Analysis</h3>
+      <p>Use <strong>Frida</strong>, <strong>MobSF</strong>, or <strong>Burp Suite</strong> to monitor app behavior, intercept traffic, and inject hooks.</p>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Examples</h2>
+      <ul>
+        <li>Popular finance apps leaking credentials via logcat</li>
+        <li>Games exposing cheat/debug interfaces via exported Activities</li>
+        <li>Streaming apps accepting self-signed certificates (easy MITM)</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Tips for Developers</h2>
+      <ul>
+        <li>Never store sensitive info unencrypted on device</li>
+        <li>Use <code>proguard-rules.pro</code> to obfuscate critical logic</li>
+        <li>Test apps on rooted environments to simulate real attacker behavior</li>
+        <li>Review all exported components in the manifest</li>
+        <li>Implement certificate pinning and secure storage APIs</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Resources & Tools</h2>
+      <ul>
+        <li><a href="https://github.com/MobSF/Mobile-Security-Framework-MobSF" target="_blank">Mobile Security Framework (MobSF)</a></li>
+        <li><a href="https://frida.re/" target="_blank">Frida</a></li>
+        <li><a href="https://github.com/skylot/jadx" target="_blank">JADX</a></li>
+        <li><a href="https://developer.android.com/topic/security/best-practices" target="_blank">Android Security Best Practices</a></li>
+        <li><a href="https://owasp.org/www-project-mobile-top-10/" target="_blank">OWASP Mobile Top 10</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

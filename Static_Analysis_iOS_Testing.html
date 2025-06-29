@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Static Analysis - iOS Testing | Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🍏 Static Analysis – iOS Testing</h1>
+    <p class="subtitle">Explore how to dissect and analyze iOS apps without executing them</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>🔎 What is Static Analysis?</h2>
+      <p>
+        Static analysis is the process of analyzing the source code or compiled binaries of an iOS application without executing it. This technique is essential in identifying security flaws, sensitive data leaks, hardcoded credentials, and insecure configurations before runtime.
+      </p>
+    </section>
+
+    <section class="why">
+      <h2>🎯 Why Perform Static Analysis?</h2>
+      <ul>
+        <li>Detect hardcoded API keys, passwords, and secrets</li>
+        <li>Analyze insecure permissions or entitlements</li>
+        <li>Understand app logic and third-party integrations</li>
+        <li>Reverse engineer to find hidden features or vulnerabilities</li>
+        <li>Check for data stored insecurely (e.g., in Info.plist or SQLite files)</li>
+      </ul>
+    </section>
+
+    <section class="steps">
+      <h2>🛠️ Step-by-Step iOS Static Analysis Workflow</h2>
+
+      <div class="card">
+        <h3>Step 1: Obtain the iOS App</h3>
+        <p>You'll need an <code>.ipa</code> file (iOS App Archive) of the target application.</p>
+        <ul>
+          <li>If jailbroken: download from device via <code>scp</code></li>
+          <li>From App Store: use tools like <a href="https://github.com/majd/ipatool" target="_blank">ipatool</a></li>
+          <li>From MDMs or test platforms (e.g., TestFlight)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Step 2: Unzip and Explore the Contents</h3>
+        <p>Extract the IPA (which is a ZIP) to access the app bundle:</p>
+        <pre><code>unzip target_app.ipa -d extracted_app/</code></pre>
+        <p>Navigate to <code>Payload/AppName.app</code> to find:</p>
+        <ul>
+          <li><code>Info.plist</code> – configuration file</li>
+          <li>Binary executable (usually no extension)</li>
+          <li>Embedded provisioning profile</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Step 3: Analyze the Info.plist</h3>
+        <p>This file contains critical metadata and settings.</p>
+        <pre><code>/usr/libexec/PlistBuddy -c "Print" Info.plist</code></pre>
+        <p>Look for:</p>
+        <ul>
+          <li><code>NSAppTransportSecurity</code> (e.g., <code>Allow Arbitrary Loads</code>)</li>
+          <li><code>CFBundleURLTypes</code> (can be abused in URL schemes)</li>
+          <li><code>UIFileSharingEnabled</code> (if true, local data exposure)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Step 4: Strings and Binary Review</h3>
+        <p>Use <code>strings</code> or <code>class-dump</code> to analyze the binary:</p>
+        <pre><code>strings AppName | grep -i "password\|api\|key"</code></pre>
+        <pre><code>class-dump AppName -H -o headers/</code></pre>
+        <p>This helps uncover class definitions, method names, and potentially insecure logic.</p>
+      </div>
+
+      <div class="card">
+        <h3>Step 5: Reverse Engineering Tools</h3>
+        <ul>
+          <li><strong>Ghidra</strong> – for decompiling and analyzing native code</li>
+          <li><strong>Hopper / IDA Pro</strong> – interactive disassemblers</li>
+          <li><strong>MobSF (Mobile Security Framework)</strong> – automated static analysis</li>
+        </ul>
+        <p>Example MobSF command:</p>
+        <pre><code>./run.sh
+Upload the IPA via browser interface: http://localhost:8000</code></pre>
+      </div>
+
+    </section>
+
+    <section class="real-world">
+      <h2>🌍 Real-World Scenario</h2>
+      <p>During the static analysis of a financial app:</p>
+      <ul>
+        <li>Found hardcoded API key using <code>strings</code> tool</li>
+        <li><code>NSAllowsArbitraryLoads = true</code> was enabled (poor ATS policy)</li>
+        <li>Debug symbols were present, exposing method names</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips</h2>
+      <ul>
+        <li>Look for obfuscation – absence of it may indicate poor security hygiene</li>
+        <li>Check for third-party analytics or tracking SDKs (e.g., via URL patterns)</li>
+        <li>Use <code>otool -l</code> to inspect linked libraries and encryption flags</li>
+        <li>Always check <code>embedded.mobileprovision</code> to assess environment and permissions</li>
+      </ul>
+    </section>
+
+    <section class="tools">
+      <h2>🧰 Recommended Tools for iOS Static Analysis</h2>
+      <ul>
+        <li><a href="https://github.com/MobSF/Mobile-Security-Framework-MobSF" target="_blank">MobSF</a></li>
+        <li><a href="https://ghidra-sre.org/" target="_blank">Ghidra</a></li>
+        <li><a href="https://github.com/nygard/class-dump" target="_blank">class-dump</a></li>
+        <li><a href="https://github.com/majd/ipatool" target="_blank">ipatool</a></li>
+        <li><a href="https://objective-see.org/" target="_blank">Objective-See Tools</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>
+ 

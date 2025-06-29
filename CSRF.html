@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cross-Site Request Forgery (CSRF) - BugDrillX</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🎯 Cross-Site Request Forgery (CSRF)</h1>
+    <p class="subtitle">Exploiting trust in user sessions to perform unauthorized actions</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>🔍 What is CSRF?</h2>
+      <p>
+        CSRF (Cross-Site Request Forgery) is a web vulnerability that tricks a user into unknowingly submitting a malicious request on a web application where they’re already authenticated. It exploits the trust that the application has in the user's browser, not the user’s trust in the site.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>📌 Key Concepts</h2>
+      <ul>
+        <li><strong>Authenticated Context:</strong> CSRF targets authenticated sessions — usually involving cookies, JWTs, or headers.</li>
+        <li><strong>Involuntary Action:</strong> The victim performs an action they didn’t intend to, like changing a password or transferring funds.</li>
+        <li><strong>Same-origin Policy (SOP):</strong> CSRF works within the SOP model since the forged request originates from a valid domain.</li>
+        <li><strong>GET vs POST:</strong> While GET requests are easier to forge, POST requests are also vulnerable if CSRF protection is absent.</li>
+      </ul>
+    </section>
+
+    <section class="attack-vector">
+      <h2>🚀 Attack Flow</h2>
+      <ol>
+        <li>User logs into a target website (e.g., bank.com)</li>
+        <li>Session is maintained via a cookie</li>
+        <li>User visits an attacker-controlled site</li>
+        <li>That site auto-submits a form to bank.com using the existing session</li>
+        <li>The action executes without the user's consent</li>
+      </ol>
+    </section>
+
+    <section class="example">
+      <h2>💣 Real-World Example: CSRF in Password Change</h2>
+      <p>If the following endpoint changes a password without CSRF protection:</p>
+      <pre><code>POST /change-password HTTP/1.1
+Host: vulnerable-site.com
+Content-Type: application/x-www-form-urlencoded
+Cookie: session=abc123
+
+newPassword=hacked123</code></pre>
+
+      <p>An attacker could craft a malicious HTML page:</p>
+      <pre><code>&lt;html&gt;
+  &lt;body onload="document.forms[0].submit()"&gt;
+    &lt;form method="POST" action="https://vulnerable-site.com/change-password"&gt;
+      &lt;input type="hidden" name="newPassword" value="hacked123" /&gt;
+    &lt;/form&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+      <p>
+        If a logged-in user visits the attacker’s page, their password will be silently changed. No JavaScript from the attacker is required!
+      </p>
+    </section>
+
+    <section class="detection">
+      <h2>🕵️‍♀️ How to Detect CSRF</h2>
+      <ul>
+        <li>Check for state-changing requests (POST, PUT, DELETE) that lack anti-CSRF tokens</li>
+        <li>Test if actions can be performed via a third-party site</li>
+        <li>Manually forge requests using tools like <code>Burp Suite</code></li>
+        <li>Verify if same-origin protections (e.g. Referer/Origin header checks) are enforced</li>
+      </ul>
+    </section>
+
+    <section class="mitigation">
+      <h2>🛡️ Prevention & Mitigation</h2>
+      <ul>
+        <li><strong>CSRF Tokens:</strong> Use unpredictable, unique tokens per form/request</li>
+        <li><strong>SameSite Cookies:</strong> Set cookies with <code>SameSite=Lax</code> or <code>Strict</code></li>
+        <li><strong>Double Submit Cookies:</strong> Send token in cookie and in form/header</li>
+        <li><strong>Check Origin & Referer:</strong> Validate that requests originate from trusted domains</li>
+        <li><strong>Authentication Headers:</strong> Avoid relying only on cookies; use custom auth headers</li>
+      </ul>
+    </section>
+
+    <section class="tools">
+      <h2>🛠️ Tools for Testing CSRF</h2>
+      <ul>
+        <li><a href="https://portswigger.net/burp" target="_blank">Burp Suite</a> (CSRF PoC generator)</li>
+        <li><a href="https://owasp.org/www-project-csrfguard/" target="_blank">OWASP CSRFGuard</a></li>
+        <li><a href="https://github.com/s0md3v/Breacher" target="_blank">Breacher</a> (CSRF detection)</li>
+        <li>Browser DevTools for manual form reproduction</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips</h2>
+      <ul>
+        <li>Focus on endpoints that modify data (change email, password, transaction)</li>
+        <li>If a POST request works without a CSRF token or origin validation — it's likely vulnerable</li>
+        <li>Remember: Read-only actions (like GET to /profile) are typically not CSRF-sensitive</li>
+        <li>Modern apps using JSON APIs may use JWT — test CSRF in header-authenticated flows too</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

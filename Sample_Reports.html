@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sample Reports - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>📄 Sample Reports</h1>
+    <p class="subtitle">Explore professional report formats and learn how to communicate security findings effectively</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>Why Sample Reports Matter</h2>
+      <p>
+        In ethical hacking, it's not just what you find, but how you present it. Well-crafted reports turn technical findings into actionable insights.
+        This page provides examples of real-world report structures, layouts, and writing styles that can help you build high-quality deliverables.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>🧱 Types of Pentest Reports</h2>
+
+      <div class="card">
+        <h3>1. Executive Summary</h3>
+        <p>
+          High-level, non-technical overview intended for stakeholders like managers or clients. Focuses on risk impact, affected areas, and business relevance.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>2. Technical Summary</h3>
+        <p>
+          Detailed breakdown of vulnerabilities, including affected assets, severity levels, PoCs, remediation steps, and CVSS scores.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>3. Appendix</h3>
+        <p>
+          Contains raw data like request/response pairs, tools used, screenshots, or logs for auditors or other technical reviewers.
+        </p>
+      </div>
+    </section>
+
+    <section class="structure">
+      <h2>📑 Standard Report Structure</h2>
+      <ul>
+        <li><strong>Cover Page</strong> – Title, Client, Date, Consultant</li>
+        <li><strong>Executive Summary</strong> – High-level findings and risk posture</li>
+        <li><strong>Scope & Methodology</strong> – What was tested, tools, approach</li>
+        <li><strong>Findings</strong> – Each issue with title, severity, PoC, impact, remediation</li>
+        <li><strong>Conclusion</strong> – Overall security health and key recommendations</li>
+        <li><strong>Appendix</strong> – Technical logs, payloads, tool outputs</li>
+      </ul>
+    </section>
+
+    <section class="examples">
+      <h2>📘 Sample Report Snippets</h2>
+
+      <h3>Executive Summary Example:</h3>
+      <pre><code>During the assessment, a total of 5 high-risk, 3 medium-risk, and 2 low-risk vulnerabilities were identified. 
+The most critical issues involve unauthenticated access to sensitive endpoints and improper input validation that could lead to SQL Injection.
+Immediate remediation is advised to mitigate potential exploitation risks.</code></pre>
+
+      <h3>Technical Finding Example:</h3>
+      <pre><code>Finding: Reflected Cross-Site Scripting (XSS)
+Severity: High
+Affected URL: https://app.target.com/search?q=
+
+PoC:
+https://app.target.com/search?q=&lt;script&gt;alert('XSS')&lt;/script&gt;
+
+Impact:
+An attacker can execute arbitrary JavaScript in the victim's browser, potentially stealing cookies or redirecting users.
+
+Recommendation:
+Implement output encoding and input sanitization for all user-supplied inputs.</code></pre>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Reporting Best Practices</h2>
+      <ul>
+        <li>Write clearly for both technical and non-technical readers</li>
+        <li>Use visual aids (tables, graphs, screenshots) to enhance clarity</li>
+        <li>Include CVSS scoring to standardize severity levels</li>
+        <li>Provide reproducible PoCs, not just tool output</li>
+        <li>Suggest remediation with links to official guidelines</li>
+      </ul>
+    </section>
+
+    <section class="downloads">
+      <h2>📥 Downloadable Sample Reports</h2>
+      <ul>
+        <li><a href="reports/sample-webapp-report.pdf" target="_blank">Web Application Pentest Report (PDF)</a></li>
+        <li><a href="reports/sample-network-report.pdf" target="_blank">Network Pentest Report (PDF)</a></li>
+        <li><a href="reports/sample-api-report.pdf" target="_blank">API Security Report (PDF)</a></li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Additional Resources</h2>
+      <ul>
+        <li><a href="https://owasp.org/www-project-vulnerability-reporting/" target="_blank">OWASP Vulnerability Reporting Project</a></li>
+        <li><a href="https://nvd.nist.gov/" target="_blank">NIST National Vulnerability Database</a></li>
+        <li><a href="https://cvsscalculator.com/" target="_blank">CVSS Calculator</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

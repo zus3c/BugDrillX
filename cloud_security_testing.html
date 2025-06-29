@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cloud Security Testing - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>☁️ Cloud Security Testing</h1>
+    <p class="subtitle">Explore techniques, tools, and best practices for testing cloud environments securely</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Cloud Security Testing?</h2>
+      <p>
+        Cloud security testing focuses on identifying and mitigating vulnerabilities in cloud environments like AWS, Azure, and Google Cloud. It includes reviewing configuration issues, access control, identity management, exposed services, and network security across infrastructure-as-a-service (IaaS), platform-as-a-service (PaaS), and software-as-a-service (SaaS) models.
+      </p>
+    </section>
+
+    <section class="overview">
+      <h2>🔑 Key Concepts</h2>
+      <ul>
+        <li>Misconfigured storage (e.g. public S3 buckets)</li>
+        <li>Overly permissive IAM roles</li>
+        <li>Publicly exposed APIs and endpoints</li>
+        <li>Unsecured Kubernetes clusters</li>
+        <li>Insecure cloud secrets and keys</li>
+        <li>Insufficient logging and monitoring</li>
+      </ul>
+    </section>
+
+    <section class="phases">
+      <h2>🧠 Step-by-Step Process</h2>
+
+      <div class="card">
+        <h3>1. Reconnaissance</h3>
+        <ul>
+          <li>Enumerate domains, subdomains, cloud assets</li>
+          <li>Use tools like <code>Amass</code>, <code>Shodan</code>, and <code>SecurityTrails</code></li>
+          <li>Discover cloud service usage via DNS signatures (e.g. <code>s3.amazonaws.com</code>)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>2. Misconfiguration Assessment</h3>
+        <ul>
+          <li>Scan cloud storage for public access (e.g. <code>aws s3 ls s3://bucket-name --no-sign-request</code>)</li>
+          <li>Audit IAM policies for wildcard permissions</li>
+          <li>Check default security groups and open ports</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>3. Credential Leakage</h3>
+        <ul>
+          <li>Scan GitHub and GitLab for leaked cloud API keys using tools like <code>truffleHog</code></li>
+          <li>Use <code>git-secrets</code> to prevent future leaks</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>4. Exploitation</h3>
+        <ul>
+          <li>Privilege escalation via misconfigured roles (e.g. <code>iam:PassRole</code>)</li>
+          <li>Abuse Lambda or EC2 permissions to pivot internally</li>
+          <li>Enumerate instance metadata (e.g. <code>curl http://169.254.169.254/latest/meta-data/</code>)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>5. Post-Exploitation</h3>
+        <ul>
+          <li>Enumerate cloud logs for detection gaps</li>
+          <li>Check for CloudTrail, GuardDuty, or Security Command Center configs</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="cloud-specific">
+      <h2>☁️ Provider-Specific Considerations</h2>
+
+      <div class="card">
+        <h3>AWS</h3>
+        <ul>
+          <li>Check S3 bucket ACLs and policies</li>
+          <li>Review IAM role trust relationships</li>
+          <li>Use <code>Prowler</code> or <code>ScoutSuite</code> for automated auditing</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Azure</h3>
+        <ul>
+          <li>Check exposed storage blobs and access tokens</li>
+          <li>Review role assignments with <code>az role assignment list</code></li>
+          <li>Use <code>Azucar</code> for misconfiguration scans</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>GCP</h3>
+        <ul>
+          <li>Audit IAM bindings and service accounts</li>
+          <li>Enumerate open buckets and functions</li>
+          <li>Use <code>GCPBucketBrute</code> or <code>ScoutSuite</code></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="examples">
+      <h2>📌 Real-World Example</h2>
+      <pre><code># Discover public S3 bucket content
+aws s3 ls s3://public-data-bucket --no-sign-request
+
+# Enumerate EC2 metadata for credentials
+curl http://169.254.169.254/latest/meta-data/
+
+# Scan cloud account with Prowler (AWS)
+./prowler -M html -S -n -p &lt;profile-name&gt;</code></pre>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Actionable Tips</h2>
+      <ul>
+        <li>Always follow responsible disclosure for cloud vulnerabilities</li>
+        <li>Automate cloud assessments using open-source tools</li>
+        <li>Cross-reference permissions using <code>policy_sentry</code> or <code>Cloudsplaining</code></li>
+        <li>Limit use of long-term access keys—use temporary tokens instead</li>
+        <li>Monitor logs and cloud trails to detect anomalies</li>
+      </ul>
+    </section>
+
+    <section class="tools">
+      <h2>🛠️ Recommended Tools</h2>
+      <ul>
+        <li><a href="https://github.com/toniblyx/prowler" target="_blank">Prowler (AWS)</a></li>
+        <li><a href="https://github.com/nccgroup/ScoutSuite" target="_blank">ScoutSuite</a></li>
+        <li><a href="https://github.com/nccgroup/azucar" target="_blank">Azucar (Azure)</a></li>
+        <li><a href="https://github.com/dxa4481/truffleHog" target="_blank">TruffleHog</a></li>
+        <li><a href="https://cloudsplaining.io/" target="_blank">Cloudsplaining</a></li>
+        <li><a href="https://osint.shodan.io/" target="_blank">Shodan</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>
+    

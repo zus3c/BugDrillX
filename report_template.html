@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Report Template - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>📝 Report Template</h1>
+    <p class="subtitle">Master the structure and style of professional penetration testing reports</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>Why Reporting Matters</h2>
+      <p>
+        A well-structured report is the most critical deliverable in any penetration test. It serves as both technical documentation and a strategic advisory for your client. This page outlines how to create professional, clear, and actionable reports that resonate with both technical and executive audiences.
+      </p>
+    </section>
+
+    <section class="structure">
+      <h2>📦 Report Structure Overview</h2>
+      <div class="card">
+        <h3>1. Executive Summary</h3>
+        <p>A high-level overview for non-technical stakeholders. Summarize the most critical findings, business impact, and remediation priorities.</p>
+      </div>
+      <div class="card">
+        <h3>2. Scope and Methodology</h3>
+        <p>Define what was tested, what wasn't, and describe the techniques used: black-box, gray-box, white-box, OWASP Top 10, etc.</p>
+      </div>
+      <div class="card">
+        <h3>3. Findings Summary</h3>
+        <p>Present a vulnerability matrix with severity levels and affected assets. Include CVSS scores and references.</p>
+      </div>
+      <div class="card">
+        <h3>4. Detailed Findings</h3>
+        <p>Each vulnerability should include:</p>
+        <ul>
+          <li>Title & Severity</li>
+          <li>Description</li>
+          <li>Impact</li>
+          <li>Proof of Concept (PoC)</li>
+          <li>Remediation Advice</li>
+          <li>References</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>5. Conclusion & Recommendations</h3>
+        <p>Summarize overall security posture, common issues found, and suggest roadmap for improvements.</p>
+      </div>
+      <div class="card">
+        <h3>6. Appendices</h3>
+        <p>Include: tool output (Nmap, Burp, Gobuster), payloads, screenshots, and notes. Keep it clean and referenced.</p>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>📘 Step-by-Step: Writing a Report</h2>
+      <h3>Step 1: Gather All Findings</h3>
+      <p>Review your notes, Burp Suite history, scan logs, and screenshots.</p>
+
+      <h3>Step 2: Prioritize Vulnerabilities</h3>
+      <p>Use CVSS or OWASP Risk Rating to prioritize based on impact and exploitability.</p>
+
+      <h3>Step 3: Document Clearly</h3>
+      <p>Write each finding with enough detail for reproducibility, but keep the language clear and jargon-free.</p>
+
+      <h3>Step 4: Tailor Executive Summary</h3>
+      <p>Focus on risks, not raw data. Use visuals or charts when applicable.</p>
+
+      <h3>Step 5: Review and Sanitize</h3>
+      <p>Ensure grammar, clarity, and remove internal testing data or tools unless necessary.</p>
+    </section>
+
+    <section class="example">
+      <h2>📄 Sample Finding Template</h2>
+      <pre><code>Title: Stored XSS in /user/profile
+Severity: High
+CVSS Score: 8.2
+
+Description:
+A stored cross-site scripting vulnerability exists in the profile editing functionality. User input in the 'bio' field is not properly sanitized.
+
+Impact:
+An attacker can execute arbitrary JavaScript in the context of other users' sessions.
+
+Proof of Concept:
+1. Log in and navigate to /user/profile/edit
+2. Inject payload: &lt;script&gt;alert('XSS')&lt;/script&gt;
+3. Save changes and reload another user's view of the profile
+
+Remediation:
+Implement proper output encoding and input validation for all user-supplied content.
+
+References:
+- OWASP XSS Prevention Cheat Sheet
+- https://owasp.org/www-community/attacks/xss/
+</code></pre>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Reporting Tips</h2>
+      <ul>
+        <li>Use consistent formatting (markdown or docx templates)</li>
+        <li>Write for multiple audiences: technical teams and managers</li>
+        <li>Include screenshots and step-by-step PoCs</li>
+        <li>Use tables for summaries and matrix views</li>
+        <li>Avoid jargon unless explained</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Report Writing Tools & Templates</h2>
+      <ul>
+        <li><a href="https://github.com/Orange-Cyberdefense/pentest-report-template" target="_blank">Pentest Report Template (Orange Cyberdefense)</a></li>
+        <li><a href="https://owasp.org/www-project-risk-assessment-framework/" target="_blank">OWASP Risk Assessment Framework</a></li>
+        <li><a href="https://cvsscalculator.com/" target="_blank">CVSS Calculator</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

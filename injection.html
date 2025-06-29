@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Injection - BugDrillX</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>💉 Injection Attacks</h1>
+    <p class="subtitle">Understand one of the most critical vulnerabilities in web applications</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What are Injection Attacks?</h2>
+      <p>
+        Injection attacks occur when untrusted data is sent to an interpreter as part of a command or query. Attackers can trick the interpreter into executing unintended commands or accessing unauthorized data. These vulnerabilities are prevalent, dangerous, and often easy to exploit.
+      </p>
+    </section>
+
+    <section class="types">
+      <h2>🔎 Common Types of Injection</h2>
+      <div class="card">
+        <h3>1. SQL Injection (SQLi)</h3>
+        <p>Occurs when an attacker manipulates SQL queries through user input to read or alter database contents.</p>
+      </div>
+
+      <div class="card">
+        <h3>2. Command Injection</h3>
+        <p>Allows attackers to execute arbitrary system-level commands on the host machine.</p>
+      </div>
+
+      <div class="card">
+        <h3>3. LDAP Injection</h3>
+        <p>Targets Lightweight Directory Access Protocol queries to bypass authentication or access information.</p>
+      </div>
+
+      <div class="card">
+        <h3>4. XML Injection / XPath Injection</h3>
+        <p>Manipulates XML or XPath queries to access unauthorized XML data.</p>
+      </div>
+    </section>
+
+    <section class="steps">
+      <h2>🛠️ Step-by-Step: SQL Injection Example</h2>
+
+      <h3>Step 1: Find a Vulnerable Parameter</h3>
+      <p>Try inserting a single quote (`'`) into an input field and observe the response.</p>
+
+      <h3>Step 2: Attempt a Simple Payload</h3>
+      <pre><code>Input: ' OR 1=1--</code></pre>
+      <p>This bypasses basic authentication if the query is not properly sanitized.</p>
+
+      <h3>Step 3: Use UNION-Based Injection</h3>
+      <pre><code>Input: ' UNION SELECT username, password FROM users--</code></pre>
+      <p>Retrieves sensitive data if table/column names are known or discoverable.</p>
+
+      <h3>Step 4: Blind SQLi</h3>
+      <p>When no errors or output are visible, use Boolean or time-based inference:</p>
+      <pre><code>Input: ' AND 1=1-- (returns true)
+Input: ' AND 1=2-- (returns false)</code></pre>
+    </section>
+
+    <section class="real-world">
+      <h2>🌐 Real-World Impact</h2>
+      <p>
+        In 2022, a major e-commerce platform leaked 3 million records due to a missed input sanitization check on a login form. The vulnerability allowed attackers to dump the entire user database via SQL injection.
+      </p>
+    </section>
+
+    <section class="tips">
+      <h2>💡 Practical Tips & Defense Strategies</h2>
+      <ul>
+        <li>Always use <strong>prepared statements (parameterized queries)</strong></li>
+        <li>Never concatenate user input into commands or queries</li>
+        <li>Apply <strong>input validation</strong> and <strong>output encoding</strong></li>
+        <li>Use ORM libraries that abstract raw query execution</li>
+        <li>Enable detailed <strong>logging</strong> and monitor for anomalies</li>
+        <li>Use <code>Content Security Policy (CSP)</code> and <code>WAF</code> rules for added defense</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Tools & Learning Resources</h2>
+      <ul>
+        <li><a href="https://owasp.org/www-community/attacks/SQL_Injection" target="_blank">OWASP SQLi Guide</a></li>
+        <li><a href="https://portswigger.net/web-security/sql-injection" target="_blank">PortSwigger Web Academy</a></li>
+        <li><a href="https://github.com/sqlmapproject/sqlmap" target="_blank">SQLMap (Automated Tool)</a></li>
+        <li><a href="https://tryhackme.com/room/sqlinjection" target="_blank">TryHackMe - SQLi Lab</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

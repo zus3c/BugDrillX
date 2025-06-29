@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Google Dorking - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🔎 Google Dorking</h1>
+    <p class="subtitle">Leverage search engines like a hacker to uncover hidden or sensitive data</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>What is Google Dorking?</h2>
+      <p>
+        Google Dorking, also known as "Google Hacking", is a technique used to discover sensitive information exposed on the internet using advanced Google search queries. It’s widely used in reconnaissance to locate misconfigurations, exposed files, login portals, and more.
+      </p>
+    </section>
+
+    <section class="basics">
+      <h2>🔰 Basic Search Operators</h2>
+      <p>These are the building blocks of Google Dorking:</p>
+      <ul>
+        <li><code>site:</code> – Search within a specific domain (e.g., <code>site:example.com</code>)</li>
+        <li><code>filetype:</code> – Look for specific file types (e.g., <code>filetype:pdf</code>)</li>
+        <li><code>intitle:</code> – Search keywords in page titles</li>
+        <li><code>inurl:</code> – Find keywords within URLs</li>
+        <li><code>cache:</code> – View Google’s cached version of a page</li>
+        <li><code>-</code> – Exclude specific keywords (e.g., <code>-login</code>)</li>
+      </ul>
+    </section>
+
+    <section class="advanced">
+      <h2>💡 Advanced Google Dorking Techniques</h2>
+      <div class="card">
+        <h3>Find Exposed Login Pages</h3>
+        <pre><code>inurl:admin login site:example.com</code></pre>
+        <p>This dork searches for URLs containing "admin" and "login" on the target domain.</p>
+      </div>
+
+      <div class="card">
+        <h3>Discover Open Directories</h3>
+        <pre><code>intitle:"index of" "parent directory" site:example.com</code></pre>
+        <p>Reveals directory listings where files might be publicly accessible.</p>
+      </div>
+
+      <div class="card">
+        <h3>Find Exposed Database Files</h3>
+        <pre><code>filetype:sql site:gov</code></pre>
+        <p>Searches for downloadable SQL database files on government domains.</p>
+      </div>
+
+      <div class="card">
+        <h3>Locate Publicly Exposed Passwords</h3>
+        <pre><code>intext:"password=" filetype:log</code></pre>
+        <p>Finds .log files containing password data exposed in plain text.</p>
+      </div>
+
+      <div class="card">
+        <h3>Discover Camera Feeds</h3>
+        <pre><code>inurl:view/index.shtml</code></pre>
+        <p>Common path used by unsecured network cameras with live feeds.</p>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧠 Step-by-Step Usage Guide</h2>
+      <ol>
+        <li>Identify your objective – e.g., find PDFs, logins, or public IP cams.</li>
+        <li>Choose a combination of operators based on your goal.</li>
+        <li>Test your dorks on known domains or targets (with permission).</li>
+        <li>Analyze the results manually or automate using tools.</li>
+        <li>Document useful findings and filter out false positives.</li>
+      </ol>
+    </section>
+
+    <section class="real-world">
+      <h2>🌍 Real-World Example</h2>
+      <p>Let’s say you're performing recon on a university website:</p>
+      <pre><code>site:*.edu filetype:xls intext:"student grades"</code></pre>
+      <p>This could potentially uncover Excel files with sensitive data like student grades exposed on public directories.</p>
+    </section>
+
+    <section class="tips">
+      <h2>🚀 Pro Tips</h2>
+      <ul>
+        <li>Always validate the legality of your searches.</li>
+        <li>Combine multiple operators for more accurate results.</li>
+        <li>Use incognito mode to prevent personalization bias in search results.</li>
+        <li>Use <code>cache:</code> to retrieve deleted pages still indexed by Google.</li>
+        <li>Bookmark frequently used dorks for quick access.</li>
+      </ul>
+    </section>
+
+    <section class="tools">
+      <h2>🛠️ Tools for Automation</h2>
+      <ul>
+        <li><strong>GitHub - Google Dork CLI:</strong> Automate dork queries in terminal</li>
+        <li><strong>GHDB (Google Hacking Database):</strong> <a href="https://www.exploit-db.com/google-hacking-database" target="_blank">https://exploit-db.com/google-hacking-database</a></li>
+        <li><strong>GoogleDorkScanner:</strong> <a href="https://github.com/Ignitetechnologies/GoogleDorkScanner" target="_blank">GitHub Repo</a></li>
+        <li><strong>H8mail:</strong> Use with dork results to find exposed emails/passwords</li>
+      </ul>
+    </section>
+
+    <section class="ethics">
+      <h2>⚖️ Legal & Ethical Considerations</h2>
+      <p>
+        Google Dorking must always be used within legal boundaries. Searching public content is legal, but accessing, storing, or distributing sensitive data without permission may be considered a cybercrime. Always get written consent before testing real organizations.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>
+    

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Using Components with Known Vulnerabilities - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🧩 Using Components with Known Vulnerabilities</h1>
+    <p class="subtitle">Why insecure libraries and outdated packages pose real-world threats</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>Overview</h2>
+      <p>
+        Modern applications rely heavily on third-party components like libraries, frameworks, modules, and APIs. While these components accelerate development, they often contain known vulnerabilities. Attackers actively scan for outdated and vulnerable components to exploit systems.
+      </p>
+    </section>
+
+    <section class="key-concepts">
+      <h2>⚠️ What Makes This Dangerous?</h2>
+      <ul>
+        <li>Applications inherit vulnerabilities from their components</li>
+        <li>Attackers use automated tools to identify outdated libraries</li>
+        <li>Even unused but installed components may introduce risk</li>
+        <li>Developers often fail to monitor security advisories or changelogs</li>
+      </ul>
+    </section>
+
+    <section class="examples">
+      <h2>📍 Real-World Examples</h2>
+
+      <div class="card">
+        <h3>Log4Shell (CVE-2021-44228)</h3>
+        <p>A critical zero-day in the popular Log4j logging library. Affected systems allowed attackers to execute arbitrary code remotely using crafted log strings.</p>
+        <pre><code>Impact: RCE on thousands of systems
+Affected: Java applications using Log4j <= 2.14.1</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Equifax Breach</h3>
+        <p>Attackers exploited a known vulnerability in Apache Struts (CVE-2017-5638), leading to the breach of over 145 million personal records.</p>
+        <pre><code>Root Cause: Unpatched open-source library
+Prevention: Apply patches and monitor CVE feeds</code></pre>
+      </div>
+    </section>
+
+    <section class="step-by-step">
+      <h2>🧠 How to Identify and Prevent This Issue</h2>
+
+      <h3>Step 1: Inventory Components</h3>
+      <p>Use tools like <code>npm list</code>, <code>pip freeze</code>, or <code>mvn dependency:tree</code> to list all dependencies.</p>
+
+      <h3>Step 2: Check for Known Vulnerabilities</h3>
+      <ul>
+        <li><strong>OWASP Dependency-Check</strong>: Scans for vulnerable components in Java, .NET, etc.</li>
+        <li><strong>Snyk</strong>: Monitors open-source packages and alerts on CVEs.</li>
+        <li><strong>npm audit</strong> / <strong>pip-audit</strong>: Check for issues in Node.js and Python packages.</li>
+      </ul>
+
+      <h3>Step 3: Patch & Monitor</h3>
+      <ul>
+        <li>Keep components up-to-date (use automation if possible)</li>
+        <li>Follow security mailing lists and GitHub advisories</li>
+        <li>Use SBOM (Software Bill of Materials) to track components</li>
+      </ul>
+    </section>
+
+    <section class="practical-tips">
+      <h2>💡 Practical Tips for Developers</h2>
+      <ul>
+        <li>Avoid unnecessary dependencies – less is more</li>
+        <li>Always pin versions in package managers</li>
+        <li>Use containers or virtual environments to isolate software</li>
+        <li>Integrate security scans into your CI/CD pipeline</li>
+      </ul>
+    </section>
+
+    <section class="vulnerable-code">
+      <h2>💣 Sample Vulnerable Scenario</h2>
+      <pre><code>// package.json snippet using vulnerable Express version
+{
+  "dependencies": {
+    "express": "4.16.0" // has known DoS vulnerability
+  }
+}
+
+// Fixed version
+{
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}</code></pre>
+      <p>→ Always review changelogs and CVEs before updating or deploying software.</p>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Recommended Tools & Resources</h2>
+      <ul>
+        <li><a href="https://owasp.org/www-project-dependency-check/" target="_blank">OWASP Dependency-Check</a></li>
+        <li><a href="https://snyk.io/" target="_blank">Snyk</a></li>
+        <li><a href="https://nvd.nist.gov/" target="_blank">NVD Vulnerability Database</a></li>
+        <li><a href="https://github.com/advisories" target="_blank">GitHub Security Advisories</a></li>
+        <li><a href="https://deps.dev/" target="_blank">Google Deps.dev</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>

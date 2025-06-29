@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Burp Suite - Common Use Cases</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="scripts.js" defer></script>
+</head>
+<body class="dark-theme">
+
+  <header class="site-header">
+    <h1>🛠️ Burp Suite: Common Use Cases</h1>
+    <p class="subtitle">From intercepting requests to advanced vulnerability analysis</p>
+  </header>
+
+  <main class="content">
+
+    <section class="intro">
+      <h2>Introduction</h2>
+      <p>
+        Burp Suite is one of the most powerful tools for web application testing. Whether you're a beginner or an advanced pentester, understanding Burp’s core use cases is essential. This guide covers the most common scenarios where Burp Suite excels — complete with real-world insights and step-by-step walkthroughs.
+      </p>
+    </section>
+
+    <section class="use-case">
+      <h2>🔗 Intercepting & Modifying HTTP Requests</h2>
+      <div class="card">
+        <p>
+          Burp's <strong>Proxy</strong> tab lets you capture, view, and modify HTTP/S requests in real-time.
+        </p>
+        <h4>Steps:</h4>
+        <ol>
+          <li>Configure your browser to use Burp's proxy (usually 127.0.0.1:8080)</li>
+          <li>Enable Intercept in the Proxy tab</li>
+          <li>Visit the target application</li>
+          <li>Modify requests (headers, parameters, cookies) as needed</li>
+        </ol>
+        <pre><code>GET /profile?id=1001 HTTP/1.1
+Host: targetsite.com
+Cookie: sessionid=abc123</code></pre>
+        <p>This allows manual testing of parameters and discovering unauthorized access vectors (e.g., IDOR).</p>
+      </div>
+    </section>
+
+    <section class="use-case">
+      <h2>🔍 Repeating & Automating Requests with Repeater</h2>
+      <div class="card">
+        <p>
+          Use <strong>Repeater</strong> to resend modified versions of a request and analyze different responses.
+        </p>
+        <h4>Steps:</h4>
+        <ol>
+          <li>Send the intercepted request to Repeater</li>
+          <li>Modify any part (path, headers, body)</li>
+          <li>Click "Send" and observe the response</li>
+        </ol>
+        <p>This is great for testing for vulnerabilities like XSS, SQLi, and authentication bypass.</p>
+        <pre><code>POST /login HTTP/1.1
+Host: targetsite.com
+Content-Type: application/x-www-form-urlencoded
+
+username=admin'--&password=anything</code></pre>
+      </div>
+    </section>
+
+    <section class="use-case">
+      <h2>🧪 Testing Input Fields with Intruder</h2>
+      <div class="card">
+        <p>
+          <strong>Intruder</strong> is Burp’s automated fuzzing tool, used to test multiple payloads across parameters.
+        </p>
+        <h4>Example Use Cases:</h4>
+        <ul>
+          <li>Brute-force login credentials</li>
+          <li>Discover hidden parameters or pages</li>
+          <li>Test for injection flaws</li>
+        </ul>
+        <h4>Steps:</h4>
+        <ol>
+          <li>Send a request to Intruder</li>
+          <li>Mark the positions to inject payloads</li>
+          <li>Select the attack type (Sniper, Cluster Bomb, etc.)</li>
+          <li>Choose a payload list</li>
+          <li>Launch the attack</li>
+        </ol>
+        <p><strong>Pro Tip:</strong> Use <code>Burp BApp Store</code> extensions like Turbo Intruder for more power.</p>
+      </div>
+    </section>
+
+    <section class="use-case">
+      <h2>🔐 Analyzing Authentication & Session Management</h2>
+      <div class="card">
+        <p>
+          Burp can help evaluate session handling, cookie security, token predictability, and more.
+        </p>
+        <h4>Use Case:</h4>
+        <ul>
+          <li>Detect if session cookies are missing <code>HttpOnly</code> or <code>Secure</code> flags</li>
+          <li>Test session fixation or token reuse</li>
+        </ul>
+        <pre><code>Set-Cookie: sessionid=xyz123; Path=/; HttpOnly</code></pre>
+        <p>
+          Try logging in as one user, then switch tokens manually using Repeater to access other accounts.
+        </p>
+      </div>
+    </section>
+
+    <section class="use-case">
+      <h2>🧠 Discovering Hidden Content with Content Discovery</h2>
+      <div class="card">
+        <p>
+          Use <strong>Burp Suite’s “Content Discovery”</strong> under the <strong>Target → Site Map</strong> and <strong>Engagement Tools</strong> to uncover:
+        </p>
+        <ul>
+          <li>Hidden directories</li>
+          <li>Deprecated endpoints</li>
+          <li>Backup files</li>
+        </ul>
+        <h4>Alternative:</h4>
+        <p>Use <strong>Burp Extensions</strong> like <code>Content Discovery</code> or <code>Dirsearch Integration</code>.</p>
+      </div>
+    </section>
+
+    <section class="use-case">
+      <h2>🧩 Using Burp Extensions for Advanced Tasks</h2>
+      <div class="card">
+        <p>
+          Burp’s <strong>BApp Store</strong> provides powerful plugins to extend core functionality.
+        </p>
+        <ul>
+          <li><strong>Autorize</strong>: Test broken access control automatically</li>
+          <li><strong>JWT Editor</strong>: Decode, sign, and tamper with JWTs</li>
+          <li><strong>Retire.js</strong>: Detect vulnerable JavaScript libraries</li>
+          <li><strong>Logger++</strong>: Enhance visibility into all HTTP traffic</li>
+        </ul>
+        <p>
+          Navigate to <strong>Extender → BApp Store</strong> and install the tools you need.
+        </p>
+      </div>
+    </section>
+
+    <section class="pro-tips">
+      <h2>💡 Pro Tips & Best Practices</h2>
+      <ul>
+        <li>Always start with a well-defined scope and configure your target filters</li>
+        <li>Use Burp Projects to save your progress and sessions</li>
+        <li>Leverage custom wordlists for Intruder to improve discovery</li>
+        <li>Use Collaborator for detecting blind XSS and SSRF</li>
+        <li>Practice using WebGoat, JuiceShop, or DVWA to master the tool</li>
+      </ul>
+    </section>
+
+    <section class="resources">
+      <h2>📚 Learning Resources</h2>
+      <ul>
+        <li><a href="https://portswigger.net/web-security" target="_blank">PortSwigger Web Security Academy</a></li>
+        <li><a href="https://github.com/snoopysecurity/awesome-burp-extensions" target="_blank">Awesome Burp Extensions (GitHub)</a></li>
+        <li><a href="https://portswigger.net/burp/documentation" target="_blank">Official Burp Documentation</a></li>
+        <li><a href="https://tryhackme.com/room/burpsuitebasics" target="_blank">TryHackMe: Burp Suite Basics</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>BugDrillX © 2025 – Learn. Hack. Evolve. powered by <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a></p>
+  </footer>
+
+</body>
+</html>
