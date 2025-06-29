@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BugDrillX - Learn. Hack. Evolve.</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #00ff9d;
+      --secondary: #00b8ff;
+      --accent: #bd00ff;
+      --dark-bg: #0a0a15;
+      --darker-bg: #05050c;
+      --light-text: #f0f0f0;
+      --medium-text: #b0b0b0;
+      --grid-color: rgba(0, 255, 157, 0.05);
+      --card-bg: rgba(10, 15, 30, 0.8);
+      --glow: 0 0 15px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Courier New', 'Fira Code', monospace;
+    }
+
+    body {
+      background: var(--dark-bg);
+      color: var(--light-text);
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Background Effects */
+    .cyber-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, var(--darker-bg) 0%, #000 100%);
+      z-index: -3;
+      opacity: 0.9;
+    }
+
+    .grid-lines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: -2;
+      opacity: 0.5;
+    }
+
+    .scan-line {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(to bottom, transparent, var(--primary), transparent);
+      box-shadow: 0 0 20px 5px var(--primary);
+      z-index: -1;
+      animation: scan 4s linear infinite;
+      opacity: 0.1;
+    }
+
+    .binary-rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+      opacity: 0.2;
+    }
+
+    .binary-digit {
+      position: absolute;
+      color: var(--primary);
+      font-size: 20px;
+      opacity: 0;
+      animation: fall linear forwards;
+    }
+
+    /* Header & Hero */
+    header {
+      padding: 20px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+      background: rgba(10, 10, 20, 0.7);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--glow) var(--primary);
+      animation: pulse 2s infinite;
+    }
+
+    .logo-icon i {
+      color: var(--dark-bg);
+      font-size: 24px;
+    }
+
+    .logo-text {
+      font-size: 28px;
+      font-weight: bold;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--medium-text);
+      text-decoration: none;
+      font-size: 18px;
+      position: relative;
+      padding: 5px 0;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .user-icon {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+    }
+
+    .user-icon i {
+      font-size: 24px;
+      color: var(--light-text);
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s ease;
+    }
+
+    .user-icon:hover i {
+      color: var(--primary);
+      transform: scale(1.1);
+    }
+
+    .wave {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      animation: wave 2s infinite;
+      z-index: 1;
+    }
+
+    .wave:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+
+    .wave:nth-child(3) {
+      animation-delay: 1s;
+    }
+
+    .hero {
+      height: 85vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 5%;
+      position: relative;
+      z-index: 5;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+      animation: glitch 1.5s infinite;
+    }
+
+    .hero p {
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      max-width: 800px;
+      margin-bottom: 40px;
+      color: var(--medium-text);
+    }
+
+    .typing-text {
+      display: inline-block;
+      position: relative;
+    }
+
+    .typing-text::after {
+      content: '|';
+      position: absolute;
+      right: -10px;
+      animation: blink 1s infinite;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 15px 40px;
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 100%;
+      background: var(--primary);
+      z-index: -1;
+      transition: all 0.4s ease;
+    }
+
+    .cta-button:hover {
+      color: var(--dark-bg);
+      box-shadow: 0 0 20px var(--primary);
+    }
+
+    .cta-button:hover::before {
+      width: 100%;
+    }
+
+    /* Roadmap Section */
+    .roadmap-section {
+      padding: 80px 5%;
+      position: relative;
+      z-index: 5;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 50px;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--primary);
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 10%;
+      width: 80%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+
+    .folder-tree {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    .file-tree {
+      background: var(--card-bg);
+      border: 1px solid rgba(0, 255, 157, 0.1);
+      border-radius: 10px;
+      padding: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      box-shadow: 0 0 30px rgba(0, 255, 157, 0.1);
+      backdrop-filter: blur(10px);
+      overflow-x: auto;
+    }
+
+    details {
+      background-color: rgba(28, 31, 42, 0.7);
+      border-left: 4px solid var(--secondary);
+      margin-bottom: 10px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    details:hover {
+      border-left-color: var(--primary);
+      box-shadow: 0 0 15px var(--primary);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: var(--primary);
+      padding: 5px 0;
+      transition: all 0.3s ease;
+    }
+
+    summary:hover {
+      color: var(--secondary);
+    }
+
+    .folder-tree a {
+      color: var(--secondary);
+      text-decoration: none;
+      display: block;
+      margin-left: 1.5rem;
+      padding: 3px 0;
+      transition: all 0.2s ease;
+    }
+
+    .folder-tree a:hover {
+      color: var(--primary);
+      background: rgba(0, 255, 157, 0.1);
+      padding-left: 8px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 5% 20px;
+      text-align: center;
+      background: rgba(5, 5, 12, 0.9);
+      border-top: 1px solid rgba(0, 255, 157, 0.1);
+      position: relative;
+      z-index: 10;
+      margin-top: 80px;
+    }
+
+    .footer-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .footer-tagline {
+      color: var(--medium-text);
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .copyright {
+      color: var(--medium-text);
+      font-size: 0.9rem;
+      margin-top: 30px;
+    }
+
+    .copyright a {
+      color: var(--secondary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .copyright a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Animations */
+    @keyframes scan {
+      0% {
+        top: -10px;
+      }
+      100% {
+        top: 100%;
+      }
+    }
+
+    @keyframes blink {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px #f0f; }
+      50% { text-shadow: -2px -2px #0ff; }
+      100% { text-shadow: 2px -2px #f0f; }
+    }
+
+    @keyframes wave {
+      0% {
+        transform: scale(0.8);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 157, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(0, 255, 157, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 157, 0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      nav ul {
+        gap: 15px;
+      }
+      
+      .hero {
+        height: 75vh;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .file-tree {
+        padding: 20px 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      .cta-button {
+        padding: 12px 30px;
+        font-size: 16px;
+      }
+      
+      .folder-tree {
+        padding: 0 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Effects -->
+  <div class="cyber-grid"></div>
+  <div class="grid-lines"></div>
+  <div class="scan-line"></div>
+  <div class="binary-rain"></div>
+  
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="fas fa-shield-alt"></i>
+      </div>
+      <div class="logo-text">BugDrillX</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li>
+          <div class="user-icon" onclick="window.location.href='About_Author.html'">
+            <i class="fas fa-user"></i>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>MASTER THE ART OF <span class="typing-text">ETHICAL HACKING</span></h1>
+    <p>Join the elite cybersecurity training platform where you learn offensive security techniques used by professionals.</p>
+    <a href="#roadmap" class="cta-button">START HACKING NOW</a>
+  </section>
+  
+  <!-- Roadmap Section -->
+  <section id="roadmap" class="roadmap-section">
+    <h2 class="section-title">BUG BOUNTY ROADMAP</h2>
+    <div class="folder-tree">
+      <details open>
+        <summary><a href="#">📁 Bugbounty_Roadmap</a></summary>
+
+        <details>
+          <summary><a href="Reconnaissance.html">📁 Reconnaissance</a></summary>
+
+          <details>
+            <summary><a href="Passive_Recon.html">📁 Passive Recon</a></summary>
+            <a href="Google_Dorking.html">📄 Google Dorking</a>
+            <a href="WHOIS_Lookups.html">📄 WHOIS Lookups</a>
+            <a href="Subdomain_Enumeration.html">📄 Subdomain Enumeration</a>
+            <a href="OSINT_tools.html">📄 OSINT Tools</a>
+          </details>
+
+          <details>
+            <summary><a href="Active_Recon.html">📁 Active Recon</a></summary>
+            <a href="Port_Scanning.html">📄 Port Scanning</a>
+            <a href="Service_Enumeration.html">📄 Service Enumeration</a>
+            <a href="Banner_Grabbing.html">📄 Banner Grabbing</a>
+            <a href="Directory_Bruteforcing.html">📄 Directory Bruteforcing</a>
+          </details>
+        </details>
+
+        <details>
+          <summary><a href="web_application_testing.html">📁 Web Application Testing</a></summary>
+
+          <details>
+            <summary><a href="owasp_top_10.html">📁 OWASP Top 10</a></summary>
+            <a href="injection.html">📄 Injection</a>
+            <a href="Broken_Authentication.html">📄 Broken Authentication</a>
+            <a href="Sensitive_Data_Exposure.html">📄 Sensitive Data Exposure</a>
+            <a href="xml_external_entities.html">📄 XML External Entities</a>
+            <a href="broken_access_control.html">📄 Broken Access Control</a>
+            <a href="security_misconfiguration.html">📄 Security Misconfiguration</a>
+            <a href="Cross_Site_Scripting.html">📄 Cross Site Scripting</a>
+            <a href="Insecure_Deserialization.html">📄 Insecure Deserialization</a>
+            <a href="CSRF.html">📄 CSRF</a>
+            <a href="Using_Components_with_Known_Vulnerabilities.html">📄 Using Components with Known Vulnerabilities</a>
+            <a href="Insufficient_Logging_and_Monitoring.html">📄 Insufficient Logging and Monitoring</a>
+          </details>
+
+          <details>
+            <summary><a href="SQL_Injection.html">📁 SQL Injection</a></summary>
+            <a href="Union_Based.html">📄 Union Based</a>
+            <a href="Error_Based.html">📄 Error Based</a>
+            <a href="Blind_SQL_Injection.html">📄 Blind SQL Injection</a>
+          </details>
+
+          <details>
+            <summary><a href="Cross_Site_Scripting.html">📁 Cross Site Scripting</a></summary>
+            <a href="Stored_XSS.html">📄 Stored XSS</a>
+            <a href="reflected_xss.html">📄 Reflected XSS</a>
+            <a href="Dom_based_xss.html">📄 DOM Based XSS</a>
+          </details>
+
+          <a href="Remote_Code_Execution.html">📄 Remote Code Execution</a>
+
+          <details>
+            <summary><a href="#">📁 File Inclusion</a></summary>
+            <a href="LFI.html">📄 LFI</a>
+            <a href="rfi.html">📄 RFI</a>
+          </details>
+
+          <a href="Business_Logic_Flaws.html">📄 Business Logic Flaws</a>
+          <a href="IDOR.html">📄 IDOR</a>
+          <a href="api_security.html">📄 API Security</a>
+        </details>
+
+        <details>
+          <summary><a href="Mobile_Application_Testing.html">📁 Mobile Application Testing</a></summary>
+
+          <details>
+            <summary><a href="android_testing.html">📁 Android Testing</a></summary>
+            <a href="Static_Analysis_Android_Testing.html">📄 Static Analysis</a>
+            <a href="Dynamic_Analysis_Android_Testing.html">📄 Dynamic Analysis</a>
+            <a href="Reverse_Engineering_Android_Testing.html">📄 Reverse Engineering</a>
+            <a href="android_common_vulnerabilities.html">📄 Common Vulnerabilities</a>
+          </details>
+
+          <details>
+            <summary><a href="ios_testing.html">📁 iOS Testing</a></summary>
+            <a href="Static_Analysis_iOS_Testing.html">📄 Static Analysis</a>
+            <a href="Dynamic_Analysis_iOS_Testing.html">📄 Dynamic Analysis</a>
+            <a href="Reverse_Engineering_iOS_Testing.html">📄 Reverse Engineering</a>
+            <a href="iOS_Common_Vulnerabilities.html">📄 Common Vulnerabilities</a>
+          </details>
+        </details>
+
+        <details>
+          <summary><a href="network_security_testing.html">📁 Network Security Testing</a></summary>
+          <a href="network_scanning.html">📄 Network Scanning</a>
+          <a href="Vulnerability_Scanning.html">📄 Vulnerability Scanning</a>
+          <a href="exploitation.html">📄 Exploitation</a>
+          <a href="Post_Exploitation.html">📄 Post Exploitation</a>
+        </details>
+
+        <details>
+          <summary><a href="cloud_security_testing.html">📁 Cloud Security Testing</a></summary>
+          <a href="aws_security.html">📄 AWS Security</a>
+          <a href="azure_Security.html">📄 Azure Security</a>
+          <a href="GCP_Security.html">📄 GCP Security</a>
+          <a href="Cloud_Common_Vulnerabilities.html">📄 Common Vulnerabilities</a>
+        </details>
+
+        <details>
+          <summary><a href="tools_and_techniques.html">📁 Tools and Techniques</a></summary>
+
+          <details>
+            <summary><a href="burp_suite.html">📁 Burp Suite</a></summary>
+            <a href="burp_suite_configuration.html">📄 Configuration</a>
+            <a href="burp_suite_extensions.html">📄 Extensions</a>
+            <a href="burp_suite_common_Use_Cases.html">📄 Common Use Cases</a>
+          </details>
+
+          <a href="nmap.html">📄 Nmap</a>
+          <a href="metasploit.html">📄 Metasploit</a>
+          <a href="nikto.html">📄 Nikto</a>
+          <a href="gobuster.html">📄 Gobuster</a>
+          <a href="sublist3r.html">📄 Sublist3r</a>
+          <a href="reconNG.html">📄 ReconNG</a>
+          <a href="other_tools.html">📄 Other Tools</a>
+        </details>
+
+        <details>
+          <summary><a href="report_writing.html">📁 Report Writing</a></summary>
+          <a href="report_template.html">📄 Report Template</a>
+          <a href="Vulnerability_Description.html">📄 Vulnerability Description</a>
+          <a href="impact_assessment.html">📄 Impact Assessment</a>
+          <a href="Proof_of_Concept.html">📄 Proof of Concept</a>
+          <a href="Remediation_Advice.html">📄 Remediation Advice</a>
+          <a href="Sample_Reports.html">📄 Sample Reports</a>
+        </details>
+
+        <details>
+          <summary><a href="Bugbounty_Learning_Resources.html">📁 Bug Bounty Learning Resources</a></summary>
+          <a href="Bugbounty_Books.html">📄 Books</a>
+          <a href="Bugbounty_Blogs.html">📄 Blogs</a>
+          <a href="Bugbounty_Courses.html">📄 Courses</a>
+          <a href="Bugbounty_Conferences.html">📄 Conferences</a>
+          <a href="Bugbounty_CTF_Platforms.html">📄 CTF Platforms</a>
+        </details>
+      </details>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="copyright">
+      BugDrillX © 2025 – Learn. Hack. Evolve. powered by 
+      <a href="https://pk.linkedin.com/company/scoltech" target="_blank">SCOLTECH</a>
+    </div>
+  </footer>
+
+  <script>
+    // Binary rain effect
+    document.addEventListener('DOMContentLoaded', function() {
+      const binaryRain = document.querySelector('.binary-rain');
+      
+      function createBinary() {
+        const binary = document.createElement('div');
+        binary.className = 'binary-digit';
+        binary.textContent = Math.random() > 0.5 ? '1' : '0';
+        binary.style.left = Math.random() * 100 + 'vw';
+        binary.style.animationDuration = (Math.random() * 5 + 5) + 's';
+        binary.style.animationDelay = Math.random() * 2 + 's';
+        binary.style.opacity = Math.random() * 0.5 + 0.1;
+        binary.style.fontSize = (Math.random() * 10 + 10) + 'px';
+        binaryRain.appendChild(binary);
+        
+        // Remove element after animation completes
+        setTimeout(() => {
+          binary.remove();
+        }, parseFloat(binary.style.animationDuration) * 1000);
+      }
+      
+      // Create new binary digits at intervals
+      setInterval(createBinary, 100);
+      
+      // Create initial binary digits
+      for (let i = 0; i < 50; i++) {
+        setTimeout(createBinary, i * 100);
+      }
+    });
+
+    // Cursor effect
+    document.addEventListener('mousemove', function(e) {
+      const cursor = document.createElement('div');
+      cursor.className = 'cursor-effect';
+      cursor.style.position = 'fixed';
+      cursor.style.left = e.pageX + 'px';
+      cursor.style.top = e.pageY + 'px';
+      cursor.style.width = '10px';
+      cursor.style.height = '10px';
+      cursor.style.borderRadius = '50%';
+      cursor.style.backgroundColor = 'rgba(0, 255, 157, 0.3)';
+      cursor.style.transform = 'translate(-50%, -50%)';
+      cursor.style.zIndex = '9999';
+      cursor.style.pointerEvents = 'none';
+      document.body.appendChild(cursor);
+      
+      // Remove after animation
+      setTimeout(() => {
+        cursor.remove();
+      }, 500);
+    });
+  </script>
+</body>
+</html>
