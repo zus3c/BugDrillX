@@ -148,7 +148,6 @@ BugDrillX is an open-source web-based platform providing structured learning pat
    https://zus3c.github.io/BugDrillX/main.html
    ```
    [BugDrillX](https://zus3c.github.io/BugDrillX/main.html)
-   
 ## Contributing
 
 BugDrillX welcomes contributions from the community! To contribute:
