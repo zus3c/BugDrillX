@@ -1,4 +1,4 @@
-# BugDrillX - Learn. Hack. Evolve.
+# [BugDrillX](https://zus3c.github.io/BugDrillX/main.html) - Learn. Hack. Evolve.
 
 **BugDrillX** is a cybersecurity educational platform designed to guide beginners and professionals through the world of ethical hacking and bug bounty hunting. Powered by SCOLTECH, it offers a comprehensive roadmap to master offensive security techniques.
 
@@ -143,11 +143,10 @@ BugDrillX is an open-source web-based platform providing structured learning pat
 
 ## How to Run/View Locally
 
-1. **Clone the Repository**:
-   ```bash
-   https://zus3c.github.io/BugDrillX/main.html
-   ```
+1. **Main Page**:
+   
    [BugDrillX](https://zus3c.github.io/BugDrillX/main.html)
+
 ## Contributing
 
 BugDrillX welcomes contributions from the community! To contribute:
